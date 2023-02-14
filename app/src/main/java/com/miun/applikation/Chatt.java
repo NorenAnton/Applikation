@@ -48,6 +48,18 @@ public class Chatt extends AppCompatActivity {
         users.add(new User("Anton Noren", 2));
         users.add(new User("Anton Noren", 2));
         users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
+        users.add(new User("Anton Noren", 2));
     }
 
 

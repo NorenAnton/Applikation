@@ -7,11 +7,12 @@
 
     <TextView
         android:id="@+id/tv_customerName"
-        android:layout_width="217dp"
-        android:layout_height="67dp"
-        android:layout_margin="20sp"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_margin="0sp"
         android:text="KundNamn"
         android:textSize="20sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +22,6 @@
         android:id="@+id/divider"
         android:layout_width="898dp"
         android:layout_height="1dp"
-        android:layout_marginTop="26dp"
         android:layout_marginBottom="4dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="parent"
