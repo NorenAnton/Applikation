@@ -32,8 +32,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.051"
-        app:srcCompat="@drawable/andersGitarr"
-        tools:srcCompat="@drawable/andersGitarr" />
+        app:srcCompat="@drawable/andersgitarr"
+        tools:srcCompat="@drawable/andersgitarr" />
 
     <Button
         android:id="@+id/kalender"
@@ -56,7 +56,6 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:backgroundTint="#B9CEDA"
-        android:onClick="changeView"
         android:text="Chatt"
         android:textColor="#070000"
         android:textSize="34sp"
