@@ -29,27 +29,6 @@
         app:layout_constraintTop_toBottomOf="@+id/goBack"
         app:layout_constraintVertical_bias="0.988" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/message"
-        android:layout_width="810dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
-        app:layout_constraintStart_toEndOf="@+id/recyclerView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text"
-            android:layout_width="488dp"
-            android:layout_height="wrap_content"
-            android:hint="Skriv..."
-            android:visibility="visible" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <Button
         android:id="@+id/submit"
         android:layout_width="144dp"
@@ -60,19 +39,34 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.409"
-        app:layout_constraintStart_toEndOf="@+id/message"
+        app:layout_constraintStart_toEndOf="@+id/inputText"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.98" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
+    <EditText
+        android:id="@+id/inputText"
+        android:layout_width="671dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="300dp"
+        android:ems="10"
+        android:hint="Skriv..."
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/recyclerView"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatt"
+        android:layout_width="1047dp"
+        android:layout_height="812dp"
+        android:layout_marginStart="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/inputText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recyclerView"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

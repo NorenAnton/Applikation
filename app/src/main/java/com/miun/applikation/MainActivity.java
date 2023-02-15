@@ -25,9 +25,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onClick(View view){
-        //TextInputLayout tv = findViewById(R.id.text);
-        //EditText text = tv.getEditText();
-        ((TextView)findViewById(R.id.textView)).setText("changes");
-    }
+
 }
