@@ -37,8 +37,6 @@ public class Chatt extends AppCompatActivity {
         chatt.setHasFixedSize(true);
 
 
-
-
         btn_goBack = findViewById(R.id.goBack);
 
         btn_goBack.setOnClickListener(view -> {

@@ -2,8 +2,8 @@ package com.miun.applikation;
 
 public class User {
 
-    String firstName, lastName;
-    int personId;
+    private String firstName, lastName;
+    private int personId;
 
     public User(String firstName, String lastName, int personId) {
         this.firstName = firstName;

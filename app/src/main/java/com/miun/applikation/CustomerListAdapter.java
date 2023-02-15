@@ -36,8 +36,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         holder.tv_customerName.setText(users.get(position).getName());
         holder.layout.setOnClickListener(view -> {
             // stuff happens..........
-            holder.tv_customerName.setTextColor(Color.RED);
-            Log.d("ChatList", "click");
+            Log.d("ChatList", "User id:" + users.get(position).getPersonId());
         });
     }
 
