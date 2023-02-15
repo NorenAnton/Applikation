@@ -2,27 +2,41 @@ package com.miun.applikation;
 
 public class User {
 
-    String name;
-    int id;
+    String firstName, lastName;
+    int personId;
 
-    public User(String name, int id) {
-        this.name = name;
-        this.id = id;
+    public User(String firstName, String lastName, int personId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personId = personId;
     }
+
 
     public String getName() {
-        return name;
+        return firstName + " " + lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public int getId() {
-        return id;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 }
