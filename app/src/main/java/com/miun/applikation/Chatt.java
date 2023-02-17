@@ -84,17 +84,17 @@ public class Chatt extends AppCompatActivity {
     }
 
     private void fillChat(){
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
-        chatter.add(new currentChat(0, "Anton Noren", "2023-02-15", "15:00", "Hello World"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
     }
 
     public void onClick(View view){

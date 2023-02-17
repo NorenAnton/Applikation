@@ -1,5 +1,8 @@
 package com.miun.applikation;
 
+import java.util.Date;
+import java.util.Calendar;
+
 public class currentChat {
 
 
@@ -8,15 +11,12 @@ public class currentChat {
 
     String date;
 
-    String time;
-
     String message;
 
-    public currentChat(int chatId, String name, String date, String time, String message){
+    public currentChat(int chatId, String name, String message){
         this.chatId = chatId;
         this.name = name;
-        this.date = date;
-        this.time = time;
+        setDate(date);
         this.message = message;
     }
 
@@ -32,6 +32,7 @@ public class currentChat {
     }
 
     public void setDate(String date) {
+        date = String.valueOf(Calendar.getInstance().getTime());
         this.date = date;
     }
 
@@ -41,14 +42,6 @@ public class currentChat {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public String getMessage() {
