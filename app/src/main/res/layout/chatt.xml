@@ -35,7 +35,7 @@
         android:layout_height="60dp"
         android:layout_weight="1"
         android:onClick="onClick"
-        android:text="Button"
+        android:text="Skicka"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,6 +67,7 @@
         app:layout_constraintBottom_toTopOf="@+id/inputText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recyclerView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:reverseLayout="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
