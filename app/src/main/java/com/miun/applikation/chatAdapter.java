@@ -31,20 +31,9 @@ public class chatAdapter extends RecyclerView.Adapter<chatAdapter.ChatViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position){
-        /*
         holder.tv_chatName.setText(chatter.get(position).getName());
         holder.tv_message.setText(chatter.get(position).getMessage());
         holder.tv_time.setText(chatter.get(position).getDate() + " " + chatter.get(position).getTime());
-        */
-        String chatName = chatter.get(position).getName();
-        String message = chatter.get(position).getMessage();
-        String timeStamp = chatter.get(position).getTime();
-        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
-        calendar.setTimeInMillis(Long.parseLong(timeStamp));
-        String timeDate = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
-        holder.tv_chatName.setText(chatName);
-        holder.tv_message.setText(message);
-        holder.tv_time.setText(timeDate);
     }
 
 
