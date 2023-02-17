@@ -1,7 +1,8 @@
 package com.miun.applikation;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Calendar;
+import java.util.Locale;
 
 public class currentChat {
 
@@ -31,9 +32,10 @@ public class currentChat {
         return date;
     }
 
-    public void setDate(String date) {
-        date = String.valueOf(Calendar.getInstance().getTime());
-        this.date = date;
+    public void setDate(String dateTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+        dateTime = sdf.format(new Date());
+        this.date = dateTime;
     }
 
     public String getName() {
