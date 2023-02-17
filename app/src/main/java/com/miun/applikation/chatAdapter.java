@@ -33,6 +33,7 @@ public class chatAdapter extends RecyclerView.Adapter<chatAdapter.ChatViewHolder
         holder.tv_time.setText(chatter.get(position).getDate() + " " + chatter.get(position).getTime());
     }
 
+
     @Override
     public int getItemCount(){
         return chatter.size();
