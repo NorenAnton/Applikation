@@ -61,8 +61,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatt"
-        android:layout_width="1047dp"
-        android:layout_height="812dp"
+        android:layout_width="1052dp"
+        android:layout_height="580dp"
         android:layout_marginStart="1dp"
         app:layout_constraintBottom_toTopOf="@+id/inputText"
         app:layout_constraintEnd_toEndOf="parent"

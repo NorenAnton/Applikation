@@ -15,6 +15,8 @@ import java.util.List;
 
 public class Chatt extends AppCompatActivity {
     List<User> users = new ArrayList<>();
+
+    List<currentChat> chatter = new ArrayList<>();
     Button btn_goBack;
     EditText inputText;
 
@@ -26,6 +28,7 @@ public class Chatt extends AppCompatActivity {
 
         inputText = (EditText) findViewById(R.id.inputText);
         fillList();
+        fillChat();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -33,10 +36,14 @@ public class Chatt extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users);
         recyclerView.setAdapter(mAdapter);
-        RecyclerView chatt = findViewById(R.id.chatt);
-        chatt.setHasFixedSize(true);
 
 
+        RecyclerView chat = findViewById(R.id.chatt);
+        chat.setHasFixedSize(true);
+        RecyclerView.LayoutManager chatManager = new LinearLayoutManager(Chatt.this);
+        chat.setLayoutManager(chatManager);
+        RecyclerView.Adapter<chatAdapter.ChatViewHolder> cAdapter = new chatAdapter(chatter);
+        chat.setAdapter(cAdapter);
 
 
         btn_goBack = findViewById(R.id.goBack);
@@ -68,6 +75,10 @@ public class Chatt extends AppCompatActivity {
         users.add(new User("Anton Noren", 2));
         users.add(new User("Anton Noren", 2));
         users.add(new User("Anton Noren", 2));
+    }
+
+    private void fillChat(){
+        chatter.add(new currentChat(0, "Anton", "test", "1500", "Hello World"));
     }
 
     public void onClick(View view){
