@@ -1,10 +1,10 @@
 package com.miun.applikation;
 
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.text.format.DateFormat;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +33,7 @@ public class chatAdapter extends RecyclerView.Adapter<chatAdapter.ChatViewHolder
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position){
         holder.tv_chatName.setText(chatter.get(position).getName());
         holder.tv_message.setText(chatter.get(position).getMessage());
-        holder.tv_time.setText(chatter.get(position).getDate() + " " + chatter.get(position).getTime());
+        holder.tv_date.setText(chatter.get(position).getDate());
     }
 
 
@@ -44,13 +44,13 @@ public class chatAdapter extends RecyclerView.Adapter<chatAdapter.ChatViewHolder
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
         TextView tv_chatName;
-        TextView tv_time;
+        TextView tv_date;
         TextView tv_message;
 
         public ChatViewHolder(@NonNull View itemView){
             super(itemView);
             tv_chatName = itemView.findViewById(R.id.tv_chatName);
-            tv_time = itemView.findViewById(R.id.tv_time);
+            tv_date = itemView.findViewById(R.id.tv_date);
             tv_message = itemView.findViewById(R.id.tv_message);
         }
     }
