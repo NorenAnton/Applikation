@@ -56,25 +56,31 @@ public class Chatt extends AppCompatActivity {
     }
 
     private void fillList() {
-        users.add(new User("Vincent Johansson", 0));
-        users.add(new User("Gillian Persson", 1));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
-        users.add(new User("Anton Noren", 2));
+        users.add(new User("Vincent", "Johansson", 0));
+        users.add(new User("Gillian", "Persson", 1));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+        users.add(new User("Anton", "Noren", 2));
+
     }
 
     private void fillChat(){
