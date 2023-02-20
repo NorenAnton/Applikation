@@ -1,6 +1,5 @@
 package com.miun.applikation;
 
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +8,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 //Adapter for current chat
-public class chatAdapter extends RecyclerView.Adapter<chatAdapter.ChatViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
-    List<currentChat> chatter;
+    List<CurrentChat> chatter;
 
-    public chatAdapter(List<currentChat> chatter){
+    public ChatAdapter(List<CurrentChat> chatter){
         this.chatter = chatter;
     }
 

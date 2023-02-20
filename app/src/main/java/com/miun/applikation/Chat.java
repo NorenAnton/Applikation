@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chatt extends AppCompatActivity {
+public class Chat extends AppCompatActivity {
     List<User> users = new ArrayList<>();
 
-    List<currentChat> chatter = new ArrayList<>();
+    List<CurrentChat> chatter = new ArrayList<>();
     Button btn_goBack;
     EditText inputText;
 
@@ -32,7 +31,7 @@ public class Chatt extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Chatt.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Chat.this);
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users);
         recyclerView.setAdapter(mAdapter);
@@ -40,9 +39,9 @@ public class Chatt extends AppCompatActivity {
 
         RecyclerView chat = findViewById(R.id.chatt);
         chat.setHasFixedSize(true);
-        RecyclerView.LayoutManager chatManager = new LinearLayoutManager(Chatt.this);
+        RecyclerView.LayoutManager chatManager = new LinearLayoutManager(Chat.this);
         chat.setLayoutManager(chatManager);
-        RecyclerView.Adapter<chatAdapter.ChatViewHolder> cAdapter = new chatAdapter(chatter);
+        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(chatter);
         chat.setAdapter(cAdapter);
 
 
@@ -84,17 +83,23 @@ public class Chatt extends AppCompatActivity {
     }
 
     private void fillChat(){
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new currentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
     }
 
     public void onClick(View view){

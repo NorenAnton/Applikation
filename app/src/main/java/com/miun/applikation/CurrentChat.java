@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class currentChat {
+public class CurrentChat {
 
 
     int chatId;
@@ -14,7 +14,7 @@ public class currentChat {
 
     String message;
 
-    public currentChat(int chatId, String name, String message){
+    public CurrentChat(int chatId, String name, String message){
         this.chatId = chatId;
         this.name = name;
         setDate(date);
