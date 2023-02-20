@@ -11,7 +11,6 @@ public class User {
         this.personId = personId;
     }
 
-
     public String getName() {
         return firstName + " " + lastName;
     }

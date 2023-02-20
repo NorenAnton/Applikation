@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chat extends AppCompatActivity {
+public class log extends AppCompatActivity {
+
     List<User> users = new ArrayList<>();
 
     List<CurrentChat> chatter = new ArrayList<>();
@@ -21,25 +22,23 @@ public class Chat extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chatt);
+        setContentView(R.layout.log);
 
         inputText = (EditText) findViewById(R.id.inputText);
         fillList();
-        fillChat();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Chat.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(log.this);
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users);
         recyclerView.setAdapter(mAdapter);
 
 
-        RecyclerView chat = findViewById(R.id.chat);
+        RecyclerView chat = findViewById(R.id.log);
         chat.setHasFixedSize(true);
-        RecyclerView.LayoutManager chatManager = new LinearLayoutManager(Chat.this);
+        RecyclerView.LayoutManager chatManager = new LinearLayoutManager(log.this);
         chat.setLayoutManager(chatManager);
         RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(chatter);
         chat.setAdapter(cAdapter);
@@ -51,7 +50,6 @@ public class Chat extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         });
-
     }
 
     private void fillList() {
@@ -72,38 +70,5 @@ public class Chat extends AppCompatActivity {
         users.add(new User("Anton", "Noren", 2));
         users.add(new User("Anton", "Noren", 2));
         users.add(new User("Anton", "Noren", 2));
-        users.add(new User("Anton", "Noren", 2));
-        users.add(new User("Anton", "Noren", 2));
-        users.add(new User("Anton", "Noren", 2));
-        users.add(new User("Anton", "Noren", 2));
-        users.add(new User("Anton", "Noren", 2));
-        users.add(new User("Anton", "Noren", 2));
-        users.add(new User("Anton", "Noren", 2));
     }
-
-    private void fillChat(){
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-    }
-
-    public void onClick(View view){
-
-    }
-
-
 }

@@ -60,8 +60,8 @@
         app:layout_constraintVertical_bias="0.974" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat"
-        android:layout_width="1052dp"
+        android:id="@+id/log"
+        android:layout_width="1050dp"
         android:layout_height="580dp"
         android:layout_marginStart="1dp"
         app:layout_constraintBottom_toTopOf="@+id/inputText"
