@@ -70,4 +70,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:reverseLayout="false" />
 
+    <Button
+        android:id="@+id/logBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="1000dp"
+        android:layout_marginTop="4dp"
+        android:text="Go to Log"
+        app:layout_constraintStart_toEndOf="@+id/goBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

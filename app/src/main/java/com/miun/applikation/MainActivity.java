@@ -2,10 +2,8 @@ package com.miun.applikation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_Log.setOnClickListener(view -> {
-            Intent intentLog = new Intent(MainActivity.this, log.class);
+            Intent intentLog = new Intent(MainActivity.this, Log.class);
             startActivity(intentLog);
         });
 
