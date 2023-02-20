@@ -35,7 +35,7 @@
         android:layout_height="60dp"
         android:layout_weight="1"
         android:onClick="onClick"
-        android:text="Skicka"
+        android:text="Lägg till inlägg"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,8 +60,8 @@
         app:layout_constraintVertical_bias="0.974" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat"
-        android:layout_width="1052dp"
+        android:id="@+id/log"
+        android:layout_width="1050dp"
         android:layout_height="580dp"
         android:layout_marginStart="1dp"
         app:layout_constraintBottom_toTopOf="@+id/inputText"
@@ -71,12 +71,12 @@
         app:reverseLayout="false" />
 
     <Button
-        android:id="@+id/logBtn"
+        android:id="@+id/chatBtn"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="1000dp"
         android:layout_marginTop="4dp"
-        android:text="Go to Log"
+        android:text="Go to Chat"
         app:layout_constraintStart_toEndOf="@+id/goBack"
         app:layout_constraintTop_toTopOf="parent" />
 
