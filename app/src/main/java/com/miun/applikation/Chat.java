@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chat extends AppCompatActivity{
+public class Chat extends AppCompatActivity {
 
     Fillers fillers = new Fillers();
     Button btn_goBack, btn_goToLog;
