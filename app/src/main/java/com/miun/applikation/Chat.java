@@ -81,7 +81,6 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
             hideSoftKeyboard(this);
              break;
         }
-            fillers.chatter.add(new CurrentChat(0, "Anders", message));
     }
 
     public static void hideSoftKeyboard(Activity activity) {
