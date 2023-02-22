@@ -82,9 +82,8 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 inputText.getText().clear();
                 hideSoftKeyboard(this);
             } else{
-                inputText.setHint("Empty field..");
+                inputText.setError("Empty Field!");
             }
-            inputText.setHint("Skriv...");
              break;
         }
     }
