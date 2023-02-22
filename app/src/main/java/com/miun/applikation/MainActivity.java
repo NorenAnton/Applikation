@@ -2,11 +2,13 @@ package com.miun.applikation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btn_Chatt, btn_Log;
 
@@ -17,18 +19,27 @@ public class MainActivity extends AppCompatActivity {
 
         btn_Chatt = findViewById(R.id.chat);
         btn_Log = findViewById(R.id.logg);
-
-        btn_Chatt.setOnClickListener(view -> {
-            Intent intentChat = new Intent(MainActivity.this, Chat.class);
-            startActivity(intentChat);
-        });
-
-        btn_Log.setOnClickListener(view -> {
-            Intent intentLog = new Intent(MainActivity.this, Log.class);
-            startActivity(intentLog);
-        });
+        btn_Chatt.setOnClickListener(this);
+        btn_Log.setOnClickListener(this);
 
     }
 
 
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View view) {
+        Intent intent;
+
+        switch (view.getId()) {
+            case R.id.chat:
+                intent = new Intent(this, Chat.class);
+                startActivity(intent);
+                break;
+            case R.id.logg:
+                intent = new Intent(this, Log.class);
+                startActivity(intent);
+                break;
+
+        }
+    }
 }

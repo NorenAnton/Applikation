@@ -2,6 +2,7 @@ package com.miun.applikation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -11,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Log extends AppCompatActivity {
+public class Log extends AppCompatActivity implements View.OnClickListener {
 
     Fillers fillers = new Fillers();
-    Button btn_goBack, btn_goToChat;
+    Button btn_goBack, btn_goToChat, btn_submit;
     EditText inputText;
 
     @Override
@@ -43,15 +44,28 @@ public class Log extends AppCompatActivity {
 
         btn_goBack = findViewById(R.id.goBack);
         btn_goToChat = findViewById(R.id.chatBtn);
+        btn_submit = findViewById(R.id.submit);
+        btn_goBack.setOnClickListener(this);
+        btn_goToChat.setOnClickListener(this);
+        btn_submit.setOnClickListener(this);
 
-        btn_goBack.setOnClickListener(view -> {
-            Intent intentBack = new Intent(this, MainActivity.class);
-            startActivity(intentBack);
-        });
 
-        btn_goToChat.setOnClickListener(view -> {
-            Intent intentChat = new Intent(this, Chat.class);
-            startActivity(intentChat);
-        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent;
+
+        switch (view.getId()) {
+            case R.id.goBack:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.chatBtn:
+                intent = new Intent(this, Chat.class);
+                startActivity(intent);
+            case R.id.submit:
+                break;
+        }
     }
 }

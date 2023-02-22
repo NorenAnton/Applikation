@@ -1,5 +1,6 @@
 package com.miun.applikation;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +12,11 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Chat extends AppCompatActivity {
+public class Chat extends AppCompatActivity implements View.OnClickListener {
 
     Fillers fillers = new Fillers();
-    Button btn_goBack, btn_goToLog;
+    Button btn_goBack, btn_goToLog, btn_submit;
     EditText inputText;
 
     @Override
@@ -26,7 +25,7 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatt);
 
-        inputText = (EditText) findViewById(R.id.inputText);
+        inputText = findViewById(R.id.inputText);
         fillers.fillList();
         fillers.fillChat();
 
@@ -35,18 +34,13 @@ public class Chat extends AppCompatActivity {
 
         btn_goBack = findViewById(R.id.goBack);
         btn_goToLog = findViewById(R.id.logBtn);
-
-        btn_goBack.setOnClickListener(view -> {
-            Intent intentBack = new Intent(this, MainActivity.class);
-            startActivity(intentBack);
-        });
-
-        btn_goToLog.setOnClickListener(view -> {
-            Intent intentLog = new Intent(this, Log.class);
-            startActivity(intentLog);
-        });
+        btn_submit = findViewById(R.id.submit);
+        btn_goBack.setOnClickListener(this);
+        btn_goToLog.setOnClickListener(this);
+        btn_submit.setOnClickListener(this);
 
     }
+
 
     public void customerManager(){
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -66,13 +60,27 @@ public class Chat extends AppCompatActivity {
         chat.setAdapter(cAdapter);
     }
 
+    @SuppressLint("NonConstantResourceId")
+    @Override
     public void onClick(View view){
-        String message = inputText.getText().toString();
-        chatManager();
+        Intent intent;
 
-        fillers.chatter.add(new CurrentChat(0, "Anders", message));
-        inputText.getText().clear();
-        hideSoftKeyboard(this);
+        switch (view.getId()) {
+            case R.id.goBack:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.logBtn:
+                intent = new Intent(this, Log.class);
+                startActivity(intent);
+            case R.id.submit:
+            String message = inputText.getText().toString();
+            chatManager();
+            fillers.chatter.add(new CurrentChat(0, "Anders", message));
+            inputText.getText().clear();
+            hideSoftKeyboard(this);
+             break;
+        }
     }
 
     public static void hideSoftKeyboard(Activity activity) {
