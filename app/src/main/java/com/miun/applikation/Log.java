@@ -25,21 +25,8 @@ public class Log extends AppCompatActivity {
         inputText = (EditText) findViewById(R.id.inputText);
         fillers.fillList();
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Log.this);
-        recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
-        recyclerView.setAdapter(mAdapter);
-
-
-        RecyclerView chat = findViewById(R.id.log);
-        chat.setHasFixedSize(true);
-        RecyclerView.LayoutManager chatManager = new LinearLayoutManager(Log.this);
-        chat.setLayoutManager(chatManager);
-        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
-        chat.setAdapter(cAdapter);
-
+        customersManager();
+        logManager();
 
         btn_goBack = findViewById(R.id.goBack);
         btn_goToChat = findViewById(R.id.chatBtn);
@@ -53,5 +40,23 @@ public class Log extends AppCompatActivity {
             Intent intentChat = new Intent(this, Chat.class);
             startActivity(intentChat);
         });
+    }
+
+    private void customersManager() {
+        RecyclerView logView = findViewById(R.id.Customers);
+        logView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(Log.this);
+        logView.setLayoutManager(layoutManager);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
+        logView.setAdapter(mAdapter);
+    }
+
+    private void logManager(){
+        RecyclerView log = findViewById(R.id.log);
+        LinearLayoutManager chatManager = new LinearLayoutManager(Log.this);
+        chatManager.setStackFromEnd(true);
+        log.setLayoutManager(chatManager);
+        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
+        log.setAdapter(cAdapter);
     }
 }

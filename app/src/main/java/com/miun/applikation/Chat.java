@@ -11,8 +11,6 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Chat extends AppCompatActivity {
 
@@ -49,12 +47,12 @@ public class Chat extends AppCompatActivity {
     }
 
     public void customerManager(){
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        RecyclerView chatView = findViewById(R.id.Customers);
+        chatView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
-        recyclerView.setLayoutManager(layoutManager);
+        chatView.setLayoutManager(layoutManager);
         RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
-        recyclerView.setAdapter(mAdapter);
+        chatView.setAdapter(mAdapter);
     }
 
     public void chatManager(){
@@ -70,7 +68,7 @@ public class Chat extends AppCompatActivity {
         String message = inputText.getText().toString();
         chatManager();
 
-        fillers.chatter.add(new CurrentChat(0, "Anders", message));
+        fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
         inputText.getText().clear();
         hideSoftKeyboard(this);
     }
