@@ -1,8 +1,10 @@
 package com.miun.applikation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -60,8 +62,29 @@ public class Chat extends AppCompatActivity {
     }
 
     public void onClick(View view){
+        String message = inputText.getText().toString();
 
+        RecyclerView chat = findViewById(R.id.chat);
+        chat.setHasFixedSize(true);
+        RecyclerView.LayoutManager chatManager = new LinearLayoutManager(Chat.this);
+        chat.setLayoutManager(chatManager);
+        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
+        chat.setAdapter(cAdapter);
+
+        fillers.chatter.add(new CurrentChat(0, "Anders", message));
+        inputText.getText().clear();
+        hideSoftKeyboard(this);
     }
 
-
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if(inputMethodManager.isAcceptingText()){
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(),
+                    0
+            );
+        }
+    }
 }
