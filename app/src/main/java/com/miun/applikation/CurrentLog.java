@@ -14,8 +14,8 @@ public class CurrentLog {
 
     String message;
 
-    public CurrentLog(int chatId, String name, String message){
-        this.logId = chatId;
+    public CurrentLog(int logId, String name, String message){
+        this.logId = logId;
         this.name = name;
         setDate(date);
         this.message = message;
