@@ -62,7 +62,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    public void onClick(View view){
+    public void onClick(View view) {
         Intent intent;
 
         switch (view.getId()) {
@@ -74,29 +74,17 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 intent = new Intent(this, Log.class);
                 startActivity(intent);
             case R.id.submit:
-            String message = inputText.getText().toString();
-            chatManager();
+                String message = inputText.getText().toString();
+                chatManager();
 
-            if(!message.isEmpty()){
-                fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
-                inputText.getText().clear();
-                hideSoftKeyboard(this);
-            } else{
-                inputText.setError("Empty Field!");
-            }
-             break;
-        }
-    }
-
-    public static void hideSoftKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(
-                        Activity.INPUT_METHOD_SERVICE);
-        if(inputMethodManager.isAcceptingText()){
-            inputMethodManager.hideSoftInputFromWindow(
-                    activity.getCurrentFocus().getWindowToken(),
-                    0
-            );
+                if (!message.isEmpty()) {
+                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
+                    inputText.getText().clear();
+                    HelperFunctions.hideSoftKeyboard(this);
+                } else {
+                    inputText.setError("Empty Field!");
+                }
+                break;
         }
     }
 }

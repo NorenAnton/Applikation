@@ -1,8 +1,10 @@
 package com.miun.applikation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -52,6 +54,16 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 intent = new Intent(this, Chat.class);
                 startActivity(intent);
             case R.id.submit:
+                String message = inputText.getText().toString();
+                logManager();
+
+                if (!message.isEmpty()) {
+                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
+                    inputText.getText().clear();
+                    HelperFunctions.hideSoftKeyboard(this);
+                } else {
+                    inputText.setError("Empty Field!");
+                }
                 break;
         }
     }
@@ -67,9 +79,9 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
 
     private void logManager(){
         RecyclerView log = findViewById(R.id.log);
-        LinearLayoutManager chatManager = new LinearLayoutManager(Log.this);
-        chatManager.setStackFromEnd(true);
-        log.setLayoutManager(chatManager);
+        LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
+        logManager.setStackFromEnd(true);
+        log.setLayoutManager(logManager);
         RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
         log.setAdapter(cAdapter);
     }
