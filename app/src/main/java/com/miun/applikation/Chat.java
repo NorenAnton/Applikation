@@ -37,14 +37,7 @@ public class Chat extends AppCompatActivity {
         RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
         recyclerView.setAdapter(mAdapter);
 
-
-        RecyclerView chat = findViewById(R.id.chat);
-        LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
-        chatManager.setStackFromEnd(true);
-        chat.setLayoutManager(chatManager);
-        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
-        chat.setAdapter(cAdapter);
-
+        chatManager();
 
         btn_goBack = findViewById(R.id.goBack);
         btn_goToLog = findViewById(R.id.logBtn);
@@ -61,15 +54,18 @@ public class Chat extends AppCompatActivity {
 
     }
 
-    public void onClick(View view){
-        String message = inputText.getText().toString();
-
+    public void chatManager(){
         RecyclerView chat = findViewById(R.id.chat);
         LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
         chatManager.setStackFromEnd(true);
         chat.setLayoutManager(chatManager);
         RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
         chat.setAdapter(cAdapter);
+    }
+
+    public void onClick(View view){
+        String message = inputText.getText().toString();
+        chatManager();
 
         fillers.chatter.add(new CurrentChat(0, "Anders", message));
         inputText.getText().clear();
