@@ -76,9 +76,15 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
             case R.id.submit:
             String message = inputText.getText().toString();
             chatManager();
-            fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
-            inputText.getText().clear();
-            hideSoftKeyboard(this);
+
+            if(!message.isEmpty()){
+                fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
+                inputText.getText().clear();
+                hideSoftKeyboard(this);
+            } else{
+                inputText.setHint("Empty field..");
+            }
+            inputText.setHint("Skriv...");
              break;
         }
     }
