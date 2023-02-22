@@ -73,6 +73,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
             case R.id.logBtn:
                 intent = new Intent(this, Log.class);
                 startActivity(intent);
+                break;
             case R.id.submit:
                 String message = inputText.getText().toString();
                 chatManager();

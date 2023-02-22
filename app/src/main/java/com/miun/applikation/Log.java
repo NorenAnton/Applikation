@@ -53,6 +53,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
             case R.id.chatBtn:
                 intent = new Intent(this, Chat.class);
                 startActivity(intent);
+                break;
             case R.id.submit:
                 String message = inputText.getText().toString();
                 logManager();
