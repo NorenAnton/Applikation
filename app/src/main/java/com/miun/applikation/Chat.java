@@ -30,13 +30,7 @@ public class Chat extends AppCompatActivity {
         fillers.fillList();
         fillers.fillChat();
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
-        recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
-        recyclerView.setAdapter(mAdapter);
-
+        customerManager();
         chatManager();
 
         btn_goBack = findViewById(R.id.goBack);
@@ -52,6 +46,15 @@ public class Chat extends AppCompatActivity {
             startActivity(intentLog);
         });
 
+    }
+
+    public void customerManager(){
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
+        recyclerView.setLayoutManager(layoutManager);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
+        recyclerView.setAdapter(mAdapter);
     }
 
     public void chatManager(){
