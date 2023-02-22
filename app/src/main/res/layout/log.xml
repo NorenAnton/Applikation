@@ -61,13 +61,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/log"
+        android:windowSoftInputMode="stateHidden|adjustPan"
         android:layout_width="1050dp"
         android:layout_height="580dp"
         android:layout_marginStart="1dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/inputText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Customers"
-        app:layout_constraintTop_toTopOf="parent"
         app:reverseLayout="false" />
 
     <Button
