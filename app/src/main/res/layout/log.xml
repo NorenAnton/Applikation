@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.021" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/Customers"
         android:layout_width="231dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,8 +54,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintStart_toEndOf="@+id/Customers"
+        app:layout_constraintStart_toStartOf="@+id/Customers"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.974" />
 
@@ -66,7 +66,7 @@
         android:layout_marginStart="1dp"
         app:layout_constraintBottom_toTopOf="@+id/inputText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recyclerView"
+        app:layout_constraintStart_toEndOf="@+id/Customers"
         app:layout_constraintTop_toTopOf="parent"
         app:reverseLayout="false" />
 

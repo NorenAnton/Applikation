@@ -43,12 +43,12 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
 
 
     public void customerManager(){
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        RecyclerView chatView = findViewById(R.id.Customers);
+        chatView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
-        recyclerView.setLayoutManager(layoutManager);
+        chatView.setLayoutManager(layoutManager);
         RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
-        recyclerView.setAdapter(mAdapter);
+        chatView.setAdapter(mAdapter);
     }
 
     public void chatManager(){
@@ -76,11 +76,12 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
             case R.id.submit:
             String message = inputText.getText().toString();
             chatManager();
-            fillers.chatter.add(new CurrentChat(0, "Anders", message));
+            fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
             inputText.getText().clear();
             hideSoftKeyboard(this);
              break;
         }
+            fillers.chatter.add(new CurrentChat(0, "Anders", message));
     }
 
     public static void hideSoftKeyboard(Activity activity) {
