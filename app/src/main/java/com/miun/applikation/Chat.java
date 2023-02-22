@@ -32,15 +32,15 @@ public class Chat extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Chat.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
         recyclerView.setAdapter(mAdapter);
 
 
         RecyclerView chat = findViewById(R.id.chat);
-        chat.setHasFixedSize(true);
-        RecyclerView.LayoutManager chatManager = new LinearLayoutManager(Chat.this);
+        LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
+        chatManager.setStackFromEnd(true);
         chat.setLayoutManager(chatManager);
         RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
         chat.setAdapter(cAdapter);
