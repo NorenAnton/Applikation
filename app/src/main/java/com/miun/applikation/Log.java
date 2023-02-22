@@ -27,6 +27,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
 
         inputText = (EditText) findViewById(R.id.inputText);
         fillers.fillList();
+        fillers.fillLog();
 
         customersManager();
         logManager();
@@ -83,7 +84,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
         logManager.setStackFromEnd(true);
         log.setLayoutManager(logManager);
-        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
+        RecyclerView.Adapter<LogAdapter.LogViewHolder> cAdapter = new LogAdapter(fillers.logger);
         log.setAdapter(cAdapter);
     }
 }
