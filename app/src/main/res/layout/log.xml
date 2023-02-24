@@ -8,7 +8,7 @@
     tools:context=".Chat">
 
     <Button
-        android:id="@+id/goBack"
+        android:id="@+id/goBackLog"
         android:layout_width="108dp"
         android:layout_height="97dp"
         android:onClick="changeView"
@@ -26,7 +26,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goBack"
+        app:layout_constraintTop_toBottomOf="@+id/goBackLog"
         app:layout_constraintVertical_bias="0.988" />
 
     <Button
@@ -78,7 +78,7 @@
         android:layout_marginStart="1000dp"
         android:layout_marginTop="4dp"
         android:text="Go to Chat"
-        app:layout_constraintStart_toEndOf="@+id/goBack"
+        app:layout_constraintStart_toEndOf="@+id/goBackLog"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

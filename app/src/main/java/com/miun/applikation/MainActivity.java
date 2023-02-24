@@ -17,12 +17,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        btn_Calendar = findViewById(R.id.kalender);
         btn_Chatt = findViewById(R.id.chat);
         btn_Log = findViewById(R.id.logg);
-        btn_Calendar = findViewById(R.id.kalender);
+        btn_Calendar.setOnClickListener(this);
         btn_Chatt.setOnClickListener(this);
         btn_Log.setOnClickListener(this);
-        btn_Calendar.setOnClickListener(this);
     }
 
 
@@ -32,16 +32,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
 
         switch (view.getId()) {
+            case R.id.kalender:
+                intent = new Intent(this, Calendar.class);
+                startActivity(intent);
+                break;
             case R.id.chat:
                 intent = new Intent(this, Chat.class);
                 startActivity(intent);
                 break;
             case R.id.logg:
                 intent = new Intent(this, Log.class);
-                startActivity(intent);
-                break;
-            case R.id.kalender:
-                intent = new Intent(this, Calendar.class);
                 startActivity(intent);
                 break;
         }

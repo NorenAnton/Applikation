@@ -31,7 +31,7 @@ public class Calendar extends AppCompatActivity{
                      int month,
                      int dayOfMonth)
              {
-                 String Date = dayOfMonth + "-" + (month + 1) + "-" + year;
+                 String Date = year + "-" + (month + 1) + "-" + dayOfMonth;
 
 
                  test.setText(Date);

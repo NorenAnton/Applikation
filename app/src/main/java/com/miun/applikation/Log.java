@@ -1,18 +1,14 @@
 package com.miun.applikation;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Log extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,7 +28,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         customersManager();
         logManager();
 
-        btn_goBack = findViewById(R.id.goBack);
+        btn_goBack = findViewById(R.id.goBackLog);
         btn_goToChat = findViewById(R.id.chatBtn);
         btn_submit = findViewById(R.id.submit);
         btn_goBack.setOnClickListener(this);
@@ -47,7 +43,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         Intent intent;
 
         switch (view.getId()) {
-            case R.id.goBack:
+            case R.id.goBackLog:
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;

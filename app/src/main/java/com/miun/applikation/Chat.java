@@ -1,11 +1,9 @@
 package com.miun.applikation;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -23,7 +21,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chatt);
+        setContentView(R.layout.chat);
 
         inputText = findViewById(R.id.inputText);
         fillers.fillList();
@@ -32,7 +30,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         customerManager();
         chatManager();
 
-        btn_goBack = findViewById(R.id.goBack);
+        btn_goBack = findViewById(R.id.goBackChat);
         btn_goToLog = findViewById(R.id.logBtn);
         btn_submit = findViewById(R.id.submit);
         btn_goBack.setOnClickListener(this);
@@ -66,7 +64,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         Intent intent;
 
         switch (view.getId()) {
-            case R.id.goBack:
+            case R.id.goBackLog:
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;

@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".Calendar">
 
+    <Button
+        android:id="@+id/goBackCalendar"
+        android:layout_width="108dp"
+        android:layout_height="97dp"
+        android:onClick="changeView"
+        android:text="Go back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.007" />
+
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="1247dp"
@@ -17,7 +30,7 @@
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintVertical_bias="0.176" />
 
     <TextView
         android:id="@+id/textView"
