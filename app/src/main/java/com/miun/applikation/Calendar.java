@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import java.time.LocalDate;
+
 public class Calendar extends AppCompatActivity{
 
     CalendarView kalender;
@@ -30,6 +32,8 @@ public class Calendar extends AppCompatActivity{
                      int dayOfMonth)
              {
                  String Date = dayOfMonth + "-" + (month + 1) + "-" + year;
+
+
                  test.setText(Date);
              }
         });
