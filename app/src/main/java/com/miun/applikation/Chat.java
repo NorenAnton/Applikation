@@ -64,7 +64,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         Intent intent;
 
         switch (view.getId()) {
-            case R.id.goBackLog:
+            case R.id.goBackChat:
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
