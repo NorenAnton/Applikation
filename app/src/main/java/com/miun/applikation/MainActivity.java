@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btn_Chatt, btn_Log;
+    Button btn_Chatt, btn_Log, btn_Calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +19,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_Chatt = findViewById(R.id.chat);
         btn_Log = findViewById(R.id.logg);
+        btn_Calendar = findViewById(R.id.kalender);
         btn_Chatt.setOnClickListener(this);
         btn_Log.setOnClickListener(this);
-
+        btn_Calendar.setOnClickListener(this);
     }
 
 
@@ -39,7 +40,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, Log.class);
                 startActivity(intent);
                 break;
-
+            case R.id.kalender:
+                intent = new Intent(this, Calendar.class);
+                startActivity(intent);
+                break;
         }
     }
 }
