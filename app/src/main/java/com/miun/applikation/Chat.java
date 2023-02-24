@@ -50,7 +50,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void chatManager(){
-        RecyclerView chat = findViewById(R.id.chat);
+        RecyclerView chat = findViewById(R.id.Chat);
         LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
         chatManager.setStackFromEnd(true);
         chat.setLayoutManager(chatManager);

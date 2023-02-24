@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 public class Calendar extends AppCompatActivity implements View.OnClickListener{
 
-    CalendarView kalender;
+    CalendarView calendar;
     TextView test;
     Button btn_goBack;
 
@@ -23,13 +23,13 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar);
 
-        kalender = findViewById(R.id.calendarView);
+        calendar = findViewById(R.id.calendarView);
         test = findViewById(R.id.textView);
 
         btn_goBack = findViewById(R.id.goBackCalendar);
         btn_goBack.setOnClickListener(this);
 
-        kalender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
              @Override
              public void onSelectedDayChange(
                      @NonNull CalendarView view,

@@ -10,21 +10,20 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btn_Chatt, btn_Log, btn_Calendar;
+    Button btn_Chat, btn_Log, btn_Calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn_Calendar = findViewById(R.id.kalender);
-        btn_Chatt = findViewById(R.id.chat);
-        btn_Log = findViewById(R.id.logg);
+        btn_Calendar = findViewById(R.id.Calendar);
+        btn_Chat = findViewById(R.id.Chat);
+        btn_Log = findViewById(R.id.Log);
         btn_Calendar.setOnClickListener(this);
-        btn_Chatt.setOnClickListener(this);
+        btn_Chat.setOnClickListener(this);
         btn_Log.setOnClickListener(this);
     }
-
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -32,15 +31,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
 
         switch (view.getId()) {
-            case R.id.kalender:
+            case R.id.Calendar:
                 intent = new Intent(this, Calendar.class);
                 startActivity(intent);
                 break;
-            case R.id.chat:
+            case R.id.Chat:
                 intent = new Intent(this, Chat.class);
                 startActivity(intent);
                 break;
-            case R.id.logg:
+            case R.id.Log:
                 intent = new Intent(this, Log.class);
                 startActivity(intent);
                 break;

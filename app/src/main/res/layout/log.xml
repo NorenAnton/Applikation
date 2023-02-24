@@ -24,10 +24,13 @@
         android:id="@+id/Customers"
         android:layout_width="231dp"
         android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:verticalScrollbarPosition="right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goBackLog"
-        app:layout_constraintVertical_bias="0.988" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/submit"
@@ -61,11 +64,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/log"
-        android:windowSoftInputMode="stateHidden|adjustPan"
-        android:layout_width="1050dp"
+        android:layout_width="1030dp"
         android:layout_height="580dp"
-        android:layout_marginStart="1dp"
         android:layout_marginBottom="20dp"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical"
+        android:verticalScrollbarPosition="right"
+        android:windowSoftInputMode="stateHidden|adjustPan"
         app:layout_constraintBottom_toTopOf="@+id/inputText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Customers"

@@ -8,18 +8,18 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/logg"
+        android:id="@+id/Log"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:backgroundTint="#B9CEDA"
-        android:text="Logg"
+        android:text="Log"
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
         app:cornerRadius="100px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/chat"
+        app:layout_constraintStart_toEndOf="@+id/Chat"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.635" />
 
@@ -34,27 +34,27 @@
         app:layout_constraintVertical_bias="0.051" />
 
     <Button
-        android:id="@+id/kalender"
+        android:id="@+id/Calendar"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:backgroundTint="#B9CEDA"
-        android:text="Kalender"
+        android:text="Calendar"
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
         app:cornerRadius="100px"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/chat"
+        app:layout_constraintEnd_toStartOf="@+id/Chat"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.635" />
 
     <Button
-        android:id="@+id/chat"
+        android:id="@+id/Chat"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:backgroundTint="#B9CEDA"
-        android:text="Chatt"
+        android:text="Chat"
         android:textColor="#070000"
         android:textSize="34sp"
         android:textStyle="bold"
