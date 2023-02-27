@@ -1,4 +1,4 @@
-package com.miun.applikation;
+package com.miun.applikation.misc;
 
 public class User {
 

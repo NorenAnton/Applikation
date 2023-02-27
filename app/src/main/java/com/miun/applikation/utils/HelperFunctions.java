@@ -1,4 +1,4 @@
-package com.miun.applikation;
+package com.miun.applikation.utils;
 
 import android.app.Activity;
 import android.view.inputmethod.InputMethodManager;

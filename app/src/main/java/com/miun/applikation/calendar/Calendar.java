@@ -1,4 +1,4 @@
-package com.miun.applikation;
+package com.miun.applikation.calendar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
+
+import com.miun.applikation.MainActivity;
+import com.miun.applikation.R;
 
 import java.time.LocalDate;
 
