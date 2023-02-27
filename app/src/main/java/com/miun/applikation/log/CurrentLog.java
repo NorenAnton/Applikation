@@ -1,32 +1,32 @@
-package com.miun.applikation;
+package com.miun.applikation.log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class CurrentChat {
+public class CurrentLog {
 
 
-    int chatId;
+    int logId;
     String name;
 
     String date;
 
     String message;
 
-    public CurrentChat(int chatId, String name, String message){
-        this.chatId = chatId;
+    public CurrentLog(int logId, String name, String message){
+        this.logId = logId;
         this.name = name;
         setDate(date);
         this.message = message;
     }
 
     public int getChatId() {
-        return chatId;
+        return logId;
     }
 
     public void setChatId(int chatId) {
-        this.chatId = chatId;
+        this.logId = chatId;
     }
     public String getDate() {
         return date;

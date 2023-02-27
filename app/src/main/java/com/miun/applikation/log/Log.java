@@ -1,4 +1,4 @@
-package com.miun.applikation;
+package com.miun.applikation.log;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.miun.applikation.chat.Chat;
+import com.miun.applikation.misc.CustomerListAdapter;
+import com.miun.applikation.utils.HelperFunctions;
+import com.miun.applikation.MainActivity;
+import com.miun.applikation.R;
+import com.miun.applikation.utils.ChatLogUtils;
+
 public class Log extends AppCompatActivity implements View.OnClickListener {
 
-    Fillers fillers = new Fillers();
     Button btn_goBack, btn_goToChat, btn_submit;
     EditText inputText;
 
@@ -22,8 +28,8 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.log);
 
         inputText = (EditText) findViewById(R.id.inputText);
-        fillers.fillList();
-        fillers.fillLog();
+        ChatLogUtils.fillList();
+        ChatLogUtils.fillLog();
 
         customersManager();
         logManager();
@@ -56,7 +62,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 logManager();
 
                 if (!message.isEmpty()) {
-                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
+                    ChatLogUtils.logger.add(new CurrentLog(0, "Anders Martinsson", message));
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
                 } else {
@@ -71,7 +77,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         logView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Log.this);
         logView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(ChatLogUtils.users);
         logView.setAdapter(mAdapter);
     }
 
@@ -80,7 +86,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
         logManager.setStackFromEnd(true);
         log.setLayoutManager(logManager);
-        RecyclerView.Adapter<LogAdapter.LogViewHolder> cAdapter = new LogAdapter(fillers.logger);
-        log.setAdapter(cAdapter);
+        RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(ChatLogUtils.logger);
+        log.setAdapter(logAdapter);
     }
 }

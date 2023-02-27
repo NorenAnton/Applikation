@@ -1,4 +1,4 @@
-package com.miun.applikation;
+package com.miun.applikation.misc;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.miun.applikation.R;
 
 import java.util.List;
 

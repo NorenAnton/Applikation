@@ -1,4 +1,4 @@
-package com.miun.applikation;
+package com.miun.applikation.chat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,9 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.miun.applikation.misc.CustomerListAdapter;
+import com.miun.applikation.utils.HelperFunctions;
+import com.miun.applikation.MainActivity;
+import com.miun.applikation.R;
+import com.miun.applikation.log.Log;
+import com.miun.applikation.utils.ChatLogUtils;
+
 public class Chat extends AppCompatActivity implements View.OnClickListener {
 
-    Fillers fillers = new Fillers();
     Button btn_goBack, btn_goToLog, btn_submit;
     EditText inputText;
 
@@ -24,8 +30,8 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.chat);
 
         inputText = findViewById(R.id.inputText);
-        fillers.fillList();
-        fillers.fillChat();
+        ChatLogUtils.fillList();
+        ChatLogUtils.fillChat();
 
         customerManager();
         chatManager();
@@ -45,7 +51,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         chatView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
         chatView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(ChatLogUtils.users);
         chatView.setAdapter(mAdapter);
     }
 
@@ -54,7 +60,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
         chatManager.setStackFromEnd(true);
         chat.setLayoutManager(chatManager);
-        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
+        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(ChatLogUtils.chatter);
         chat.setAdapter(cAdapter);
     }
 
@@ -77,7 +83,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 chatManager();
 
                 if (!message.isEmpty()) {
-                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
+                    ChatLogUtils.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
                 } else {

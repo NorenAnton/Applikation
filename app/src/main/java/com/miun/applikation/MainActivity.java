@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.miun.applikation.calendar.Calendar;
+import com.miun.applikation.chat.Chat;
+import com.miun.applikation.log.Log;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btn_Chat, btn_Log, btn_Calendar;

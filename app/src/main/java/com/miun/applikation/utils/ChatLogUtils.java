@@ -1,15 +1,18 @@
-package com.miun.applikation;
+package com.miun.applikation.utils;
+
+import com.miun.applikation.misc.User;
+import com.miun.applikation.chat.CurrentChat;
+import com.miun.applikation.log.CurrentLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fillers {
-    List<User> users = new ArrayList<>();
+public class ChatLogUtils {
+    public static List<User> users = new ArrayList<>();
+    public static List<CurrentChat> chatter = new ArrayList<>();
+    public static List<CurrentLog> logger = new ArrayList<>();
 
-    List<CurrentChat> chatter = new ArrayList<>();
-    List<CurrentLog> logger = new ArrayList<>();
-
-    public void fillList() {
+    public static void fillList() {
         users.add(new User("Vincent", "Johansson", 0));
         users.add(new User("Gillian", "Persson", 1));
         users.add(new User("Anton", "Noren", 2));
@@ -36,7 +39,7 @@ public class Fillers {
         users.add(new User("Anton", "Noren", 2));
     }
 
-    public void fillChat(){
+    public static void fillChat(){
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
@@ -56,7 +59,7 @@ public class Fillers {
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
     }
 
-    public void fillLog(){
+    public static void fillLog(){
         logger.add(new CurrentLog(0, "Gillian Persson", "Janne"));
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
