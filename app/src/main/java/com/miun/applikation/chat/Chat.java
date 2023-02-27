@@ -20,6 +20,7 @@ import com.miun.applikation.utils.ChatLogUtils;
 
 public class Chat extends AppCompatActivity implements View.OnClickListener {
 
+    ChatLogUtils fillers = new ChatLogUtils();
     Button btn_goBack, btn_goToLog, btn_submit;
     EditText inputText;
 
@@ -30,8 +31,8 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.chat);
 
         inputText = findViewById(R.id.inputText);
-        ChatLogUtils.fillList();
-        ChatLogUtils.fillChat();
+        fillers.fillList();
+        fillers.fillChat();
 
         customerManager();
         chatManager();
@@ -51,7 +52,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         chatView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
         chatView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(ChatLogUtils.users);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
         chatView.setAdapter(mAdapter);
     }
 
@@ -60,7 +61,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
         chatManager.setStackFromEnd(true);
         chat.setLayoutManager(chatManager);
-        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(ChatLogUtils.chatter);
+        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
         chat.setAdapter(cAdapter);
     }
 
@@ -83,7 +84,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 chatManager();
 
                 if (!message.isEmpty()) {
-                    ChatLogUtils.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
+                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
                 } else {

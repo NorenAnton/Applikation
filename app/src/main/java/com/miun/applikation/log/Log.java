@@ -19,6 +19,8 @@ import com.miun.applikation.utils.ChatLogUtils;
 
 public class Log extends AppCompatActivity implements View.OnClickListener {
 
+    ChatLogUtils fillers = new ChatLogUtils();
+
     Button btn_goBack, btn_goToChat, btn_submit;
     EditText inputText;
 
@@ -28,8 +30,8 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.log);
 
         inputText = (EditText) findViewById(R.id.inputText);
-        ChatLogUtils.fillList();
-        ChatLogUtils.fillLog();
+        fillers.fillList();
+        fillers.fillLog();
 
         customersManager();
         logManager();
@@ -62,7 +64,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 logManager();
 
                 if (!message.isEmpty()) {
-                    ChatLogUtils.logger.add(new CurrentLog(0, "Anders Martinsson", message));
+                    fillers.logger.add(new CurrentLog(0, "Anders Martinsson", message));
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
                 } else {
@@ -77,7 +79,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         logView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Log.this);
         logView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(ChatLogUtils.users);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
         logView.setAdapter(mAdapter);
     }
 
@@ -86,7 +88,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
         logManager.setStackFromEnd(true);
         log.setLayoutManager(logManager);
-        RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(ChatLogUtils.logger);
+        RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(fillers.logger);
         log.setAdapter(logAdapter);
     }
 }
