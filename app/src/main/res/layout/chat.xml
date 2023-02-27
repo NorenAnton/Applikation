@@ -13,6 +13,8 @@
         android:layout_height="97dp"
         android:onClick="changeView"
         android:text="Go back"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.014"
@@ -40,6 +42,8 @@
         android:layout_weight="1"
         android:onClick="onClick"
         android:text="Skicka"
+        android:textColor="#000000"
+        android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,6 +87,8 @@
         android:layout_marginStart="1000dp"
         android:layout_marginTop="4dp"
         android:text="Go to Log"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/goBackChat"
         app:layout_constraintTop_toTopOf="parent" />
 
