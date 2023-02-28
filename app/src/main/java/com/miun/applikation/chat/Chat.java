@@ -34,8 +34,8 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         fillers.fillList();
         fillers.fillChat();
 
-        customerManager();
-        chatManager();
+        customerLayoutManager();
+        chatLayoutManager();
 
         btn_goBack = findViewById(R.id.goBackChat);
         btn_goToLog = findViewById(R.id.logBtn);
@@ -43,11 +43,9 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         btn_goBack.setOnClickListener(this);
         btn_goToLog.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
-
     }
 
-
-    public void customerManager(){
+    public void customerLayoutManager(){
         RecyclerView chatView = findViewById(R.id.Customers);
         chatView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
@@ -56,7 +54,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         chatView.setAdapter(mAdapter);
     }
 
-    public void chatManager(){
+    public void chatLayoutManager(){
         RecyclerView chat = findViewById(R.id.Chat);
         LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
         chatManager.setStackFromEnd(true);
@@ -81,7 +79,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.submit:
                 String message = inputText.getText().toString();
-                chatManager();
+                chatLayoutManager();
 
                 if (!message.isEmpty()) {
                     fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));

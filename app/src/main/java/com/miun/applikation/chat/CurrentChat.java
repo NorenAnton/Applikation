@@ -9,9 +9,7 @@ public class CurrentChat {
 
     int chatId;
     String name;
-
     String date;
-
     String message;
 
     public CurrentChat(int chatId, String name, String message){

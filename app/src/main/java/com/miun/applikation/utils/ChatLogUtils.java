@@ -40,6 +40,7 @@ public class ChatLogUtils {
     }
 
     public void fillChat(){
+        chatter.add(new CurrentChat(0, "Gillian Persson", "Hello world"));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
@@ -55,12 +56,11 @@ public class ChatLogUtils {
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world"));
+        chatter.add(new CurrentChat(0, "Vincent Johansson", "Hello world"));
     }
 
     public void fillLog(){
-        logger.add(new CurrentLog(0, "Gillian Persson", "Janne"));
+        logger.add(new CurrentLog(0, "Gillian Persson", "VÄLKOMMEN"));
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
@@ -74,7 +74,7 @@ public class ChatLogUtils {
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Janne"));
+        logger.add(new CurrentLog(0, "Vincent Johansson", "HELLO THERE"));
 
     }
 }

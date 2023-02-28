@@ -33,8 +33,8 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         fillers.fillList();
         fillers.fillLog();
 
-        customersManager();
-        logManager();
+        customersLayoutManager();
+        logLayoutManager();
 
         btn_goBack = findViewById(R.id.goBackLog);
         btn_goToChat = findViewById(R.id.chatBtn);
@@ -61,7 +61,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.submit:
                 String message = inputText.getText().toString();
-                logManager();
+                logLayoutManager();
 
                 if (!message.isEmpty()) {
                     fillers.logger.add(new CurrentLog(0, "Anders Martinsson", message));
@@ -74,7 +74,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    private void customersManager() {
+    private void customersLayoutManager() {
         RecyclerView logView = findViewById(R.id.Customers);
         logView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Log.this);
@@ -83,7 +83,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         logView.setAdapter(mAdapter);
     }
 
-    private void logManager(){
+    private void logLayoutManager(){
         RecyclerView log = findViewById(R.id.log);
         LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
         logManager.setStackFromEnd(true);
