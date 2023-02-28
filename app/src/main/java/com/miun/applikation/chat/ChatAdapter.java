@@ -42,7 +42,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         holder.tv_message.setText(chatter.get(position).getMessage());
         holder.tv_date.setText(chatter.get(position).getDate());
         if (test % 3 == 0)
-            Glide.with(context).load("https://cdn.pixabay.com/photo/2014/06/03/19/38/board-361516__340.jpg").into(holder.iv_image);
+            Glide.with(context).load("https://cdn.pixabay.com/photo/2014/06/03/19/38/board-361516__340.jpg").override(600,500).into(holder.iv_image);
         ++test;
     }
 
