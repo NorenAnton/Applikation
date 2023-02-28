@@ -3,6 +3,7 @@ package com.miun.applikation.chat;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +22,7 @@ import com.miun.applikation.utils.ChatLogUtils;
 public class Chat extends AppCompatActivity implements View.OnClickListener {
 
     ChatLogUtils fillers = new ChatLogUtils();
-    Button btn_goBack, btn_goToLog, btn_submit;
+    Button btn_goBack, btn_goToLog, btn_imagePicker, btn_submit;
     EditText inputText;
 
     @Override
@@ -39,13 +40,14 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
 
         btn_goBack = findViewById(R.id.goBackChat);
         btn_goToLog = findViewById(R.id.logBtn);
+        btn_imagePicker = findViewById(R.id.btn_imagePicker);
         btn_submit = findViewById(R.id.submit);
         btn_goBack.setOnClickListener(this);
         btn_goToLog.setOnClickListener(this);
+        btn_imagePicker.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
 
     }
-
 
     public void customerManager(){
         RecyclerView chatView = findViewById(R.id.Customers);
@@ -79,10 +81,13 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 intent = new Intent(this, Log.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_imagePicker:
+                intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivity(intent);
+                break;
             case R.id.submit:
                 String message = inputText.getText().toString();
                 chatManager();
-
                 if (!message.isEmpty()) {
                     fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
                     inputText.getText().clear();

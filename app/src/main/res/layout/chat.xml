@@ -26,8 +26,8 @@
         android:id="@+id/Customers"
         android:layout_width="231dp"
         android:layout_height="0dp"
-        android:scrollbars="vertical"
         android:fadeScrollbars="false"
+        android:scrollbars="vertical"
         android:verticalScrollbarPosition="right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +39,9 @@
         android:id="@+id/submit"
         android:layout_width="144dp"
         android:layout_height="60dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
         android:layout_weight="1"
         android:onClick="onClick"
         android:text="Skicka"
@@ -47,15 +50,31 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Chat" />
+
+    <Button
+        android:id="@+id/btn_imagePicker"
+        android:layout_width="144dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_weight="1"
+        android:onClick="onClick"
+        android:text="Välj bild"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/submit"
+        app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toEndOf="@+id/inputText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintTop_toTopOf="@+id/submit"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/inputText"
         android:layout_width="671dp"
         android:layout_height="65dp"
-        android:layout_marginStart="300dp"
+        android:layout_marginStart="20dp"
         android:ems="10"
         android:hint="Skriv..."
         android:inputType="textPersonName"
@@ -63,9 +82,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/Customers"
-        app:layout_constraintStart_toStartOf="@+id/Customers"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974" />
+        app:layout_constraintVertical_bias="0.98" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Chat"

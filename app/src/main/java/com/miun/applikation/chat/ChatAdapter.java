@@ -21,11 +21,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     Context context;
     List<CurrentChat> chatter;
 
-    static int test = 0;
+    int test;
 
     public ChatAdapter(Context context, List<CurrentChat> chatter){
         this.context = context;
         this.chatter = chatter;
+        test = 0;
     }
 
     @NonNull
@@ -42,7 +43,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         holder.tv_date.setText(chatter.get(position).getDate());
         if (test % 3 == 0)
             Glide.with(context).load("https://cdn.pixabay.com/photo/2014/06/03/19/38/board-361516__340.jpg").into(holder.iv_image);
-        test = ++test;
+        ++test;
     }
 
 
