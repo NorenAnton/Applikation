@@ -61,7 +61,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
         chatManager.setStackFromEnd(true);
         chat.setLayoutManager(chatManager);
-        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(fillers.chatter);
+        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(this, fillers.chatter);
         chat.setAdapter(cAdapter);
     }
 
