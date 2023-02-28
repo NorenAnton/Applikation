@@ -2,9 +2,17 @@ package com.miun.applikation.log;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.content.Context;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +31,8 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
 
     Button btn_goBack, btn_goToChat, btn_submit;
     EditText inputText;
+    RecyclerView log;
+    RecyclerView customerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +53,10 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         btn_goToChat.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
 
-
+        log = (RecyclerView) findViewById(R.id.log);
+        customerList = (RecyclerView) findViewById(R.id.Customers);
+        hideKeyBoard(log);
+        hideKeyBoard(customerList);
     }
 
     @Override
@@ -90,5 +103,18 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         log.setLayoutManager(logManager);
         RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(fillers.logger);
         log.setAdapter(logAdapter);
+    }
+
+    private void hideKeyBoard(RecyclerView recyclerView){
+        recyclerView.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                return false;
+            }
+        });
     }
 }

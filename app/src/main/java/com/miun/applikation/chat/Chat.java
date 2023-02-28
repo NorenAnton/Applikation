@@ -1,9 +1,12 @@
 package com.miun.applikation.chat;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -23,6 +26,8 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     ChatLogUtils fillers = new ChatLogUtils();
     Button btn_goBack, btn_goToLog, btn_submit;
     EditText inputText;
+    RecyclerView chat;
+    RecyclerView customerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,9 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.chat);
 
         inputText = findViewById(R.id.inputText);
+        chat = findViewById(R.id.Chat);
+        customerList = findViewById(R.id.Customers);
+
         fillers.fillList();
         fillers.fillChat();
 
@@ -43,6 +51,9 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         btn_goBack.setOnClickListener(this);
         btn_goToLog.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
+
+        hideKeyBoard(chat);
+        hideKeyBoard(customerList);
 
     }
 
@@ -92,5 +103,18 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 }
                 break;
         }
+    }
+
+    private void hideKeyBoard(RecyclerView recyclerView){
+        recyclerView.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                return false;
+            }
+        });
     }
 }
