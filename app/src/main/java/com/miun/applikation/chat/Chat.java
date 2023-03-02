@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,8 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     ChatLogUtils fillers = new ChatLogUtils();
     Button btn_goBack, btn_goToLog, btn_submit;
     EditText inputText;
+
+    TextView name;
     RecyclerView chat;
     RecyclerView customerList;
 
@@ -36,6 +39,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.chat);
 
         inputText = findViewById(R.id.inputText);
+        name = findViewById(R.id.name);
         chat = findViewById(R.id.Chat);
         customerList = findViewById(R.id.Customers);
 
@@ -63,7 +67,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         chatView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
         chatView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users, name);
         chatView.setAdapter(mAdapter);
     }
 
@@ -105,6 +109,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void hideKeyBoard(RecyclerView recyclerView){
         recyclerView.setOnTouchListener(new View.OnTouchListener(){
             @Override

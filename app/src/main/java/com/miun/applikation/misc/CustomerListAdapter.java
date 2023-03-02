@@ -18,9 +18,11 @@ import java.util.List;
 public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> {
 
     List<User> users;
+    TextView name;
 
-    public CustomerListAdapter(List<User> users) {
+    public CustomerListAdapter(List<User> users, TextView name) {
         this.users = users;
+        this.name = name;
     }
 
     @NonNull
@@ -36,6 +38,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         holder.layout.setOnClickListener(view -> {
             // stuff happens..........
             Log.d("ChatList", "User id:" + users.get(position).getPersonId());
+            name.setText(users.get(position).getName());
         });
     }
 

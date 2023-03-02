@@ -1,5 +1,6 @@
 package com.miun.applikation.log;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -31,6 +32,8 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
 
     Button btn_goBack, btn_goToChat, btn_submit;
     EditText inputText;
+
+    TextView name;
     RecyclerView log;
     RecyclerView customerList;
 
@@ -40,6 +43,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.log);
 
         inputText = (EditText) findViewById(R.id.inputText);
+        name = findViewById(R.id.name);
         fillers.fillList();
         fillers.fillLog();
 
@@ -92,7 +96,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         logView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Log.this);
         logView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users, name);
         logView.setAdapter(mAdapter);
     }
 
@@ -105,6 +109,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         log.setAdapter(logAdapter);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void hideKeyBoard(RecyclerView recyclerView){
         recyclerView.setOnTouchListener(new View.OnTouchListener(){
             @Override
