@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.miun.retrofit.MessageModelPost;
 import com.miun.retrofit.PersonTemp;
 import com.miun.retrofit.retrofitClient;
 
@@ -30,31 +31,57 @@ public class MainActivity extends AppCompatActivity {
 
         // TESTAR klient, bara så ni vet!
         //retrofitClient client = setUpClient("https://jsonplaceholder.typicode.com/");
-        // 10.0.2.2
-        // 10.82.237.144
+        // TODO: Varje person måste hämta sin egen IP wifi, ska göra en bat fil som sköter automatiskt
+        // Instance for retrofit api class
         retrofitClient client = setUpClient("http://10.82.237.144:8080/");
-        Call<PersonTemp > caller = client.getAllPersons();
-        caller.enqueue(new Callback<PersonTemp>() {
-            @Override
-            public void onResponse(Call<PersonTemp> call, Response<PersonTemp> response) {
-                System.out.println("DATA! HURRA");
 
-                PersonTemp responsData = response.body();
-                //for (PersonTemp p : responsData) {
-                    System.out.println(responsData.getId());
-                    System.out.println(responsData.getFname());
-                    /*System.out.println(p.getId());
-                    System.out.println(p.getUserId());
-                    System.out.println(p.getTitle());
-                    System.out.println(p.getText());*/
-                    System.out.println("-----------------------------------------");
-                //}
-            }
+        MessageModelPost newMessage =
+                new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
+        Call<MessageModelPost> caller = client.storeMessage(newMessage);
+
+        caller.enqueue(new Callback<MessageModelPost>() {
             @Override
-            public void onFailure(Call<PersonTemp> call, Throwable t) {
-                System.err.println("ERROR, ingen kontakt" + t);
+            public void onResponse(Call<MessageModelPost> call, Response<MessageModelPost> response) {
+                System.out.println("DATA ADDED!");
+
+                MessageModelPost responseFromAPI = response.body();
+                System.out.println(response.isSuccessful());
+                System.out.println(response.errorBody());
+                System.out.println(response.code());
+                //System.out.println(response.body().getPersId());
+            }
+
+            @Override
+            public void onFailure(Call<MessageModelPost> call, Throwable t) {
+                System.out.println("ERROR: " + t);
             }
         });
+
+
+
+        /*Call<List<PersonTemp>> caller = client.getAllPersons();
+        caller.enqueue(new Callback<List<PersonTemp>>() {
+            @Override
+            public void onResponse(Call<List<PersonTemp>> call, Response<List<PersonTemp>> response) {
+                System.out.println("DATA! HURRA");
+
+                List<PersonTemp> responsData = response.body();
+                for (PersonTemp p : responsData) {
+                    System.out.println(p.getId());
+                    System.out.println(p.getFname());
+
+                    //System.out.println(p.getId());
+                    //System.out.println(p.getUserId());
+                    //System.out.println(p.getTitle());
+                    //System.out.println(p.getText());
+                    System.out.println("-----------------------------------------");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<PersonTemp>> call, Throwable t) {
+                System.err.println("ERROR, ingen kontakt" + t);
+            }
+        });*/
 
 
         btn_Chatt = findViewById(R.id.chat);

@@ -3,7 +3,9 @@ package com.miun.retrofit;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 //cd C:\Users\anton\Documents\db-derby-10.15.2.0-bin\db-derby-10.15.2.0-bin\bin
 //startNetworkServer.bat
@@ -11,6 +13,10 @@ import retrofit2.http.GET;
 public interface retrofitClient {
 
     //@GET("posts")
-    @GET("person?id=2")
-    Call<PersonTemp>getAllPersons();
+    @GET("persons")
+    Call<List<PersonTemp> >getAllPersons();
+
+    @POST("messages/add")
+    Call<MessageModelPost> storeMessage(@Body MessageModelPost message);
+
 }
