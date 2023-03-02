@@ -33,9 +33,10 @@ public class MainActivity extends AppCompatActivity {
         //retrofitClient client = setUpClient("https://jsonplaceholder.typicode.com/");
         // TODO: Varje person måste hämta sin egen IP wifi, ska göra en bat fil som sköter automatiskt
         // Instance for retrofit api class
-        retrofitClient client = setUpClient("http://10.82.237.144:8080/");
+        retrofitClient client = setUpClient("http://10.82.252.220:8080/"); //Holmberg wifi @ Miun
+        //retrofitClient client = setUpClient("http://10.82.237.144:8080/"); //Englund wifi @ Miun
 
-        MessageModelPost newMessage =
+        /*MessageModelPost newMessage =
                 new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Call<MessageModelPost> caller = client.storeMessage(newMessage);
 
@@ -55,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<MessageModelPost> call, Throwable t) {
                 System.out.println("ERROR: " + t);
             }
-        });
+        });*/
 
 
 
-        /*Call<List<PersonTemp>> caller = client.getAllPersons();
+        Call<List<PersonTemp>> caller = client.getAllPersons();
         caller.enqueue(new Callback<List<PersonTemp>>() {
             @Override
             public void onResponse(Call<List<PersonTemp>> call, Response<List<PersonTemp>> response) {
@@ -69,11 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 for (PersonTemp p : responsData) {
                     System.out.println(p.getId());
                     System.out.println(p.getFname());
-
-                    //System.out.println(p.getId());
-                    //System.out.println(p.getUserId());
-                    //System.out.println(p.getTitle());
-                    //System.out.println(p.getText());
                     System.out.println("-----------------------------------------");
                 }
             }
@@ -81,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<List<PersonTemp>> call, Throwable t) {
                 System.err.println("ERROR, ingen kontakt" + t);
             }
-        });*/
+        });
 
 
         btn_Chatt = findViewById(R.id.chat);
