@@ -40,6 +40,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
             Intent data = result.getData();
             if (resultCode == RESULT_OK && data != null) {
                 image = data.getData();
+                btn_imagePicker.setText("Ta bort vald bild");
             }
         }
     });
@@ -101,13 +102,19 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.btn_imagePicker:
-                intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                activityResultLauncher.launch(intent);
+                if(image == null) {
+                    intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    activityResultLauncher.launch(intent);
+                }
+                else {
+                    btn_imagePicker.setText("VÄLJ BILD");
+                    image = null;
+                }
                 break;
             case R.id.submit:
                 String message = inputText.getText().toString();
                 chatManager();
-                if (!message.isEmpty()) {
+                if (!message.isEmpty() || image != null) {
                     fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message, image));
                     image = null;
                     inputText.getText().clear();
