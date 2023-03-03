@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".calendar.Calendar"
+            android:name=".calendar.CalendarActivity"
             android:exported="false" />
         <activity
             android:name=".log.CurrentLog"
