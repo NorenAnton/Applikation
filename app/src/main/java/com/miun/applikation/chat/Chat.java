@@ -22,6 +22,8 @@ import com.miun.applikation.R;
 import com.miun.applikation.log.Log;
 import com.miun.applikation.utils.ChatLogUtils;
 
+import java.sql.Timestamp;
+
 public class Chat extends AppCompatActivity implements View.OnClickListener {
 
     ChatLogUtils fillers = new ChatLogUtils();
@@ -99,7 +101,8 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 chatManager();
 
                 if (!message.isEmpty()) {
-                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message, timestamp));
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
                 } else {

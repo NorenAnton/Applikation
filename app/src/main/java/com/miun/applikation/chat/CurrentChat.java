@@ -1,8 +1,10 @@
 package com.miun.applikation.chat;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class CurrentChat {
 
@@ -12,10 +14,10 @@ public class CurrentChat {
     String date;
     String message;
 
-    public CurrentChat(int chatId, String name, String message){
+    public CurrentChat(int chatId, String name, String message, Timestamp time){
         this.chatId = chatId;
         this.name = name;
-        setDate(date);
+        setDate(time);
         this.message = message;
     }
 
@@ -30,10 +32,10 @@ public class CurrentChat {
         return date;
     }
 
-    public void setDate(String dateTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-        dateTime = sdf.format(new Date());
-        this.date = dateTime;
+    public void setDate(Timestamp time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        sdf.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
+        this.date = sdf.format(time);
     }
 
     public String getName() {
