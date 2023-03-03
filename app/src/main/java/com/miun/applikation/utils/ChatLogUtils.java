@@ -42,23 +42,23 @@ public class ChatLogUtils {
 
     public void fillChat(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
-        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world",null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world",null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+        chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
     }
 
     public void fillLog(){

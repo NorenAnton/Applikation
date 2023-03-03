@@ -81,7 +81,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
 
                 if (!message.isEmpty()) {
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message, timestamp));
+                    fillers.logger.add(new CurrentLog(0, "Anders Martinsson", message, timestamp));
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
                 } else {
