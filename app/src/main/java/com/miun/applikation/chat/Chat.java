@@ -109,6 +109,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 chatManager();
                 if (!message.isEmpty()) {
                     fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message, image));
+                    image = null;
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
                 } else {
