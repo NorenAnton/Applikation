@@ -22,7 +22,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.miun.applikation.calendar.Calendar;
 import com.miun.applikation.chat.Chat;
-import com.miun.applikation.log.Log;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
