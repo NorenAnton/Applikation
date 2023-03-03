@@ -1,5 +1,8 @@
 package com.miun.applikation.chat;
 
+import android.media.Image;
+import android.net.Uri;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -9,6 +12,8 @@ public class CurrentChat {
 
     int chatId;
     String name;
+
+    Uri image;
 
     String date;
 

@@ -1,6 +1,7 @@
 package com.miun.applikation.chat;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.miun.applikation.R;
 
+import java.io.File;
+import java.net.URI;
 import java.util.List;
 
 //Adapter for current chat
@@ -41,8 +44,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         holder.tv_chatName.setText(chatter.get(position).getName());
         holder.tv_message.setText(chatter.get(position).getMessage());
         holder.tv_date.setText(chatter.get(position).getDate());
-        if (test % 3 == 0)
-            Glide.with(context).load("https://cdn.pixabay.com/photo/2014/06/03/19/38/board-361516__340.jpg").override(600,500).into(holder.iv_image);
+        if (test % 3 == 0 && chatter.get(position).image != null)
+            Glide.with(context).load(new File(chatter.get(position).image.getPath())).override(600,500).into(holder.iv_image);
         ++test;
     }
 

@@ -2,12 +2,18 @@ package com.miun.applikation.chat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +25,24 @@ import com.miun.applikation.R;
 import com.miun.applikation.log.Log;
 import com.miun.applikation.utils.ChatLogUtils;
 
+import java.net.URI;
+
 public class Chat extends AppCompatActivity implements View.OnClickListener {
 
     ChatLogUtils fillers = new ChatLogUtils();
     Button btn_goBack, btn_goToLog, btn_imagePicker, btn_submit;
     EditText inputText;
+    Uri image = null;
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            int resultCode = result.getResultCode();
+            Intent data = result.getData();
+            if (resultCode == RESULT_OK && data != null) {
+                image = data.getData();
+            }
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +102,13 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.btn_imagePicker:
                 intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivity(intent);
+                activityResultLauncher.launch(intent);
                 break;
             case R.id.submit:
                 String message = inputText.getText().toString();
                 chatManager();
                 if (!message.isEmpty()) {
-                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message));
+                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message, image));
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
                 } else {
