@@ -62,21 +62,22 @@ public class ChatLogUtils {
     }
 
     public void fillLog(){
-        logger.add(new CurrentLog(0, "Gillian Persson", "Janne"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Hello world"));
-        logger.add(new CurrentLog(0, "Anton Noren", "Janne"));
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        logger.add(new CurrentLog(0, "Gillian Persson", "Janne", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
+        logger.add(new CurrentLog(0, "Anton Noren", "Janne", timestamp));
 
     }
 }

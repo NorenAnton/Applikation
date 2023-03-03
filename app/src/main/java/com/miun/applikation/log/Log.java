@@ -3,12 +3,8 @@ package com.miun.applikation.log;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.chat.Chat;
+import com.miun.applikation.chat.CurrentChat;
 import com.miun.applikation.misc.CustomerListAdapter;
 import com.miun.applikation.utils.HelperFunctions;
 import com.miun.applikation.MainActivity;
 import com.miun.applikation.R;
 import com.miun.applikation.utils.ChatLogUtils;
+
+import java.sql.Timestamp;
 
 public class Log extends AppCompatActivity implements View.OnClickListener {
 
@@ -81,7 +80,8 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 logManager();
 
                 if (!message.isEmpty()) {
-                    fillers.logger.add(new CurrentLog(0, "Anders Martinsson", message));
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message, timestamp));
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
                 } else {
