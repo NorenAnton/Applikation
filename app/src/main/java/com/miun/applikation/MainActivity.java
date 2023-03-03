@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         // TESTAR klient, bara så ni vet!
         //retrofitClient client = setUpClient("https://jsonplaceholder.typicode.com/");
-        // TODO: Varje person måste hämta sin egen IP wifi, ska göra en bat fil som sköter automatiskt
+        // TODO: Varje person måste hämta sin egen IP wifi, ska göra en bat fil som sköter detta automatiskt
         // Instance for retrofit api class
         retrofitClient client = setUpClient("http://10.82.237.144:8080/");
 
@@ -69,11 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 for (PersonTemp p : responsData) {
                     System.out.println(p.getId());
                     System.out.println(p.getFname());
-
-                    //System.out.println(p.getId());
-                    //System.out.println(p.getUserId());
-                    //System.out.println(p.getTitle());
-                    //System.out.println(p.getText());
                     System.out.println("-----------------------------------------");
                 }
             }
