@@ -19,12 +19,6 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:usesCleartextTraffic">
         <activity
-            android:name=".Chat"
-            android:exported="false" />
-        <activity
-            android:name=".Log"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -33,6 +27,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".calendar.Calendar"
+            android:exported="false" />
+        <activity
+            android:name=".log.CurrentLog"
+            android:exported="false" />
+        <activity
+            android:name=".chat.Chat"
+            android:exported="false" />
+        <activity
+            android:name=".log.Log"
+            android:exported="false" />
     </application>
 
 </manifest>

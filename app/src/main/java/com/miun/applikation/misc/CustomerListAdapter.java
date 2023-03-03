@@ -1,6 +1,5 @@
-package com.miun.applikation;
+package com.miun.applikation.misc;
 
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.transition.Hold;
+import com.miun.applikation.R;
 
 import java.util.List;
 
@@ -19,9 +18,11 @@ import java.util.List;
 public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> {
 
     List<User> users;
+    TextView name;
 
-    public CustomerListAdapter(List<User> users) {
+    public CustomerListAdapter(List<User> users, TextView name) {
         this.users = users;
+        this.name = name;
     }
 
     @NonNull
@@ -37,6 +38,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         holder.layout.setOnClickListener(view -> {
             // stuff happens..........
             Log.d("ChatList", "User id:" + users.get(position).getPersonId());
+            name.setText(users.get(position).getName());
         });
     }
 
