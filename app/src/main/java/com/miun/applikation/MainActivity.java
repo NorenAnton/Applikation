@@ -36,12 +36,19 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         //Instance for interface
-        PersonApiCall personApiCall = retrofit.create(PersonApiCall.class);
-        Call<PersonModel> call = PersonApiCall.getPerson();
+        PersonApiCall call1 = retrofit.create(PersonApiCall.class);
+        Call<PersonModel> call = call1.getPerson();
 
         call.enqueue(new Callback<PersonModel>() {
             @Override
             public void onResponse(Call<PersonModel> call, Response<PersonModel> response) {
+                //check for response
+                if(response.code() != 200){
+                    System.out.println("Check the connection");
+                    return;
+                }
+                //Get the data into prints
+                System.out.println(response.body().getFname());
 
             }
 

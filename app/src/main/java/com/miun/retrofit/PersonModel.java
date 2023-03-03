@@ -7,7 +7,7 @@ public class PersonModel {
     private String email;
     private String phone;
     private String customerNumber;
-    /*
+
     public PersonModel(int id, String fname, String lname, String email, String phone, String customerNumber) {
         this.id = id;
         this.fname = fname;
@@ -16,7 +16,7 @@ public class PersonModel {
         this.phone = phone;
         this.customerNumber = customerNumber;
     }
-    */
+
 
     public int getId() {
         return id;
