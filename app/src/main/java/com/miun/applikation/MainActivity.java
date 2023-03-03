@@ -20,6 +20,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.util.Log;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btn_Chatt, btn_Log;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         System.out.println("WAT");
-        //Log.d("NumberGenerated", "Function has generated zero.");
+        Log.d("pop", "hej");
 
         // TESTAR klient, bara så ni vet!
         //retrofitClient client = setUpClient("https://jsonplaceholder.typicode.com/");
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void returnDataTest(retrofitClient client) {
+
         Call<List<PersonTemp>> caller = client.getAllPersons();
         caller.enqueue(new Callback<List<PersonTemp>>() {
             @Override
