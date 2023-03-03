@@ -10,14 +10,22 @@ import java.util.Locale;
 public class CurrentChat {
 
 
-    int chatId;
-    String name;
+    private int chatId;
+    private String name;
 
-    Uri image;
+    private Uri image;
 
-    String date;
+    private String date;
 
-    String message;
+   private String message;
+
+    public CurrentChat(int chatId, String name, String message, Uri image){
+        this.chatId = chatId;
+        this.name = name;
+        setDate(date);
+        this.message = message;
+        this.image = image;
+    }
 
     public CurrentChat(int chatId, String name, String message){
         this.chatId = chatId;
@@ -32,6 +40,10 @@ public class CurrentChat {
 
     public void setChatId(int chatId) {
         this.chatId = chatId;
+    }
+
+    public Uri getImage() {
+        return image;
     }
     public String getDate() {
         return date;

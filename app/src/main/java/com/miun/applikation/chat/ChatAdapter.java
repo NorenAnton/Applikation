@@ -44,8 +44,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         holder.tv_chatName.setText(chatter.get(position).getName());
         holder.tv_message.setText(chatter.get(position).getMessage());
         holder.tv_date.setText(chatter.get(position).getDate());
-        if (test % 3 == 0 && chatter.get(position).image != null)
-            Glide.with(context).load(new File(chatter.get(position).image.getPath())).override(600,500).into(holder.iv_image);
+        if (chatter.get(position).getImage() != null)
+            Glide.with(context).load(chatter.get(position).getImage().toString()).override(600,500).into(holder.iv_image);
         ++test;
     }
 
