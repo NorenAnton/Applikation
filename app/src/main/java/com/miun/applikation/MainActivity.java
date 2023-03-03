@@ -20,6 +20,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.util.Log;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btn_Chatt, btn_Log;
@@ -29,17 +31,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        System.out.println("WAT");
+        Log.d("pop", "hej");
+
         // TESTAR klient, bara så ni vet!
         //retrofitClient client = setUpClient("https://jsonplaceholder.typicode.com/");
-        // TODO: Varje person måste hämta sin egen IP wifi, ska göra en bat fil som sköter automatiskt
+        // TODO: Varje person måste hämta sin egen IP wifi, ska göra en bat fil som sköter detta automatiskt
         // Instance for retrofit api class
-        retrofitClient client = setUpClient("http://10.82.252.220:8080/"); //Holmberg wifi @ Miun
-        //retrofitClient client = setUpClient("http://10.82.237.144:8080/"); //Englund wifi @ Miun
+        retrofitClient client = setUpClient("http://10.82.237.144:8080/");
 
-        /*MessageModelPost newMessage =
+        MessageModelPost newMessage =
                 new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
-        Call<MessageModelPost> caller = client.storeMessage(newMessage);
 
+        returnDataTest(client);
+
+        //  data = datareader.GET_data()
+        // view
+        // R
+
+        // layouts:
+        // main
+        // chat
+        // log
+        // kalander
+
+        // GET_data(appElement)
+        // user newUser
+        /*Call<MessageModelPost> caller = client.storeMessage(newMessage);
         caller.enqueue(new Callback<MessageModelPost>() {
             @Override
             public void onResponse(Call<MessageModelPost> call, Response<MessageModelPost> response) {
@@ -50,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(response.errorBody());
                 System.out.println(response.code());
                 //System.out.println(response.body().getPersId());
+
+                // newUser = *lägg i data här*
             }
 
             @Override
@@ -58,26 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-
-
-        Call<List<PersonTemp>> caller = client.getAllPersons();
-        caller.enqueue(new Callback<List<PersonTemp>>() {
-            @Override
-            public void onResponse(Call<List<PersonTemp>> call, Response<List<PersonTemp>> response) {
-                System.out.println("DATA! HURRA");
-
-                List<PersonTemp> responsData = response.body();
-                for (PersonTemp p : responsData) {
-                    System.out.println(p.getId());
-                    System.out.println(p.getFname());
-                    System.out.println("-----------------------------------------");
-                }
-            }
-            @Override
-            public void onFailure(Call<List<PersonTemp>> call, Throwable t) {
-                System.err.println("ERROR, ingen kontakt" + t);
-            }
-        });
 
 
         btn_Chatt = findViewById(R.id.chat);
@@ -103,6 +103,28 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         return bob.create(retrofitClient.class);
+    }
+
+    private void returnDataTest(retrofitClient client) {
+
+        Call<List<PersonTemp>> caller = client.getAllPersons();
+        caller.enqueue(new Callback<List<PersonTemp>>() {
+            @Override
+            public void onResponse(Call<List<PersonTemp>> call, Response<List<PersonTemp>> response) {
+                System.out.println("DATA! HURRA");
+
+                List<PersonTemp> responsData = response.body();
+                for (PersonTemp p : responsData) {
+                    System.out.println(p.getId());
+                    System.out.println(p.getFname());
+                    System.out.println("-----------------------------------------");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<PersonTemp>> call, Throwable t) {
+                System.err.println("ERROR, ingen kontakt" + t);
+            }
+        });
     }
 
 }
