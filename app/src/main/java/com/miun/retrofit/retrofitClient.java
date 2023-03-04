@@ -1,5 +1,8 @@
 package com.miun.retrofit;
 
+import com.miun.retrofit.models.MessageModelPost;
+import com.miun.retrofit.models.PersonTemp;
+
 import java.util.List;
 
 import retrofit2.Call;

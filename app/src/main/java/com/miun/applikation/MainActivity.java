@@ -5,11 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.miun.retrofit.MessageModelPost;
-import com.miun.retrofit.PersonTemp;
+import com.miun.retrofit.ClientCreator;
+import com.miun.retrofit.models.MessageModelPost;
+import com.miun.retrofit.models.PersonTemp;
 import com.miun.retrofit.retrofitClient;
 
 import java.util.List;
@@ -34,16 +33,15 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("WAT");
         Log.d("pop", "hej");
 
-        // TESTAR klient, bara så ni vet!
         //retrofitClient client = setUpClient("https://jsonplaceholder.typicode.com/");
-        // TODO: Varje person måste hämta sin egen IP wifi, ska göra en bat fil som sköter detta automatiskt
         // Instance for retrofit api class
-        retrofitClient client = setUpClient("http://10.82.237.144:8080/");
+        //retrofitClient client = setUpClient("http://10.82.237.144:8080/");
+        retrofitClient client = new ClientCreator("http://10.82.237.144:8080/").createRetrofitClient();
+        API_responseTest(client);
 
         MessageModelPost newMessage =
                 new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
 
-        returnDataTest(client);
 
         //  data = datareader.GET_data()
         // view
@@ -95,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // !TA BORT!
     private retrofitClient setUpClient(String UrlBase) {
 
         // Create builder
@@ -105,9 +104,12 @@ public class MainActivity extends AppCompatActivity {
         return bob.create(retrofitClient.class);
     }
 
-    private void returnDataTest(retrofitClient client) {
+    private void API_responseTest(retrofitClient client) {
 
         Call<List<PersonTemp>> caller = client.getAllPersons();
+        //MutableLiveData<List<PersonTemp>> submissions = new MutableLiveData<>();
+
+
         caller.enqueue(new Callback<List<PersonTemp>>() {
             @Override
             public void onResponse(Call<List<PersonTemp>> call, Response<List<PersonTemp>> response) {
