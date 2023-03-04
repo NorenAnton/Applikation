@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.miun.retrofit.ClientCreator;
+import com.miun.retrofit.InterfaceAPI;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.PersonTemp;
 import com.miun.retrofit.retrofitClient;
@@ -30,52 +30,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // API TEST--------------------------------------------------
         System.out.println("WAT");
         Log.d("pop", "hej");
 
-        //retrofitClient client = setUpClient("https://jsonplaceholder.typicode.com/");
-        // Instance for retrofit api class
-        //retrofitClient client = setUpClient("http://10.82.237.144:8080/");
-        retrofitClient client = new ClientCreator("http://10.82.237.144:8080/").createRetrofitClient();
-        API_responseTest(client);
+        String baseUrl1 = "http://10.82.237.144:8080/";
+        String baseUrl2 = "http://192.168.0.145:8080/";
+        retrofitClient client = new InterfaceAPI(baseUrl2).createRetrofitClient();
 
-        MessageModelPost newMessage =
+        //API_responseTest(client);
+
+        MessageModelPost testMessages =
                 new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
-
-
-        //  data = datareader.GET_data()
-        // view
-        // R
-
-        // layouts:
-        // main
-        // chat
-        // log
-        // kalander
-
-        // GET_data(appElement)
-        // user newUser
-        /*Call<MessageModelPost> caller = client.storeMessage(newMessage);
-        caller.enqueue(new Callback<MessageModelPost>() {
-            @Override
-            public void onResponse(Call<MessageModelPost> call, Response<MessageModelPost> response) {
-                System.out.println("DATA ADDED!");
-
-                MessageModelPost responseFromAPI = response.body();
-                System.out.println(response.isSuccessful());
-                System.out.println(response.errorBody());
-                System.out.println(response.code());
-                //System.out.println(response.body().getPersId());
-
-                // newUser = *lägg i data här*
-            }
-
-            @Override
-            public void onFailure(Call<MessageModelPost> call, Throwable t) {
-                System.out.println("ERROR: " + t);
-            }
-        });*/
-
+        API_sendTest(client, testMessages);
+        // API TEST--------------------------------------------------
 
 
         btn_Chatt = findViewById(R.id.chat);
@@ -93,15 +61,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // !TA BORT!
-    private retrofitClient setUpClient(String UrlBase) {
+    private void API_sendTest(retrofitClient client, MessageModelPost newMessages) {
+        Call<MessageModelPost> caller = client.storeMessage(newMessages);
+        caller.enqueue(new Callback<MessageModelPost>() {
+            @Override
+            public void onResponse(Call<MessageModelPost> call, Response<MessageModelPost> response) {
+                System.out.println("DATA ADDED!");
 
-        // Create builder
-        Retrofit bob = new Retrofit.Builder()
-                .baseUrl(UrlBase)
-                .addConverterFactory(GsonConverterFactory.create()).build();
+                MessageModelPost responseFromAPI = response.body();
+                System.out.println(response.isSuccessful());
+                System.out.println(response.errorBody());
+                System.out.println(response.code());
+                //System.out.println(response.body().getPersId());
 
-        return bob.create(retrofitClient.class);
+            }
+
+            @Override
+            public void onFailure(Call<MessageModelPost> call, Throwable t) {
+                System.out.println("ERROR: " + t);
+            }
+        });
     }
 
     private void API_responseTest(retrofitClient client) {

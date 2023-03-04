@@ -7,11 +7,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 // TODO: Varje person måste hämta sin egen IP wifi, ska göra
 //  en bat fil (eller java class) som sköter detta automatiskt.
 //
+// API_Interface
+// InterfaceAPI
 
-public class ClientCreator {
+public class InterfaceAPI {
     private String UrlBase;
 
-    public ClientCreator(String UrlBase) {
+    public InterfaceAPI(String UrlBase) {
         this.UrlBase = UrlBase;
     }
 
