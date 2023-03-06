@@ -2,7 +2,7 @@ package com.miun.retrofit;
 
 import android.util.Log;
 
-import com.miun.retrofit.models.PersonTemp;
+import com.miun.retrofit.models.Person;
 
 import java.util.List;
 
@@ -18,28 +18,28 @@ import retrofit2.Response;
 public class PersonRequest {
 
     retrofitClient client;
-    List<PersonTemp> APIdata;
+    List<Person> APIdata;
 
     public PersonRequest(retrofitClient client) {
         this.client = client;
     }
 
-    public List<PersonTemp> getData() {
-        Call<List<PersonTemp>> caller = client.getAllPersons();
+    public List<Person> getData() {
+        Call<List<Person>> caller = client.getAllPersons();
         System.out.println("getData");
 
-        caller.enqueue(new Callback<List<PersonTemp>>() {
+        caller.enqueue(new Callback<List<Person>>() {
             @Override
-            public void onResponse(Call<List<PersonTemp>> call, Response<List<PersonTemp>> response) {
+            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
                 System.out.println("DATA! HURRA");
                 APIdata = response.body();
-                for (PersonTemp p : APIdata) {
+                for (Person p : APIdata) {
                     System.out.println(p.getId());
                     System.out.println(p.getFname());
                 }
             }
             @Override
-            public void onFailure(Call<List<PersonTemp>> call, Throwable t) {
+            public void onFailure(Call<List<Person>> call, Throwable t) {
                 System.err.println("ERROR, ingen kontakt" + t);
             }
         });
