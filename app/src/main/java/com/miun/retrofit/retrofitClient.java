@@ -21,6 +21,9 @@ public interface retrofitClient {
     @GET("messages/{persId}")
     Call<List<Message> >getMessages(@Path("persId") String persId);
 
+    @GET("person/admin")
+    Call<Person> getAdmin();
+
 
     @POST("messages/add")
     Call<MessageModelPost> storeMessage(@Body MessageModelPost message);

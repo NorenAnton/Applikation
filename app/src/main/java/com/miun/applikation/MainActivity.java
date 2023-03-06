@@ -44,20 +44,18 @@ public class MainActivity extends AppCompatActivity {
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
 
-        Call<List<Message> > caller = client.getMessages("2");
+        Call<Person> caller = client.getAdmin();
 
-        caller.enqueue(new Callback<List<Message>>() {
+        caller.enqueue(new Callback<Person>() {
             @Override
-            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                List<Message> stuff = response.body();
-                for (Message m : stuff) {
-                    System.out.println(m.getPerson_id());
-                    System.out.println(m.getText());
-                    System.out.println("-----------------");
-                }
+            public void onResponse(Call<Person> call, Response<Person> response) {
+                Person p = response.body();
+                System.out.println(p.getFname());
+
             }
+
             @Override
-            public void onFailure(Call<List<Message>> call, Throwable t) {
+            public void onFailure(Call<Person> call, Throwable t) {
 
             }
         });
