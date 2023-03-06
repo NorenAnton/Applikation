@@ -16,6 +16,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.util.Log;
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         String baseUrl1 = "http://10.82.237.144:8080/";
         String baseUrl2 = "http://192.168.0.145:8080/";
+        String baseUrl3 = "http://10.82.252.220:8080/";
         retrofitClient client = new InterfaceAPI(baseUrl2).createRetrofitClient();
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
 
