@@ -10,18 +10,16 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
-// Publik API "https://jsonplaceholder.typicode.com/";
-//cd C:\Users\anton\Documents\db-derby-10.15.2.0-bin\db-derby-10.15.2.0-bin\bin
-//startNetworkServer.bat
 
 public interface retrofitClient {
 
     @GET("persons")
     Call<List<Person> >getAllPersons();
 
-    @GET("message/{}")
-    Call<List<Message> >getMessages();
+    @GET("messages/{persId}")
+    Call<List<Message> >getMessages(@Path("persId") String persId);
 
 
     @POST("messages/add")
