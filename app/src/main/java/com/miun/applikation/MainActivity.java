@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_Log.setOnClickListener(this);
     }
 
+
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
