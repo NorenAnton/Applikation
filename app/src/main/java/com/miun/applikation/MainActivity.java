@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import com.miun.retrofit.InterfaceAPI;
 import com.miun.retrofit.models.MessageModelPost;
-import com.miun.retrofit.models.PersonTemp;
+import com.miun.retrofit.models.Person;
 import com.miun.retrofit.retrofitClient;
 
 import java.util.List;
@@ -16,14 +16,14 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
     Button btn_Chatt, btn_Log;
+    public List<Person> classResponseData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,11 @@ public class MainActivity extends AppCompatActivity {
         String baseUrl1 = "http://10.82.237.144:8080/";
         String baseUrl2 = "http://192.168.0.145:8080/";
         retrofitClient client = new InterfaceAPI(baseUrl2).createRetrofitClient();
+        MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
 
-        //API_responseTest(client);
+        API_responseTest(client);
 
-        MessageModelPost testMessages =
-                new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
-        API_sendTest(client, testMessages);
+        //API_sendTest(client, testMessages);
         // API TEST--------------------------------------------------
 
 
@@ -85,27 +84,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void API_responseTest(retrofitClient client) {
 
-        Call<List<PersonTemp>> caller = client.getAllPersons();
+        Call<List<Person>> caller = client.getAllPersons();
         //MutableLiveData<List<PersonTemp>> submissions = new MutableLiveData<>();
 
-
-        caller.enqueue(new Callback<List<PersonTemp>>() {
+        caller.enqueue(new Callback<List<Person>>() {
             @Override
-            public void onResponse(Call<List<PersonTemp>> call, Response<List<PersonTemp>> response) {
+            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
                 System.out.println("DATA! HURRA");
 
-                List<PersonTemp> responsData = response.body();
-                for (PersonTemp p : responsData) {
+                // Anteckningar: Det går inte att lägga datan direkt i klassen variabler
+                //classResponseData = response.body();
+
+                List<Person> responsData = response.body();
+                for (Person p : responsData) {
                     System.out.println(p.getId());
                     System.out.println(p.getFname());
                     System.out.println("-----------------------------------------");
                 }
             }
+
             @Override
-            public void onFailure(Call<List<PersonTemp>> call, Throwable t) {
+            public void onFailure(Call<List<Person>> call, Throwable t) {
                 System.err.println("ERROR, ingen kontakt" + t);
+
             }
         });
+
     }
 
 }

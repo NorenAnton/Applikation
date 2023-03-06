@@ -1,18 +1,23 @@
 package com.miun.retrofit.models;
 
-import com.google.gson.annotations.SerializedName;
-
-public class PersonTemp {
+public class Person {
     private int id;
     private String fname;
     private String lname;
     private String email;
+    private String phone;
+    private String customerNumber;
 
-    public PersonTemp(int id, String fname, String lname, String email) {
+    public Person() {
+    }
+
+    public Person(int id, String fname, String lname, String email, String phone, String customerNumber) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
+        this.phone = phone;
+        this.customerNumber = customerNumber;
     }
 
     public int getId() {
@@ -47,27 +52,19 @@ public class PersonTemp {
         this.email = email;
     }
 
-    // TEST ---------------------------------------------------
-    /*private int userId;
-    private int id;
-    private String title;
-    @SerializedName("body")
-    private String text;
-
-
-    public int getUserId() {
-        return userId;
+    public String getPhone() {
+        return phone;
     }
 
-    public int getId() {
-        return id;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCustomerNumber() {
+        return customerNumber;
     }
 
-    public String getText() {
-        return text;
-    }*/
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
+    }
 }
