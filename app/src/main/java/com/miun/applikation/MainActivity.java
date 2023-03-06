@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         String baseUrl1 = "http://10.82.237.144:8080/";
         String baseUrl2 = "http://192.168.0.145:8080/";
-        retrofitClient client = new InterfaceAPI(baseUrl2).createRetrofitClient();
+        String baseUrl3 = "http://10.82.252.220:8080/";
+        retrofitClient client = new InterfaceAPI(baseUrl3).createRetrofitClient();
 
         //API_responseTest(client);
 
