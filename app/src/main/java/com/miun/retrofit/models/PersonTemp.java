@@ -1,4 +1,4 @@
-package com.miun.retrofit;
+package com.miun.retrofit.models;
 
 import com.google.gson.annotations.SerializedName;
 
