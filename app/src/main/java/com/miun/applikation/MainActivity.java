@@ -45,13 +45,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d("poppy", "heeej");
 
         Call<Person> caller = client.getAdmin();
+        // Handler
 
         caller.enqueue(new Callback<Person>() {
             @Override
             public void onResponse(Call<Person> call, Response<Person> response) {
                 Person p = response.body();
                 System.out.println(p.getFname());
-
+                // Handler
             }
 
             @Override
