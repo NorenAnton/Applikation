@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.retrofitClient;
@@ -39,27 +40,35 @@ public class MainActivity extends AppCompatActivity {
         String baseUrl1 = "http://10.82.237.144:8080/";
         String baseUrl2 = "http://192.168.0.145:8080/";
         String baseUrl3 = "http://10.82.252.220:8080/";
-        retrofitClient client = new InterfaceAPI(baseUrl3).createRetrofitClient();
+        retrofitClient client = new InterfaceAPI(baseUrl1).createRetrofitClient();
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
+        Log.d("poppy", "heeej");
+
+        Call<List<Message> > caller = client.getMessages("2");
+
+        caller.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                List<Message> stuff = response.body();
+                for (Message m : stuff) {
+                    System.out.println(m.getPerson_id());
+                    System.out.println(m.getText());
+                    System.out.println("-----------------");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
+            }
+        });
+
+
+
         //API_responseTest(client);
 
         //API_sendTest(client, testMessages);
         // API TEST--------------------------------------------------
-        //admin
 
-        Call<Person> caller = client.getAdmin();
-        caller.enqueue(new Callback<Person>() {
-            @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
-                Person p = response.body();
-                System.out.println(p.getFname());
-                System.out.println("TEST OF ADMIN GET CALL");
-            }
-
-            @Override
-            public void onFailure(Call<Person> call, Throwable t) {
-            }
-        });
 
         btn_Chatt = findViewById(R.id.chat);
         btn_Log = findViewById(R.id.logg);
@@ -75,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-/*
+
     private void API_sendTest(retrofitClient client, MessageModelPost newMessages) {
         Call<MessageModelPost> caller = client.storeMessage(newMessages);
         caller.enqueue(new Callback<MessageModelPost>() {
@@ -127,5 +136,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-*/
+
 }
