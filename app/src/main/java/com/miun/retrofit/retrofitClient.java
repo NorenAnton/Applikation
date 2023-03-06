@@ -21,8 +21,10 @@ public interface retrofitClient {
     Call<List<Person> >getAllPersons();
 
     @GET("message/{}")
-    Call<List<Message> >getMessages();
+    Call<List<Message>>getMessages();
 
+    @GET("person/admin")
+    Call<Person>getAdmin();
 
     @POST("messages/add")
     Call<MessageModelPost> storeMessage(@Body MessageModelPost message);

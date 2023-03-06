@@ -39,14 +39,27 @@ public class MainActivity extends AppCompatActivity {
         String baseUrl1 = "http://10.82.237.144:8080/";
         String baseUrl2 = "http://192.168.0.145:8080/";
         String baseUrl3 = "http://10.82.252.220:8080/";
-        retrofitClient client = new InterfaceAPI(baseUrl2).createRetrofitClient();
+        retrofitClient client = new InterfaceAPI(baseUrl3).createRetrofitClient();
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
-
-        API_responseTest(client);
+        //API_responseTest(client);
 
         //API_sendTest(client, testMessages);
         // API TEST--------------------------------------------------
+        //admin
 
+        Call<Person> caller = client.getAdmin();
+        caller.enqueue(new Callback<Person>() {
+            @Override
+            public void onResponse(Call<Person> call, Response<Person> response) {
+                Person p = response.body();
+                System.out.println(p.getFname());
+                System.out.println("TEST OF ADMIN GET CALL");
+            }
+
+            @Override
+            public void onFailure(Call<Person> call, Throwable t) {
+            }
+        });
 
         btn_Chatt = findViewById(R.id.chat);
         btn_Log = findViewById(R.id.logg);
@@ -62,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+/*
     private void API_sendTest(retrofitClient client, MessageModelPost newMessages) {
         Call<MessageModelPost> caller = client.storeMessage(newMessages);
         caller.enqueue(new Callback<MessageModelPost>() {
@@ -114,5 +127,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+*/
 }
