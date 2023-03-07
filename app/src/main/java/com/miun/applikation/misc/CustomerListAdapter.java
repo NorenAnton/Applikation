@@ -19,10 +19,12 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     List<User> users;
     TextView name;
+    int id;
 
-    public CustomerListAdapter(List<User> users, TextView name) {
+    public CustomerListAdapter(List<User> users, TextView name, int id) {
         this.users = users;
         this.name = name;
+        this.id = id;
     }
 
     @NonNull
@@ -36,8 +38,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_customerName.setText(users.get(position).getName());
         holder.layout.setOnClickListener(view -> {
-            // stuff happens..........
-            Log.d("ChatList", "User id:" + users.get(position).getPersonId());
+            id = users.get(position).getPersonId();
             name.setText(users.get(position).getName());
         });
     }

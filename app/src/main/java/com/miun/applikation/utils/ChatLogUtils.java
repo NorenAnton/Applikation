@@ -1,15 +1,9 @@
 package com.miun.applikation.utils;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import com.miun.applikation.misc.User;
 import com.miun.applikation.chat.CurrentChat;
 import com.miun.applikation.log.CurrentLog;
-import com.miun.retrofit.InterfaceAPI;
 import com.miun.retrofit.models.Person;
-import com.miun.retrofit.retrofitClient;
 
 
 import java.sql.Timestamp;
@@ -17,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatLogUtils {
-    public List<User> users = new ArrayList<>();
+
     public List<CurrentChat> chatter = new ArrayList<>();
     public List<CurrentLog> logger = new ArrayList<>();
 /*
@@ -48,31 +42,13 @@ public class ChatLogUtils {
         users.add(new User("Anton", "Noren", 2));
     }*/
 
-    public void fillList(){
-        String baseurl = "http://10.82.227.191:8080/";
-
-        retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
-
-        Call<List<Person>> caller = client.getAllPersons();
-
-        caller.enqueue(new Callback<List<Person>>() {
-            @Override
-            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
-                List<Person> APIdata = response.body();
-                for (Person p : APIdata){
-                    System.out.println(p.getFname());
-                    users.add(new User(p.getFname(), p.getLname(), p.getId()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Person>> call, Throwable t) {
-                System.out.println("error");
-            }
-        });
+    public void fillList(List<Person> APIdata, List<User> users){
+        for (Person p : APIdata){
+            users.add(new User(p.getFname(), p.getLname(), p.getId()));
+        }
     }
-
-    public void fillChat(){
+    /*
+    public void fillChat(int id){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world",null, timestamp));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world",null, timestamp));
@@ -91,6 +67,10 @@ public class ChatLogUtils {
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
+    }*/
+
+    public void fillChat(int id){
+
     }
 
     public void fillLog(){

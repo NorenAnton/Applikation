@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.provider.MediaStore;
 import android.view.View;
@@ -23,14 +25,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.misc.CustomerListAdapter;
+import com.miun.applikation.misc.User;
 import com.miun.applikation.utils.HelperFunctions;
 import com.miun.applikation.MainActivity;
 import com.miun.applikation.R;
 import com.miun.applikation.log.Log;
 import com.miun.applikation.utils.ChatLogUtils;
+import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.models.Person;
+import com.miun.retrofit.retrofitClient;
 
 import java.sql.Timestamp;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Chat extends AppCompatActivity implements View.OnClickListener {
 
     ChatLogUtils fillers = new ChatLogUtils();
@@ -59,16 +72,60 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
+        chat = findViewById(R.id.Chat);
         inputText = findViewById(R.id.inputText);
         name = findViewById(R.id.name);
-        chat = findViewById(R.id.Chat);
         customerList = findViewById(R.id.Customers);
 
-        fillers.fillList();
-        fillers.fillChat();
+        String baseurl = "http://10.82.227.191:8080/";
 
-        customerManager();
-        chatManager();
+        retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
+
+        Call<List<Person>> caller = client.getAllPersons();
+
+        caller.enqueue(new Callback<List<Person>>() {
+            @Override
+            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
+                List<Person> APIdata = response.body();
+
+                List<User> users = new ArrayList<>();
+
+                fillers.fillList(APIdata, users);
+
+                int id = 0;
+
+                RecyclerView chatView = findViewById(R.id.Customers);
+                chatView.setHasFixedSize(true);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
+                chatView.setLayoutManager(layoutManager);
+                RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users, name, id);
+                chatView.setAdapter(mAdapter);
+
+                name.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        fillers.fillChat(id);
+                    }
+                });
+            }
+
+
+            @Override
+            public void onFailure(Call<List<Person>> call, Throwable t) {
+                System.out.println("error" + t);
+            }
+        });
+
 
         btn_goBack = findViewById(R.id.goBackChat);
         btn_goToLog = findViewById(R.id.logBtn);
@@ -79,19 +136,15 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         btn_imagePicker.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
 
+        chatManager();
+        customerManager();
+
         hideKeyBoard(chat);
         hideKeyBoard(customerList);
 
     }
 
-    public void customerManager(){
-        RecyclerView chatView = findViewById(R.id.Customers);
-        chatView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
-        chatView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(fillers.users, name);
-        chatView.setAdapter(mAdapter);
-    }
+
 
     public void chatManager(){
         RecyclerView chat = findViewById(R.id.Chat);
@@ -100,6 +153,16 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         chat.setLayoutManager(chatManager);
         RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(this, fillers.chatter);
         chat.setAdapter(cAdapter);
+    }
+
+    public void customerManager(){
+        List<User> users = new ArrayList<>();
+        RecyclerView chatView = findViewById(R.id.Customers);
+        chatView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
+        chatView.setLayoutManager(layoutManager);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users, name, 0);
+        chatView.setAdapter(mAdapter);
     }
 
     @SuppressLint("NonConstantResourceId")
