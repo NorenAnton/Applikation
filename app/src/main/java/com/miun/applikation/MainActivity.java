@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
 
-        Call<List<ReparationModel>> caller = client.getAllReparations();
+        Call<List<ReparationModel>> caller = client.getReparationById("2");
 
         caller.enqueue(new Callback<List<ReparationModel>>() {
             @Override
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<ReparationModel>> call, Throwable t) {
+                System.out.println("ERROR: " + t);
 
             }
         });

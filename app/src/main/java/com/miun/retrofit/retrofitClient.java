@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 
 public interface retrofitClient {
@@ -31,6 +32,9 @@ public interface retrofitClient {
 
     @GET("reparation/all")
     Call<List<ReparationModel> >getAllReparations();
+
+    @GET("reparation")
+    Call<List<ReparationModel> >getReparationById(@Query("persId") String id);
 
 
 
