@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -46,5 +47,11 @@ public interface retrofitClient {
 
     @POST("messages/add")
     Call<MessageModelPost> addMessage(@Body MessageModelPost message);
+
+    @POST("reparation/add")
+    Call<ReparationModel> addReparation(@Body ReparationModel newReparation);
+
+    @PUT("reparation/change")
+    Call<ReparationModel> changeReparation(@Body ReparationModel newReparation);
 
 }

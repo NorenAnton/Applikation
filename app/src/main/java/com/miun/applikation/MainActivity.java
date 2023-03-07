@@ -45,30 +45,31 @@ public class MainActivity extends AppCompatActivity {
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
 
-        Call<List<ReservationModel>> caller = client.getReservationByPersonId("2");
+        ReparationModel reperi = new ReparationModel(-1, 2, "TEST", "Fancy stuff");
+        Call<ReparationModel> caller = client.addReparation(reperi);
 
-        caller.enqueue(new Callback<List<ReservationModel>>() {
+        caller.enqueue(new Callback<ReparationModel>() {
             @Override
-            public void onResponse(Call<List<ReservationModel>> call, Response<List<ReservationModel>> response) {
-                List<ReservationModel> data = response.body();
+            public void onResponse(Call<ReparationModel> call, Response<ReparationModel> response) {
+                ReparationModel data = response.body();
                 System.out.println(text);
                 String test = text;
                 System.out.println(test);
-                for (ReservationModel m : data) {
+                /*for (ReservationModel m : data) {
                     System.out.println(m.getPersonId());
                     System.out.println(m.getInstrumentId());
                     System.out.println("---------------------");
-                }
+                }*/
 
             }
 
             @Override
-            public void onFailure(Call<List<ReservationModel>> call, Throwable t) {
+            public void onFailure(Call<ReparationModel> call, Throwable t) {
                 System.out.println("ERROR: " + t);
 
             }
         });
-
+        System.out.println();
 
 
         //API_responseTest(client);
