@@ -11,6 +11,7 @@ import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.models.ReparationModel;
+import com.miun.retrofit.models.ReservationModel;
 import com.miun.retrofit.retrofitClient;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btn_Chatt, btn_Log;
     public List<Person> classResponseData;
+    String text = "Morsning";
 
 
     @Override
@@ -43,21 +45,25 @@ public class MainActivity extends AppCompatActivity {
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
 
-        Call<List<ReparationModel>> caller = client.getReparationById("2");
+        Call<List<ReservationModel>> caller = client.getAllReservation();
 
-        caller.enqueue(new Callback<List<ReparationModel>>() {
+        caller.enqueue(new Callback<List<ReservationModel>>() {
             @Override
-            public void onResponse(Call<List<ReparationModel>> call, Response<List<ReparationModel>> response) {
-                List<ReparationModel> data = response.body();
-                for (ReparationModel m : data) {
-                    System.out.println(m.getErrandNumber());
-                    System.out.println(m.getDescription());
+            public void onResponse(Call<List<ReservationModel>> call, Response<List<ReservationModel>> response) {
+                List<ReservationModel> data = response.body();
+                System.out.println(text);
+                String test = text;
+                System.out.println(test);
+                for (ReservationModel m : data) {
+                    System.out.println(m.getPersonId());
+                    System.out.println(m.getInstrumentId());
                     System.out.println("---------------------");
                 }
+
             }
 
             @Override
-            public void onFailure(Call<List<ReparationModel>> call, Throwable t) {
+            public void onFailure(Call<List<ReservationModel>> call, Throwable t) {
                 System.out.println("ERROR: " + t);
 
             }

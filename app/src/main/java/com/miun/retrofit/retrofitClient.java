@@ -4,6 +4,7 @@ import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.models.ReparationModel;
+import com.miun.retrofit.models.ReservationModel;
 
 import java.util.List;
 
@@ -35,6 +36,9 @@ public interface retrofitClient {
 
     @GET("reparation")
     Call<List<ReparationModel> >getReparationById(@Query("persId") String id);
+
+    @GET("reservation")
+    Call<List<ReservationModel> >getAllReservation();
 
 
 
