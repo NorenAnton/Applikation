@@ -10,6 +10,8 @@ import com.miun.retrofit.InterfaceAPI;
 import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
+import com.miun.retrofit.models.ReparationModel;
+import com.miun.retrofit.models.ReservationModel;
 import com.miun.retrofit.retrofitClient;
 
 import java.util.List;
@@ -17,8 +19,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.util.Log;
 
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btn_Chatt, btn_Log;
     public List<Person> classResponseData;
+    String text = "Morsning";
 
 
     @Override
@@ -44,18 +45,26 @@ public class MainActivity extends AppCompatActivity {
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
 
-        Call<Person> caller = client.getAdmin();
+        Call<List<ReservationModel>> caller = client.getAllReservation();
 
-        caller.enqueue(new Callback<Person>() {
+        caller.enqueue(new Callback<List<ReservationModel>>() {
             @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
-                Person p = response.body();
-                System.out.println(p.getFname());
+            public void onResponse(Call<List<ReservationModel>> call, Response<List<ReservationModel>> response) {
+                List<ReservationModel> data = response.body();
+                System.out.println(text);
+                String test = text;
+                System.out.println(test);
+                for (ReservationModel m : data) {
+                    System.out.println(m.getPersonId());
+                    System.out.println(m.getInstrumentId());
+                    System.out.println("---------------------");
+                }
 
             }
 
             @Override
-            public void onFailure(Call<Person> call, Throwable t) {
+            public void onFailure(Call<List<ReservationModel>> call, Throwable t) {
+                System.out.println("ERROR: " + t);
 
             }
         });
@@ -84,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void API_sendTest(retrofitClient client, MessageModelPost newMessages) {
-        Call<MessageModelPost> caller = client.storeMessage(newMessages);
+        Call<MessageModelPost> caller = client.addMessage(newMessages);
         caller.enqueue(new Callback<MessageModelPost>() {
             @Override
             public void onResponse(Call<MessageModelPost> call, Response<MessageModelPost> response) {
