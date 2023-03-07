@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
 
-        Call<List<ReservationModel>> caller = client.getAllReservation();
+        Call<List<ReservationModel>> caller = client.getReservationByPersonId("2");
 
         caller.enqueue(new Callback<List<ReservationModel>>() {
             @Override

@@ -37,9 +37,11 @@ public interface retrofitClient {
     @GET("reparation")
     Call<List<ReparationModel> >getReparationById(@Query("persId") String id);
 
-    @GET("reservation")
+    @GET("reservation/all")
     Call<List<ReservationModel> >getAllReservation();
 
+    @GET("reservation")
+    Call<List<ReservationModel> >getReservationByPersonId(@Query("persId") String id);
 
 
     @POST("messages/add")
