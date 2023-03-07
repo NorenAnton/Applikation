@@ -10,6 +10,7 @@ import com.miun.retrofit.InterfaceAPI;
 import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
+import com.miun.retrofit.models.ReparationModel;
 import com.miun.retrofit.retrofitClient;
 
 import java.util.List;
@@ -17,8 +18,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.util.Log;
 
@@ -44,18 +43,21 @@ public class MainActivity extends AppCompatActivity {
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
 
-        Call<Person> caller = client.getAdmin();
+        Call<List<ReparationModel>> caller = client.getAllReparations();
 
-        caller.enqueue(new Callback<Person>() {
+        caller.enqueue(new Callback<List<ReparationModel>>() {
             @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
-                Person p = response.body();
-                System.out.println(p.getFname());
-
+            public void onResponse(Call<List<ReparationModel>> call, Response<List<ReparationModel>> response) {
+                List<ReparationModel> data = response.body();
+                for (ReparationModel m : data) {
+                    System.out.println(m.getErrandNumber());
+                    System.out.println(m.getDescription());
+                    System.out.println("---------------------");
+                }
             }
 
             @Override
-            public void onFailure(Call<Person> call, Throwable t) {
+            public void onFailure(Call<List<ReparationModel>> call, Throwable t) {
 
             }
         });
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void API_sendTest(retrofitClient client, MessageModelPost newMessages) {
-        Call<MessageModelPost> caller = client.storeMessage(newMessages);
+        Call<MessageModelPost> caller = client.addMessage(newMessages);
         caller.enqueue(new Callback<MessageModelPost>() {
             @Override
             public void onResponse(Call<MessageModelPost> call, Response<MessageModelPost> response) {

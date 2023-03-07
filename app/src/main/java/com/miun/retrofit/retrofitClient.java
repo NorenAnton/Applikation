@@ -3,6 +3,7 @@ package com.miun.retrofit;
 import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
+import com.miun.retrofit.models.ReparationModel;
 
 import java.util.List;
 
@@ -18,14 +19,22 @@ public interface retrofitClient {
     @GET("persons")
     Call<List<Person> >getAllPersons();
 
-    @GET("messages/{persId}")
-    Call<List<Message> >getMessages(@Path("persId") String persId);
 
     @GET("person/admin")
     Call<Person> getAdmin();
 
+    @GET("messages/{persId}")
+    Call<List<Message> >getMessages(@Path("persId") String persId);
+
+    @GET("messages/all")
+    Call<List<Message> >getAllMessages();
+
+    @GET("reparation/all")
+    Call<List<ReparationModel> >getAllReparations();
+
+
 
     @POST("messages/add")
-    Call<MessageModelPost> storeMessage(@Body MessageModelPost message);
+    Call<MessageModelPost> addMessage(@Body MessageModelPost message);
 
 }
