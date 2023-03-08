@@ -1,5 +1,6 @@
 package com.miun.retrofit;
 
+import com.miun.retrofit.models.LogModel;
 import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
@@ -19,7 +20,7 @@ import retrofit2.http.Query;
 
 public interface retrofitClient {
 
-    @GET("persons")
+    @GET("person/all")
     Call<List<Person> >getAllPersons();
 
 
@@ -44,12 +45,19 @@ public interface retrofitClient {
     @GET("reservation")
     Call<List<ReservationModel> >getReservationByPersonId(@Query("persId") String id);
 
+    @GET("/log")
+    Call<List<LogModel>> getLogByPersonId(@Query("persId") String id);
+
 
     @POST("messages/add")
     Call<MessageModelPost> addMessage(@Body MessageModelPost message);
 
     @POST("reparation/add")
     Call<ReparationModel> addReparation(@Body ReparationModel newReparation);
+
+    @POST("/log/add")
+    Call<LogModel> addLogEntry(@Body LogModel newLogEntry);
+
 
     @PUT("reparation/change")
     Call<ReparationModel> changeReparation(@Body ReparationModel newReparation);
