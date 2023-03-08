@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +16,13 @@ import com.miun.applikation.R;
 import com.miun.applikation.utils.CalendarUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener{
 
     private EditText eventNameET;
-    private TextView eventDateTV, eventTimeTV;
+    private DatePicker eventDatePicker;
+    private TimePicker eventTimePicker;
     private SimpleDateFormat time;
     Button btn_cancel;
 
@@ -29,8 +33,6 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_event);
         initWidgets();
-        eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
-        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(String.valueOf(time)));
 
         btn_cancel = findViewById(R.id.cancelEvent);
         btn_cancel.setOnClickListener(this);
@@ -39,8 +41,8 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
     private void initWidgets()
     {
         eventNameET = findViewById(R.id.eventNameET);
-        eventDateTV = findViewById(R.id.eventDateTV);
-        eventTimeTV = findViewById(R.id.eventTimeTV);
+        eventDatePicker = findViewById(R.id.eventDatePicker);
+        eventTimePicker = findViewById(R.id.eventTimePicker);
     }
 
     public void saveEventAction(View view)
