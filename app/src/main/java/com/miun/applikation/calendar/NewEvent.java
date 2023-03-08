@@ -13,13 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.miun.applikation.R;
 import com.miun.applikation.utils.CalendarUtils;
 
-import java.time.LocalTime;
+import java.text.SimpleDateFormat;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener{
 
     private EditText eventNameET;
     private TextView eventDateTV, eventTimeTV;
-    private LocalTime time;
+    private SimpleDateFormat time;
     Button btn_cancel;
 
     @SuppressLint({"SetTextI18n"})
@@ -30,7 +30,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.new_event);
         initWidgets();
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
-        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
+        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(String.valueOf(time)));
 
         btn_cancel = findViewById(R.id.cancelEvent);
         btn_cancel.setOnClickListener(this);

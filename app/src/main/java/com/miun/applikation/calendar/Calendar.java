@@ -12,14 +12,11 @@ import android.widget.TextView;
 
 import com.miun.applikation.MainActivity;
 import com.miun.applikation.R;
-import com.miun.applikation.log.Log;
 import com.miun.applikation.utils.CalendarUtils;
 
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -55,12 +52,18 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
                      @NonNull CalendarView view,
                      int year,
                      int month,
-                     int dayOfMonth)
-             {
-                 String Date = year + "-" + (month + 1) + "-" + dayOfMonth;
+                     int dayOfMonth) {
+                 String dateString = String.format("%d-%d-%d", year, (month + 1), dayOfMonth);
+                 Date date = null;
+                 String dayOfWeek;
+                 try {
+                     date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
+                     dayOfWeek = new SimpleDateFormat("EEE yyyy-M-d", Locale.ENGLISH).format(date);
+                 } catch (ParseException e) {
+                     throw new RuntimeException(e);
+                 }
 
-
-                 today.setText(Date);
+                 today.setText(dayOfWeek);
              }
         });
     }
@@ -71,7 +74,7 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
 
         for(int hour = 0; hour < 24; hour++)
         {
-            LocalTime time = LocalTime.of(hour, 0);
+            SimpleDateFormat time = new SimpleDateFormat();
             ArrayList<Event> events = Event.eventsForDateAndTime(CalendarUtils.selectedDate, time);
             HourEvent hourEvent = new HourEvent(time, events);
             list.add(hourEvent);

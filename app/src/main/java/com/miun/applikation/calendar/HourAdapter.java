@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import com.miun.applikation.R;
 import com.miun.applikation.utils.CalendarUtils;
 
-import java.time.LocalTime;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +39,10 @@ public class HourAdapter extends ArrayAdapter<HourEvent> {
         return convertView;
     }
 
-    private void setHour(View convertView, LocalTime time)
+    private void setHour(View convertView, SimpleDateFormat time)
     {
         TextView timeTV = convertView.findViewById(R.id.tv_hourItem);
-        timeTV.setText(CalendarUtils.formattedShortTime(time));
+        timeTV.setText(CalendarUtils.formattedShortTime(String.valueOf(time)));
     }
 
     private void setEvents(View convertView, ArrayList<Event> events)

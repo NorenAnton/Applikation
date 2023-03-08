@@ -1,28 +1,30 @@
 package com.miun.applikation.utils;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.lang.String;
+import java.util.Date;
 
 public class CalendarUtils {
-    public static LocalDate selectedDate;
+    public static String selectedDate;
 
-    public static String formattedDate(LocalDate date)
+    public static String formattedDate(String date)
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMMM dd");
-        return date.format(formatter);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMMM dd");
+        date = formatter.format(new Date());
+        return date;
     }
 
-    public static String formattedTime(LocalTime time)
+    public static String formattedTime(String time)
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        return time.format(formatter);
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        time = formatter.format(new Date());
+        return time;
     }
 
-    public static String formattedShortTime(LocalTime time)
+    public static String formattedShortTime(String time)
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        return time.format(formatter);
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        time = formatter.format(new Date());
+        return time;
     }
 }

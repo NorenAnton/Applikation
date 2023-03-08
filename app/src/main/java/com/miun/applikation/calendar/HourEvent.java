@@ -1,24 +1,25 @@
 package com.miun.applikation.calendar;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class HourEvent {
-    LocalTime time;
+    SimpleDateFormat time;
     ArrayList<Event> events;
 
-    public HourEvent(LocalTime time, ArrayList<Event> events)
+    public HourEvent(SimpleDateFormat time, ArrayList<Event> events)
     {
         this.time = time;
         this.events = events;
     }
 
-    public LocalTime getTime()
+    public SimpleDateFormat getTime()
     {
         return time;
     }
 
-    public void setTime(LocalTime time)
+    public void setTime(SimpleDateFormat time)
     {
         this.time = time;
     }
