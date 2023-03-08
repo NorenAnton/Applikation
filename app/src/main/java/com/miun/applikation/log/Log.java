@@ -39,13 +39,12 @@ import retrofit2.Response;
 public class Log extends AppCompatActivity implements View.OnClickListener {
 
     ChatLogUtils fillers = new ChatLogUtils();
-
     Button btn_goBack, btn_goToChat, btn_submit;
     EditText inputText;
-
     TextView name;
     RecyclerView log;
     RecyclerView customerList;
+    TextView id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +53,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
 
         inputText = (EditText) findViewById(R.id.inputText);
         name = findViewById(R.id.name);
+        id = findViewById(R.id.id);
         fillers.fillLog();
 
         String baseurl = "http://10.82.227.191:8080/";
@@ -70,8 +70,6 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 List<User> users = new ArrayList<>();
 
                 fillers.fillList(APIdata, users);
-
-                int id = 1;
 
                 RecyclerView chatView = findViewById(R.id.Customers);
                 chatView.setHasFixedSize(true);
@@ -157,7 +155,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         logView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Log.this);
         logView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users, name, 0);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users, name, id);
         logView.setAdapter(mAdapter);
     }
 

@@ -1,6 +1,5 @@
 package com.miun.applikation.misc;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.R;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 // Adapter for chatlist recycler view
@@ -19,9 +20,9 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     List<User> users;
     TextView name;
-    int id;
+    TextView id;
 
-    public CustomerListAdapter(List<User> users, TextView name, int id) {
+    public CustomerListAdapter(List<User> users, TextView name, TextView id) {
         this.users = users;
         this.name = name;
         this.id = id;
@@ -38,7 +39,8 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_customerName.setText(users.get(position).getName());
         holder.layout.setOnClickListener(view -> {
-            id = users.get(position).getPersonId();
+            String personId = Integer.toString(users.get(position).getPersonId());
+            id.setText(personId);
             name.setText(users.get(position).getName());
         });
     }

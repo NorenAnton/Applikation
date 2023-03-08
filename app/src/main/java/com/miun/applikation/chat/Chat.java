@@ -32,6 +32,8 @@ import com.miun.applikation.R;
 import com.miun.applikation.log.Log;
 import com.miun.applikation.utils.ChatLogUtils;
 import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.models.Message;
+import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.retrofitClient;
 
@@ -46,25 +48,16 @@ import retrofit2.Response;
 
 public class Chat extends AppCompatActivity implements View.OnClickListener {
 
+    int andersID = 1;
     ChatLogUtils fillers = new ChatLogUtils();
     Button btn_goBack, btn_goToLog, btn_imagePicker, btn_submit;
     EditText inputText;
     Uri image = null;
-    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            int resultCode = result.getResultCode();
-            Intent data = result.getData();
-            if (resultCode == RESULT_OK && data != null) {
-                image = data.getData();
-                btn_imagePicker.setText("Ta bort vald bild");
-            }
-        }
-    });
+    TextView name, id;
+    RecyclerView customerList, chat;
 
-    TextView name;
-    RecyclerView chat;
-    RecyclerView customerList;
+    String baseurl = "http://10.82.227.191:8080/";
+    retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +69,9 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         inputText = findViewById(R.id.inputText);
         name = findViewById(R.id.name);
         customerList = findViewById(R.id.Customers);
-
-        String baseurl = "http://10.82.227.191:8080/";
-
-        retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
+        id = findViewById(R.id.id);
 
         Call<List<Person>> caller = client.getAllPersons();
-
         caller.enqueue(new Callback<List<Person>>() {
             @Override
             public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
@@ -92,37 +81,31 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
 
                 fillers.fillList(APIdata, users);
 
-                int id = 0;
-
                 RecyclerView chatView = findViewById(R.id.Customers);
                 chatView.setHasFixedSize(true);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
                 chatView.setLayoutManager(layoutManager);
                 RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users, name, id);
                 chatView.setAdapter(mAdapter);
-
-                name.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-                        fillers.fillChat(id);
-                    }
-                });
             }
 
 
             @Override
             public void onFailure(Call<List<Person>> call, Throwable t) {
                 System.out.println("error" + t);
+            }
+        });
+
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                fillList();
             }
         });
 
@@ -144,14 +127,40 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    private void fillList() {
+        Call<List<Message>> message = client.getMessages(id.getText().toString());
+        message.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                List<Message> APIdata = response.body();
+
+                List<CurrentChat> chatter = new ArrayList<>();
+
+                fillers.fillChat(APIdata, chatter, name.getText().toString());
+
+                RecyclerView chat = findViewById(R.id.Chat);
+                LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
+                chatManager.setStackFromEnd(true);
+                chat.setLayoutManager(chatManager);
+                RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(Chat.this, chatter);
+                chat.setAdapter(cAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                System.out.println("ERROR: " + t);
+            }
+        });
+    }
 
 
     public void chatManager(){
         RecyclerView chat = findViewById(R.id.Chat);
+        List<CurrentChat> chatter = new ArrayList<>();
         LinearLayoutManager chatManager = new LinearLayoutManager(Chat.this);
         chatManager.setStackFromEnd(true);
         chat.setLayoutManager(chatManager);
-        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(this, fillers.chatter);
+        RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(this, chatter);
         chat.setAdapter(cAdapter);
     }
 
@@ -161,7 +170,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         chatView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Chat.this);
         chatView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users, name, 0);
+        RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users, name, id);
         chatView.setAdapter(mAdapter);
     }
 
@@ -193,12 +202,27 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 String message = inputText.getText().toString();
                 chatManager();
                 if (!message.isEmpty() || image != null) {
-                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                    fillers.chatter.add(new CurrentChat(0, "Anders Martinsson", message, image, timestamp));
+                    MessageModelPost send;
+                    if(image != null){
+                        send = new MessageModelPost(andersID, Integer.parseInt(id.getText().toString()), message, image.toString());
+                    }
+                    else{
+                        send = new MessageModelPost(andersID, Integer.parseInt(id.getText().toString()), message, null);
+                    }
+                    Call<MessageModelPost> caller = client.storeMessage(send);
+                    caller.enqueue(new Callback<MessageModelPost>() {
+                        @Override
+                        public void onResponse(Call<MessageModelPost> call, Response<MessageModelPost> response) {
+                        }
+                        @Override
+                        public void onFailure(Call<MessageModelPost> call, Throwable t) {
+                        }
+                    });
                     image = null;
                     btn_imagePicker.setText("VÄLJ BILD");
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
+                    fillList();
                 } else {
                     inputText.setError("Empty Field!");
                 }
@@ -219,4 +243,16 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            int resultCode = result.getResultCode();
+            Intent data = result.getData();
+            if (resultCode == RESULT_OK && data != null) {
+                image = data.getData();
+                btn_imagePicker.setText("Ta bort vald bild");
+            }
+        }
+    });
 }

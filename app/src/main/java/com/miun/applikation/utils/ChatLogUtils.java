@@ -1,8 +1,11 @@
 package com.miun.applikation.utils;
 
-import com.miun.applikation.misc.User;
+import android.net.Uri;
+
 import com.miun.applikation.chat.CurrentChat;
+import com.miun.applikation.misc.User;
 import com.miun.applikation.log.CurrentLog;
+import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.Person;
 
 
@@ -11,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatLogUtils {
-
-    public List<CurrentChat> chatter = new ArrayList<>();
     public List<CurrentLog> logger = new ArrayList<>();
 /*
     public void fillList() {
@@ -43,7 +44,9 @@ public class ChatLogUtils {
     }*/
 
     public void fillList(List<Person> APIdata, List<User> users){
+        int andersID = 1;
         for (Person p : APIdata){
+            if (p.getId() == andersID) continue;
             users.add(new User(p.getFname(), p.getLname(), p.getId()));
         }
     }
@@ -69,8 +72,26 @@ public class ChatLogUtils {
         chatter.add(new CurrentChat(0, "Anton Noren", "Hello world", null, timestamp));
     }*/
 
-    public void fillChat(int id){
-
+    public void fillChat(List<Message> APIdata, List<CurrentChat> chatter, String name){
+        for (Message m: APIdata){
+            int andersID = 1;
+            String sender = "Anders Andersson";
+            if(m.getPerson_id() != andersID){
+                sender = name;
+            }
+            if(m.getImage() != null && m.getTimestamp() != null) {
+                chatter.add(new CurrentChat(m.getPerson_id(), sender, m.getText(), Uri.parse(m.getImage()), m.getTimestamp()));
+            }
+            else if(m.getTimestamp() != null){
+                chatter.add(new CurrentChat(m.getPerson_id(), sender, m.getText(), null, m.getTimestamp()));
+            }
+            else if(m.getImage() != null){
+                chatter.add(new CurrentChat(m.getPerson_id(), sender, m.getText(), Uri.parse(m.getImage()), new Timestamp(System.currentTimeMillis())));
+            }
+            else{
+                chatter.add(new CurrentChat(m.getPerson_id(), sender, m.getText(), null, new Timestamp(System.currentTimeMillis())));
+            }
+        }
     }
 
     public void fillLog(){
