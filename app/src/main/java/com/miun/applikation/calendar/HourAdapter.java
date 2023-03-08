@@ -4,11 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.R;
 import com.miun.applikation.utils.CalendarUtils;
@@ -17,26 +16,45 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HourAdapter extends ArrayAdapter<HourEvent> {
+public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder> {
+
+    Context context;
+    List<HourEvent> hourEvents;
 
     public HourAdapter(@NonNull Context context, List<HourEvent> hourEvents)
     {
-        super(context, 0, hourEvents);
+        this.context = context;
+        this.hourEvents = hourEvents;
     }
 
     @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
-    {
-        HourEvent event = getItem(position);
-
-        if (convertView == null)
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.hour_cell, parent, false);
-
+    public HourAdapter.HourViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType){
+        HourEvent event = null;
+        View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.hour_cell, parent, false);
         setHour(convertView, event.time);
         setEvents(convertView, event.events);
 
-        return convertView;
+        return new HourViewHolder(convertView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull HourAdapter.HourViewHolder holder, int position){
+        holder.event1.setText((CharSequence) hourEvents.get(position).getEvents());
+    }
+
+
+    @Override
+    public int getItemCount(){
+        return hourEvents.size();
+    }
+
+    public static class HourViewHolder extends RecyclerView.ViewHolder{
+        TextView event1;
+
+        public HourViewHolder(@NonNull View itemView){
+            super(itemView);
+            event1 = itemView.findViewById(R.id.event1);
+        }
     }
 
     private void setHour(View convertView, SimpleDateFormat time)

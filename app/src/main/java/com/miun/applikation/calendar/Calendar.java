@@ -2,6 +2,8 @@ package com.miun.applikation.calendar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 
 import com.miun.applikation.MainActivity;
 import com.miun.applikation.R;
+import com.miun.applikation.chat.Chat;
+import com.miun.applikation.chat.ChatAdapter;
 import com.miun.applikation.utils.CalendarUtils;
 
 import java.text.DateFormat;
@@ -22,7 +26,6 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Calendar extends AppCompatActivity implements View.OnClickListener{
-
     CalendarView calendar;
     TextView today;
     Button btn_goBack, btn_newEvent;
@@ -66,6 +69,14 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
                  today.setText(dayOfWeek);
              }
         });
+    }
+
+    public void HourLayoutManager(){
+        RecyclerView dayView = findViewById(R.id.hourRecyclerView);
+        LinearLayoutManager hourManager = new LinearLayoutManager(Calendar.this);
+        dayView.setLayoutManager(hourManager);
+        RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter();
+        dayView.setAdapter(hAdapter);
     }
 
     private ArrayList<HourEvent> hourEventList()
