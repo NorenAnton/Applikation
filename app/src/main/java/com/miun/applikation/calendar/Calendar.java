@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,12 +24,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class Calendar extends AppCompatActivity implements View.OnClickListener{
     CalendarView calendar;
     TextView today;
     Button btn_goBack, btn_newEvent;
+    Context context;
+    List<HourEvent> hourEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +79,7 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
         RecyclerView dayView = findViewById(R.id.hourRecyclerView);
         LinearLayoutManager hourManager = new LinearLayoutManager(Calendar.this);
         dayView.setLayoutManager(hourManager);
-        RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter();
+        RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter(context, hourEvents);
         dayView.setAdapter(hAdapter);
     }
 

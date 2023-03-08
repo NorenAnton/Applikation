@@ -26,8 +26,9 @@
 
     <LinearLayout
         android:layout_width="635dp"
-        android:layout_height="wrap_content"
+        android:layout_height="614dp"
         android:layout_gravity="center"
+        android:background="#DAD9D9"
         android:orientation="vertical">
 
         <TextView
@@ -46,14 +47,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ems="20"
+            android:imeOptions="actionDone"
             android:inputType="text"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"/>
+            android:textSize="20sp" />
 
         <DatePicker
             android:id="@+id/eventDatePicker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="222dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:datePickerMode="calendar"
@@ -65,7 +66,7 @@
         <TimePicker
             android:id="@+id/eventTimePicker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="176dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="Time"
