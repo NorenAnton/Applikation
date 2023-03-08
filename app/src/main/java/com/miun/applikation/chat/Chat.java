@@ -55,7 +55,6 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     Uri image = null;
     TextView name, id;
     RecyclerView customerList, chat;
-
     String baseurl = "http://10.82.227.191:8080/";
     retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
 
@@ -65,10 +64,10 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
-        chat = findViewById(R.id.Chat);
-        inputText = findViewById(R.id.inputText);
-        name = findViewById(R.id.name);
         customerList = findViewById(R.id.Customers);
+        inputText = findViewById(R.id.inputText);
+        chat = findViewById(R.id.Chat);
+        name = findViewById(R.id.name);
         id = findViewById(R.id.id);
 
         Call<List<Person>> caller = client.getAllPersons();

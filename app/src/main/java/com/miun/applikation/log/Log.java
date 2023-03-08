@@ -2,6 +2,7 @@ package com.miun.applikation.log;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,11 +14,17 @@ import android.widget.EditText;
 import android.content.Context;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.chat.Chat;
+import com.miun.applikation.chat.ChatAdapter;
+import com.miun.applikation.chat.CurrentChat;
 import com.miun.applikation.misc.CustomerListAdapter;
 import com.miun.applikation.misc.User;
 import com.miun.applikation.utils.HelperFunctions;
@@ -25,6 +32,7 @@ import com.miun.applikation.MainActivity;
 import com.miun.applikation.R;
 import com.miun.applikation.utils.ChatLogUtils;
 import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.retrofitClient;
 
@@ -39,12 +47,15 @@ import retrofit2.Response;
 public class Log extends AppCompatActivity implements View.OnClickListener {
 
     ChatLogUtils fillers = new ChatLogUtils();
-    Button btn_goBack, btn_goToChat, btn_submit;
+    Button btn_goBack, btn_goToChat, btn_submit, btn_imagePicker;
     EditText inputText;
-    TextView name;
-    RecyclerView log;
-    RecyclerView customerList;
-    TextView id;
+    Uri image = null;
+    TextView name, id;
+    RecyclerView customerList, log;
+
+    String baseurl = "http://10.82.227.191:8080/";
+
+    retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +63,10 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.log);
 
         inputText = (EditText) findViewById(R.id.inputText);
+        customerList = findViewById(R.id.Customers);
         name = findViewById(R.id.name);
         id = findViewById(R.id.id);
         fillers.fillLog();
-
-        String baseurl = "http://10.82.227.191:8080/";
-
-        retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
 
         Call<List<Person>> caller = client.getAllPersons();
 
@@ -77,30 +85,23 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 chatView.setLayoutManager(layoutManager);
                 RecyclerView.Adapter<CustomerListAdapter.MyViewHolder> mAdapter = new CustomerListAdapter(users, name, id);
                 chatView.setAdapter(mAdapter);
-
-                name.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-
-                    }
-                });
-
             }
-
-
             @Override
             public void onFailure(Call<List<Person>> call, Throwable t) {
                 System.out.println("error" + t);
+            }
+        });
+
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                fillList();
             }
         });
 
@@ -118,6 +119,32 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         customerList = (RecyclerView) findViewById(R.id.Customers);
         hideKeyBoard(log);
         hideKeyBoard(customerList);
+    }
+
+    private void fillList() {
+        Call<List<Message>> message = client.getMessages(id.getText().toString());
+        message.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                List<Message> APIdata = response.body();
+
+                List<CurrentChat> chatter = new ArrayList<>();
+
+                fillers.fillChat(APIdata, chatter, name.getText().toString());
+
+                RecyclerView chat = findViewById(R.id.Chat);
+                LinearLayoutManager chatManager = new LinearLayoutManager(Log.this);
+                chatManager.setStackFromEnd(true);
+                chat.setLayoutManager(chatManager);
+                RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(Log.this, chatter);
+                chat.setAdapter(cAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                System.out.println("ERROR: " + t);
+            }
+        });
     }
 
     @Override
@@ -181,4 +208,16 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            int resultCode = result.getResultCode();
+            Intent data = result.getData();
+            if (resultCode == RESULT_OK && data != null) {
+                image = data.getData();
+                btn_imagePicker.setText("Ta bort vald bild");
+            }
+        }
+    });
 }
