@@ -58,8 +58,10 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> i
 
     @Override
     public void onDialogPositiveClick(TextView textView, int position) {
-        this.logger.get(position).setMessage(textView.getText().toString());
-        notifyItemChanged(position);
+        if (logger.get(position).getMessage() != textView.getText().toString()) {
+            this.logger.get(position).setMessage(textView.getText().toString());
+            notifyItemChanged(position);
+        }
     }
 
     public static class LogViewHolder extends RecyclerView.ViewHolder{
