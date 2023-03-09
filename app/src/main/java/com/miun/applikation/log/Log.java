@@ -1,8 +1,9 @@
 package com.miun.applikation.log;
 
+import static android.os.SystemClock.sleep;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,17 +15,12 @@ import android.widget.EditText;
 import android.content.Context;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.chat.Chat;
 import com.miun.applikation.chat.ChatAdapter;
-import com.miun.applikation.chat.CurrentChat;
 import com.miun.applikation.misc.CustomerListAdapter;
 import com.miun.applikation.misc.User;
 import com.miun.applikation.utils.HelperFunctions;
@@ -32,6 +28,7 @@ import com.miun.applikation.MainActivity;
 import com.miun.applikation.R;
 import com.miun.applikation.utils.ChatLogUtils;
 import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.models.LogModel;
 import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.retrofitClient;
@@ -47,11 +44,11 @@ import retrofit2.Response;
 public class Log extends AppCompatActivity implements View.OnClickListener {
 
     ChatLogUtils fillers = new ChatLogUtils();
-    Button btn_goBack, btn_goToChat, btn_submit, btn_imagePicker;
+    Button btn_goBack, btn_goToChat, btn_submit;
     EditText inputText;
-    Uri image = null;
     TextView name, id;
     RecyclerView customerList, log;
+    int andersID = 1;
 
     String baseurl = "http://10.82.227.191:8080/";
 
@@ -66,7 +63,25 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         customerList = findViewById(R.id.Customers);
         name = findViewById(R.id.name);
         id = findViewById(R.id.id);
-        fillers.fillLog();
+
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                fillList();
+            }
+        });
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            id.setText(extras.getString("id"));
+            name.setText(extras.getString("name"));
+        }
 
         Call<List<Person>> caller = client.getAllPersons();
 
@@ -92,19 +107,6 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-        name.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                fillList();
-            }
-        });
-
         customersManager();
         logManager();
 
@@ -122,26 +124,26 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void fillList() {
-        Call<List<Message>> message = client.getMessages(id.getText().toString());
-        message.enqueue(new Callback<List<Message>>() {
+        Call<List<LogModel>> caller = client.getLogByPersonId(id.getText().toString());
+        caller.enqueue(new Callback<List<LogModel>>() {
             @Override
-            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                List<Message> APIdata = response.body();
+            public void onResponse(Call<List<LogModel>> call, Response<List<LogModel>> response) {
+                List<LogModel> APIdata = response.body();
 
-                List<CurrentChat> chatter = new ArrayList<>();
+                List<CurrentLog> logger = new ArrayList<>();
 
-                fillers.fillChat(APIdata, chatter, name.getText().toString());
+                fillers.fillLog(APIdata, logger, name.getText().toString());
 
-                RecyclerView chat = findViewById(R.id.Chat);
-                LinearLayoutManager chatManager = new LinearLayoutManager(Log.this);
-                chatManager.setStackFromEnd(true);
-                chat.setLayoutManager(chatManager);
-                RecyclerView.Adapter<ChatAdapter.ChatViewHolder> cAdapter = new ChatAdapter(Log.this, chatter);
-                chat.setAdapter(cAdapter);
+                RecyclerView log = findViewById(R.id.log);
+                LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
+                logManager.setStackFromEnd(true);
+                log.setLayoutManager(logManager);
+                RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(logger);
+                log.setAdapter(logAdapter);
             }
 
             @Override
-            public void onFailure(Call<List<Message>> call, Throwable t) {
+            public void onFailure(Call<List<LogModel>> call, Throwable t) {
                 System.out.println("ERROR: " + t);
             }
         });
@@ -158,17 +160,29 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.chatBtn:
                 intent = new Intent(this, Chat.class);
+                intent.putExtra("name", name.getText().toString());
+                intent.putExtra("id", id.getText().toString());
                 startActivity(intent);
                 break;
             case R.id.submit:
                 String message = inputText.getText().toString();
-                logManager();
-
                 if (!message.isEmpty()) {
-                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                    fillers.logger.add(new CurrentLog(0, "Anders Martinsson", message, timestamp));
+
+                    LogModel log = new LogModel(andersID, Integer.parseInt(id.getText().toString()), message, null);
+                    Call<LogModel> caller = client.addLogEntry(log);
+                    caller.enqueue(new Callback<LogModel>() {
+                        @Override
+                        public void onResponse(Call<LogModel> call, Response<LogModel> response) {
+                        }
+                        @Override
+                        public void onFailure(Call<LogModel> call, Throwable t) {
+                            System.out.println("ERROR" + t);
+                        }
+                    });
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
+                    sleep(1000);
+                    fillList();
                 } else {
                     inputText.setError("Empty Field!");
                 }
@@ -187,11 +201,12 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logManager(){
+        List<CurrentLog> logger = new ArrayList<>();
         RecyclerView log = findViewById(R.id.log);
         LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
         logManager.setStackFromEnd(true);
         log.setLayoutManager(logManager);
-        RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(fillers.logger);
+        RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(logger);
         log.setAdapter(logAdapter);
     }
 
@@ -208,16 +223,4 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
-
-    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            int resultCode = result.getResultCode();
-            Intent data = result.getData();
-            if (resultCode == RESULT_OK && data != null) {
-                image = data.getData();
-                btn_imagePicker.setText("Ta bort vald bild");
-            }
-        }
-    });
 }
