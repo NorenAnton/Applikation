@@ -90,9 +90,9 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
     {
         ArrayList<HourEvent> list = new ArrayList<>();
 
-        for(int hour = 0; hour < 24; hour++)
+        for(int hour = 10; hour < 19; hour++)
         {
-            SimpleDateFormat time = new SimpleDateFormat();
+            SimpleDateFormat time = ;
             ArrayList<Event> events = Event.eventsForDateAndTime(CalendarUtils.selectedDate, time);
             HourEvent hourEvent = new HourEvent(time, events);
             list.add(hourEvent);

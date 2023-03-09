@@ -31,16 +31,20 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
     @NonNull
     public HourAdapter.HourViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType){
         View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.hour_cell, parent, false);
-        /*HourEvent event = null;
+        SimpleDateFormat time = new SimpleDateFormat();
+        ArrayList<Event> events = Event.eventsForDateAndTime(CalendarUtils.selectedDate, time);
+        HourEvent event = new HourEvent(time, events);
         setHour(convertView, event.time);
-        setEvents(convertView, event.events);*/
+        setEvents(convertView, event.events);
 
         return new HourViewHolder(convertView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HourAdapter.HourViewHolder holder, int position){
-        //holder.event1.setText((CharSequence) hourEvents.get(position).getEvents());
+        for(Event h: hourEvents.get(position).getEvents()){
+            holder.event1.setText((CharSequence) h);
+        }
     }
 
 
@@ -58,17 +62,17 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
         }
     }
 
-    private void setHour(View convertView, SimpleDateFormat time)
+    private void setHour(@NonNull View convertView, SimpleDateFormat time)
     {
         TextView timeTV = convertView.findViewById(R.id.tv_hourItem);
         timeTV.setText(CalendarUtils.formattedShortTime(String.valueOf(time)));
     }
 
-    private void setEvents(View convertView, ArrayList<Event> events)
+    private void setEvents(@NonNull View convertView, @NonNull ArrayList<Event> events)
     {
         TextView event1 = convertView.findViewById(R.id.event1);
 
-        if(events.size() == 0)
+        if(events.isEmpty())
         {
             hideEvent(event1);
         }
