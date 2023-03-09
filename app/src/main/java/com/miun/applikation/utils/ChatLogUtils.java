@@ -5,16 +5,16 @@ import android.net.Uri;
 import com.miun.applikation.chat.CurrentChat;
 import com.miun.applikation.misc.User;
 import com.miun.applikation.log.CurrentLog;
+import com.miun.retrofit.models.LogModel;
 import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.Person;
 
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChatLogUtils {
-    public List<CurrentLog> logger = new ArrayList<>();
+
 /*
     public void fillList() {
         users.add(new User("Vincent", "Johansson", 0));
@@ -93,7 +93,7 @@ public class ChatLogUtils {
             }
         }
     }
-
+/*
     public void fillLog(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         logger.add(new CurrentLog(0, "Gillian Persson", "Janne", timestamp));
@@ -111,6 +111,18 @@ public class ChatLogUtils {
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
         logger.add(new CurrentLog(0, "Anton Noren", "Hello world", timestamp));
         logger.add(new CurrentLog(0, "Anton Noren", "Janne", timestamp));
+    }*/
 
+    public void fillLog(List<LogModel> APIdata, List<CurrentLog> logger, String s){
+        if(APIdata != null) {
+            for (LogModel l : APIdata) {
+                if(l.getLogTimestamp() != null) {
+                    logger.add(new CurrentLog(l.getPersonId(), "Anders Andersson", l.getText(), l.getLogTimestamp()));
+                }
+                else {
+                    logger.add(new CurrentLog(l.getPersonId(), "Anders Andersson", l.getText(), new Timestamp(System.currentTimeMillis())));
+                }
+            }
+        }
     }
 }

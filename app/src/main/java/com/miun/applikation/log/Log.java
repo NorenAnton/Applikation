@@ -1,5 +1,7 @@
 package com.miun.applikation.log;
 
+import static android.os.SystemClock.sleep;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.chat.Chat;
+import com.miun.applikation.chat.ChatAdapter;
 import com.miun.applikation.misc.CustomerListAdapter;
 import com.miun.applikation.misc.User;
 import com.miun.applikation.utils.HelperFunctions;
@@ -25,6 +28,8 @@ import com.miun.applikation.MainActivity;
 import com.miun.applikation.R;
 import com.miun.applikation.utils.ChatLogUtils;
 import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.models.LogModel;
+import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.retrofitClient;
 
@@ -41,10 +46,13 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
     ChatLogUtils fillers = new ChatLogUtils();
     Button btn_goBack, btn_goToChat, btn_submit;
     EditText inputText;
-    TextView name;
-    RecyclerView log;
-    RecyclerView customerList;
-    TextView id;
+    TextView name, id;
+    RecyclerView customerList, log;
+    int andersID = 1;
+
+    String baseurl = "http://10.82.227.191:8080/";
+
+    retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +60,28 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.log);
 
         inputText = (EditText) findViewById(R.id.inputText);
+        customerList = findViewById(R.id.Customers);
         name = findViewById(R.id.name);
         id = findViewById(R.id.id);
-        fillers.fillLog();
 
-        String baseurl = "http://10.82.227.191:8080/";
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
-        retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                fillList();
+            }
+        });
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            id.setText(extras.getString("id"));
+            name.setText(extras.getString("name"));
+        }
 
         Call<List<Person>> caller = client.getAllPersons();
 
@@ -120,6 +143,32 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         hideKeyBoard(customerList);
     }
 
+    private void fillList() {
+        Call<List<LogModel>> caller = client.getLogByPersonId(id.getText().toString());
+        caller.enqueue(new Callback<List<LogModel>>() {
+            @Override
+            public void onResponse(Call<List<LogModel>> call, Response<List<LogModel>> response) {
+                List<LogModel> APIdata = response.body();
+
+                List<CurrentLog> logger = new ArrayList<>();
+
+                fillers.fillLog(APIdata, logger, name.getText().toString());
+
+                RecyclerView log = findViewById(R.id.log);
+                LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
+                logManager.setStackFromEnd(true);
+                log.setLayoutManager(logManager);
+                RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(logger);
+                log.setAdapter(logAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<LogModel>> call, Throwable t) {
+                System.out.println("ERROR: " + t);
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
         Intent intent;
@@ -131,17 +180,29 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.chatBtn:
                 intent = new Intent(this, Chat.class);
+                intent.putExtra("name", name.getText().toString());
+                intent.putExtra("id", id.getText().toString());
                 startActivity(intent);
                 break;
             case R.id.submit:
                 String message = inputText.getText().toString();
-                logManager();
-
                 if (!message.isEmpty()) {
-                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                    fillers.logger.add(new CurrentLog(0, "Anders Martinsson", message, timestamp));
+
+                    LogModel log = new LogModel(andersID, Integer.parseInt(id.getText().toString()), message, null);
+                    Call<LogModel> caller = client.addLogEntry(log);
+                    caller.enqueue(new Callback<LogModel>() {
+                        @Override
+                        public void onResponse(Call<LogModel> call, Response<LogModel> response) {
+                        }
+                        @Override
+                        public void onFailure(Call<LogModel> call, Throwable t) {
+                            System.out.println("ERROR" + t);
+                        }
+                    });
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
+                    sleep(1000);
+                    fillList();
                 } else {
                     inputText.setError("Empty Field!");
                 }
@@ -160,6 +221,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logManager(){
+        List<CurrentLog> logger = new ArrayList<>();
         RecyclerView log = findViewById(R.id.log);
         LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
         logManager.setStackFromEnd(true);

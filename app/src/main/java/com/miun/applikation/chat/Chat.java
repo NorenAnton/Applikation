@@ -1,5 +1,7 @@
 package com.miun.applikation.chat;
 
+import static android.os.SystemClock.sleep;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +57,6 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     Uri image = null;
     TextView name, id;
     RecyclerView customerList, chat;
-
     String baseurl = "http://10.82.227.191:8080/";
     retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
 
@@ -65,10 +66,10 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
-        chat = findViewById(R.id.Chat);
-        inputText = findViewById(R.id.inputText);
-        name = findViewById(R.id.name);
         customerList = findViewById(R.id.Customers);
+        inputText = findViewById(R.id.inputText);
+        chat = findViewById(R.id.Chat);
+        name = findViewById(R.id.name);
         id = findViewById(R.id.id);
 
         Call<List<Person>> caller = client.getAllPersons();
@@ -109,6 +110,11 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            id.setText(extras.getString("id"));
+            name.setText(extras.getString("name"));
+        }
 
         btn_goBack = findViewById(R.id.goBackChat);
         btn_goToLog = findViewById(R.id.logBtn);
@@ -186,6 +192,8 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.logBtn:
                 intent = new Intent(this, Log.class);
+                intent.putExtra("name", name.getText().toString());
+                intent.putExtra("id", id.getText().toString());
                 startActivity(intent);
                 break;
             case R.id.btn_imagePicker:
@@ -200,7 +208,6 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.submit:
                 String message = inputText.getText().toString();
-                chatManager();
                 if (!message.isEmpty() || image != null) {
                     MessageModelPost send;
                     if(image != null){
@@ -209,19 +216,21 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                     else{
                         send = new MessageModelPost(andersID, Integer.parseInt(id.getText().toString()), message, null);
                     }
-                    Call<MessageModelPost> caller = client.storeMessage(send);
+                    Call<MessageModelPost> caller = client.addMessage(send);
                     caller.enqueue(new Callback<MessageModelPost>() {
                         @Override
                         public void onResponse(Call<MessageModelPost> call, Response<MessageModelPost> response) {
                         }
                         @Override
                         public void onFailure(Call<MessageModelPost> call, Throwable t) {
+                            System.out.println("ERROR" + t);
                         }
                     });
                     image = null;
                     btn_imagePicker.setText("VÄLJ BILD");
                     inputText.getText().clear();
                     HelperFunctions.hideSoftKeyboard(this);
+                    sleep(1000);
                     fillList();
                 } else {
                     inputText.setError("Empty Field!");
