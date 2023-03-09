@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.chat.Chat;
-import com.miun.applikation.chat.CurrentChat;
 import com.miun.applikation.misc.CustomerListAdapter;
 import com.miun.applikation.utils.HelperFunctions;
 import com.miun.applikation.MainActivity;

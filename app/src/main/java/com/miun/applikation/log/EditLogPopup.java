@@ -2,7 +2,6 @@ package com.miun.applikation.log;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.miun.applikation.R;
-
-import org.w3c.dom.Text;
 
 public class EditLogPopup extends DialogFragment {
 
@@ -29,7 +26,6 @@ public class EditLogPopup extends DialogFragment {
         this.textView = textView;
         this.position = position;
         this.dialogListener = dialogListener;
-
     }
 
     @NonNull
@@ -46,17 +42,8 @@ public class EditLogPopup extends DialogFragment {
 
         builder.setView(view)
                 // Add action buttons
-                .setPositiveButton("Ändra", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialogListener.onDialogPositiveClick(textView1, position);
-
-                    }
-                })
-                .setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
+                .setPositiveButton("Ändra", (dialog, id) -> dialogListener.onDialogPositiveClick(textView1, position))
+                .setNegativeButton("Avbryt", (dialog, id) -> {});
         return builder.create();
     }
 
