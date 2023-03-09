@@ -164,7 +164,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
         logManager.setStackFromEnd(true);
         log.setLayoutManager(logManager);
-        RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(fillers.logger);
+        RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(getSupportFragmentManager(), fillers.logger);
         log.setAdapter(logAdapter);
     }
 
