@@ -20,6 +20,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
 
     Context context;
     List<HourEvent> hourEvents;
+    private final int limit = 9;
 
     public HourAdapter(@NonNull Context context, List<HourEvent> hourEvents)
     {
@@ -29,23 +30,23 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
 
     @NonNull
     public HourAdapter.HourViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType){
-        HourEvent event = null;
         View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.hour_cell, parent, false);
+        /*HourEvent event = null;
         setHour(convertView, event.time);
-        setEvents(convertView, event.events);
+        setEvents(convertView, event.events);*/
 
         return new HourViewHolder(convertView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HourAdapter.HourViewHolder holder, int position){
-        holder.event1.setText((CharSequence) hourEvents.get(position).getEvents());
+        //holder.event1.setText((CharSequence) hourEvents.get(position).getEvents());
     }
 
 
     @Override
     public int getItemCount(){
-        return hourEvents.size();
+        return Math.min(hourEvents.size(), limit);
     }
 
     public static class HourViewHolder extends RecyclerView.ViewHolder{
@@ -72,14 +73,6 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
             hideEvent(event1);
         }
         else if(events.size() == 1)
-        {
-            setEvent(event1, events.get(0));
-        }
-        else if(events.size() == 2)
-        {
-            setEvent(event1, events.get(0));
-        }
-        else if(events.size() == 3)
         {
             setEvent(event1, events.get(0));
         }

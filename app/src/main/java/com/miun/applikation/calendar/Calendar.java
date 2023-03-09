@@ -18,6 +18,7 @@ import com.miun.applikation.R;
 import com.miun.applikation.chat.Chat;
 import com.miun.applikation.chat.ChatAdapter;
 import com.miun.applikation.utils.CalendarUtils;
+import com.miun.applikation.utils.ChatLogUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -46,6 +47,8 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
         SimpleDateFormat sdf = new SimpleDateFormat("EEE yyyy-M-dd", Locale.getDefault());
         dateTime = sdf.format(new Date());
         today.setText(dateTime);
+
+        HourLayoutManager();
 
         btn_goBack = findViewById(R.id.goBackCalendar);
         btn_goBack.setOnClickListener(this);
@@ -77,9 +80,9 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
 
     public void HourLayoutManager(){
         RecyclerView dayView = findViewById(R.id.hourRecyclerView);
-        LinearLayoutManager hourManager = new LinearLayoutManager(Calendar.this);
+        LinearLayoutManager hourManager = new LinearLayoutManager(Calendar.this, LinearLayoutManager.HORIZONTAL, false);
         dayView.setLayoutManager(hourManager);
-        RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter(context, hourEvents);
+        RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter(context, hourEventList());
         dayView.setAdapter(hAdapter);
     }
 

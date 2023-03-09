@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,7 +24,6 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
     private EditText eventNameET;
     private DatePicker eventDatePicker;
     private TimePicker eventTimePicker;
-    private SimpleDateFormat time;
     Button btn_cancel;
 
     @SuppressLint({"SetTextI18n"})
@@ -43,12 +43,15 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
         eventNameET = findViewById(R.id.eventNameET);
         eventDatePicker = findViewById(R.id.eventDatePicker);
         eventTimePicker = findViewById(R.id.eventTimePicker);
+        eventTimePicker.setIs24HourView(true);
     }
 
     public void saveEventAction(View view)
     {
         String eventName = eventNameET.getText().toString();
-        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time);
+        String eventDate = eventDatePicker.getYear() + "-" + eventDatePicker.getMonth() + "-" + eventDatePicker.getDayOfMonth();
+        String eventTime = eventTimePicker.getHour() + ":" + eventTimePicker.getMinute();
+        Event newEvent = new Event(eventName, eventDate, eventTime);
         Event.eventsList.add(newEvent);
         finish();
     }

@@ -9,13 +9,14 @@ public class Event {
 
     private String name;
     private String date;
+    private String stringTime;
     private SimpleDateFormat time;
 
-    public Event(String name, String date, SimpleDateFormat time)
+    public Event(String name, String date, String stringTime)
     {
         this.name = name;
         this.date = date;
-        this.time = time;
+        this.stringTime = stringTime;
     }
 
     public String getName()
