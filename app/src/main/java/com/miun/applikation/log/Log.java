@@ -59,7 +59,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log);
 
-        inputText = (EditText) findViewById(R.id.inputText);
+        inputText = findViewById(R.id.inputText);
         customerList = findViewById(R.id.Customers);
         name = findViewById(R.id.name);
         id = findViewById(R.id.id);
@@ -137,8 +137,8 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         btn_goToChat.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
 
-        log = (RecyclerView) findViewById(R.id.log);
-        customerList = (RecyclerView) findViewById(R.id.Customers);
+        log =  findViewById(R.id.log);
+        customerList = findViewById(R.id.Customers);
         hideKeyBoard(log);
         hideKeyBoard(customerList);
     }
@@ -158,7 +158,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
                 LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
                 logManager.setStackFromEnd(true);
                 log.setLayoutManager(logManager);
-                RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(logger);
+                RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(getSupportFragmentManager(), logger);
                 log.setAdapter(logAdapter);
             }
 
@@ -226,7 +226,7 @@ public class Log extends AppCompatActivity implements View.OnClickListener {
         LinearLayoutManager logManager = new LinearLayoutManager(Log.this);
         logManager.setStackFromEnd(true);
         log.setLayoutManager(logManager);
-        RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(getSupportFragmentManager(), fillers.logger);
+        RecyclerView.Adapter<LogAdapter.LogViewHolder> logAdapter = new LogAdapter(getSupportFragmentManager(), logger);
         log.setAdapter(logAdapter);
     }
 
