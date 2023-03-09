@@ -1,5 +1,6 @@
 package com.miun.retrofit;
 
+import com.miun.retrofit.models.CalenderModel;
 import com.miun.retrofit.models.LogModel;
 import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.MessageModelPost;
@@ -45,8 +46,11 @@ public interface retrofitClient {
     @GET("reservation")
     Call<List<ReservationModel> >getReservationByPersonId(@Query("persId") String id);
 
-    @GET("/log")
+    @GET("log")
     Call<List<LogModel>> getLogByPersonId(@Query("persId") String id);
+
+    @GET("calender/all")
+    Call<List<CalenderModel>> getAllCalenderEvent();
 
 
     @POST("messages/add")
@@ -55,8 +59,11 @@ public interface retrofitClient {
     @POST("reparation/add")
     Call<ReparationModel> addReparation(@Body ReparationModel newReparation);
 
-    @POST("/log/add")
+    @POST("log/add")
     Call<LogModel> addLogEntry(@Body LogModel newLogEntry);
+
+    @POST("calender/add")
+    Call<CalenderModel> addCalenderEvent(@Body CalenderModel newCalenderEvent);
 
 
     @PUT("reparation/change")

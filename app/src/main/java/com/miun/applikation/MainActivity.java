@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.models.LogModel;
 import com.miun.retrofit.models.Message;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
@@ -14,6 +15,7 @@ import com.miun.retrofit.models.ReparationModel;
 import com.miun.retrofit.models.ReservationModel;
 import com.miun.retrofit.retrofitClient;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // API TEST--------------------------------------------------
         System.out.println("WAT");
         Log.d("pop", "hej");
+        Log.d("poppy", "hej hej");
 
         String baseUrl1 = "http://10.82.237.144:8080/";
         String baseUrl2 = "http://192.168.0.145:8080/";
@@ -45,13 +48,15 @@ public class MainActivity extends AppCompatActivity {
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
 
-        ReparationModel reperi = new ReparationModel(-1, 2, "TEST", "Fancy stuff");
-        Call<ReparationModel> caller = client.addReparation(reperi);
+        //LogModel logEntry = new LogModel(-1, 3, "Morsning", new Timestamp(System.currentTimeMillis()));
+        LogModel logEntry = new LogModel(-1, 3, "Morsning", null);
+        Call<LogModel> caller = client.addLogEntry(logEntry);
 
-        caller.enqueue(new Callback<ReparationModel>() {
+        caller.enqueue(new Callback<LogModel>() {
             @Override
-            public void onResponse(Call<ReparationModel> call, Response<ReparationModel> response) {
-                ReparationModel data = response.body();
+            public void onResponse(Call<LogModel> call, Response<LogModel> response) {
+                System.out.println("Data added!");
+                LogModel data = response.body();
                 System.out.println(text);
                 String test = text;
                 System.out.println(test);
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ReparationModel> call, Throwable t) {
+            public void onFailure(Call<LogModel> call, Throwable t) {
                 System.out.println("ERROR: " + t);
 
             }
