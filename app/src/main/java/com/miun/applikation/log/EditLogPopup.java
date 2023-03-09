@@ -21,9 +21,9 @@ public class EditLogPopup extends DialogFragment {
     public interface DialogListener {
         void onDialogPositiveClick(TextView textView, int position);
     }
-    private TextView textView;
-    private int position;
-    private DialogListener dialogListener;
+    private final TextView textView;
+    private final int position;
+    private final DialogListener dialogListener;
 
     public EditLogPopup(TextView textView, int position, DialogListener dialogListener){
         this.textView = textView;
@@ -32,6 +32,7 @@ public class EditLogPopup extends DialogFragment {
 
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -43,8 +44,6 @@ public class EditLogPopup extends DialogFragment {
         TextView textView1 = view.findViewById(R.id.tv_msgText);
         textView1.setText(textView.getText().toString());
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton("Ändra", new DialogInterface.OnClickListener() {

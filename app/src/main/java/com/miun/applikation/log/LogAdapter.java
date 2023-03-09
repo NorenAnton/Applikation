@@ -1,6 +1,7 @@
 package com.miun.applikation.log;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,7 +37,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> i
         holder.tv_message.setText(logger.get(position).getMessage());
         holder.tv_date.setText(logger.get(position).getDate());
 
-        holder.tv_message.setOnClickListener(new View.OnClickListener() {
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialog(holder);
@@ -56,9 +57,11 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> i
         editLogPopup.show(manager, "edit");
     }
 
+
+    @NonNull
     @Override
     public void onDialogPositiveClick(TextView textView, int position) {
-        if (logger.get(position).getMessage() != textView.getText().toString()) {
+        if (logger.get(position).getMessage() != textView.getText().toString() && !textView.getText().toString().isEmpty()) {
             this.logger.get(position).setMessage(textView.getText().toString());
             notifyItemChanged(position);
         }
@@ -69,11 +72,14 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> i
         TextView tv_date;
         TextView tv_message;
 
+        ConstraintLayout constraintLayout;
+
         public LogViewHolder(@NonNull View itemView){
             super(itemView);
             tv_logName = itemView.findViewById(R.id.tv_logName);
             tv_date = itemView.findViewById(R.id.tv_date);
             tv_message = itemView.findViewById(R.id.tv_message);
+            constraintLayout = itemView.findViewById(R.id.ConstraintLayout);
         }
     }
 }
