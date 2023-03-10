@@ -12,6 +12,8 @@ import com.miun.applikation.calendar.Calendar;
 import com.miun.applikation.chat.Chat;
 import com.miun.applikation.log.Log;
 
+import java.time.LocalDate;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btn_Chat, btn_Log, btn_Calendar;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LocalDate.now();
 
         btn_Calendar = findViewById(R.id.Calendar);
         btn_Chat = findViewById(R.id.Chat);
