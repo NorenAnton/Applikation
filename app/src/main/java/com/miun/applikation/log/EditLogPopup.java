@@ -3,9 +3,11 @@ package com.miun.applikation.log;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,13 +45,18 @@ public class EditLogPopup extends DialogFragment {
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton("Ändra", (dialog, id) -> dialogListener.onDialogPositiveClick(textView1, position))
-                .setNegativeButton("Avbryt", (dialog, id) -> {});
-        return builder.create();
+                .setNegativeButton("Avbryt", (dialog, id) -> {})
+                .create();
+
+        AlertDialog alertDialog = builder.show();
+
+        Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+        // Set the text color of the buttons to black
+        positiveButton.setTextColor(Color.BLACK);
+        negativeButton.setTextColor(Color.BLACK);
+
+        return alertDialog;
     }
-
-
-
-
-
-
 }
