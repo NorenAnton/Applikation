@@ -23,6 +23,7 @@ import com.miun.applikation.utils.ChatLogUtils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -92,7 +93,7 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
 
         for(int hour = 10; hour < 19; hour++)
         {
-            SimpleDateFormat time = new SimpleDateFormat();
+            LocalTime time = LocalTime.of(hour, 0);
             ArrayList<Event> events = Event.eventsForDateAndTime(CalendarUtils.selectedDate, time);
             HourEvent hourEvent = new HourEvent(time, events);
             list.add(hourEvent);

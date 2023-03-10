@@ -7,17 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.SimpleExpandableListAdapter;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.miun.applikation.R;
-import com.miun.applikation.utils.CalendarUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalTime;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener{
 
@@ -50,7 +46,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
     {
         String eventName = eventNameET.getText().toString();
         String eventDate = eventDatePicker.getYear() + "-" + eventDatePicker.getMonth() + "-" + eventDatePicker.getDayOfMonth();
-        String eventTime = eventTimePicker.getHour() + ":" + eventTimePicker.getMinute();
+        LocalTime eventTime = LocalTime.parse(eventTimePicker.getHour() + ":" + eventTimePicker.getMinute());
         Event newEvent = new Event(eventName, eventDate, eventTime);
         Event.eventsList.add(newEvent);
         finish();

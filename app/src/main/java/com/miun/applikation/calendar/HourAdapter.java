@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.miun.applikation.R;
 import com.miun.applikation.utils.CalendarUtils;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +31,6 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
     @NonNull
     public HourAdapter.HourViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType){
         View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.hour_cell, parent, false);
-        SimpleDateFormat time = new SimpleDateFormat();
-        ArrayList<Event> events = Event.eventsForDateAndTime(CalendarUtils.selectedDate, time);
-        HourEvent event = new HourEvent(time, events);
-        setHour(convertView, event.time);
-        setEvents(convertView, event.events);
-
         return new HourViewHolder(convertView);
     }
 
@@ -45,6 +39,9 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
         for(Event h: hourEvents.get(position).getEvents()){
             holder.event1.setText((CharSequence) h);
         }
+        HourEvent event = getItem(position);
+        setHour(holder.timeTV, event.time);
+        setEvents(holder.event1, event.events);
     }
 
 
@@ -55,26 +52,25 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
 
     public static class HourViewHolder extends RecyclerView.ViewHolder{
         TextView event1;
+        TextView timeTV;
 
         public HourViewHolder(@NonNull View itemView){
             super(itemView);
             event1 = itemView.findViewById(R.id.event1);
+            timeTV = itemView.findViewById(R.id.tv_hourItem);
         }
     }
 
-    private void setHour(@NonNull View convertView, SimpleDateFormat time)
+    private void setHour(TextView timeTV, LocalTime time)
     {
-        TextView timeTV = convertView.findViewById(R.id.tv_hourItem);
-        timeTV.setText(CalendarUtils.formattedShortTime(String.valueOf(time)));
+       timeTV.setText(CalendarUtils.formattedShortTime(time));
     }
 
-    private void setEvents(@NonNull View convertView, @NonNull ArrayList<Event> events)
+    private void setEvents(TextView event1, @NonNull ArrayList<Event> events)
     {
-        TextView event1 = convertView.findViewById(R.id.event1);
-
         if(events.isEmpty())
         {
-            hideEvent(event1);
+            event1.setVisibility(View.INVISIBLE);
         }
         else if(events.size() == 1)
         {
@@ -94,8 +90,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
         textView.setVisibility(View.VISIBLE);
     }
 
-    private void hideEvent(TextView tv)
-    {
-        tv.setVisibility(View.INVISIBLE);
+    public HourEvent getItem(int position){
+        return hourEvents.get(position);
     }
 }

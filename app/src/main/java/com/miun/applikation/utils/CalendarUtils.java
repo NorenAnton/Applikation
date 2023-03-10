@@ -1,40 +1,32 @@
 package com.miun.applikation.utils;
 
-import android.annotation.SuppressLint;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+import com.miun.applikation.calendar.HourEvent;
+import com.miun.applikation.calendar.NewEvent;
 
-import java.text.SimpleDateFormat;
-import java.lang.String;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class CalendarUtils {
-    public static String selectedDate;
+    NewEvent newEvent = new NewEvent();
+    public static LocalDate selectedDate;
+    List<HourEvent> hourEvents;
 
-    @NonNull
-    @SuppressLint("SimpleDateFormat")
-    public static String formattedDate(String date)
+    public static String formattedShortTime(LocalTime time)
     {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMMM dd");
-        date = formatter.format(new Date());
-        return date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return time.format(formatter);
     }
 
-    @NonNull
-    @SuppressLint("SimpleDateFormat")
-    public static String formattedTime(String time)
-    {
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-        time = formatter.format(new Date());
-        return time;
+    public static String formattedTime(LocalTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return time.format(formatter);
     }
 
-    @NonNull
-    @SuppressLint("SimpleDateFormat")
-    public static String formattedShortTime(String time)
-    {
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-        time = formatter.format(new Date());
-        return time;
+    public void FillCalendar(){
+        hourEvents.add();
     }
 }
