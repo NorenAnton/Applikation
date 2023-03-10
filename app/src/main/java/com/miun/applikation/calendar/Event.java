@@ -1,33 +1,42 @@
 package com.miun.applikation.calendar;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Event {
     public static ArrayList<Event> eventsList = new ArrayList<>();
 
-    private String name;
+    private String subject;
+
+    private String freetext;
     private String date;
     private LocalTime time;
 
-    public Event(String name, String date, LocalTime time)
+    public Event(String subject, String freetext, String date, LocalTime time)
     {
-        this.name = name;
+        this.subject = subject;
+        this.freetext = freetext;
         this.date = date;
         this.time = time;
     }
 
-    public String getName()
+    public String getSubject()
     {
-        return name;
+        return subject;
     }
 
-    public void setName(String name)
+    public void setSubject(String subject)
     {
-        this.name = name;
+        this.subject = subject;
+    }
+
+    public String getFreetext() {
+        return freetext;
+    }
+
+    public void setFreetext(String freetext) {
+        this.freetext = freetext;
     }
 
     public String getDate()
@@ -48,33 +57,6 @@ public class Event {
     public void setTime(LocalTime time)
     {
         this.time = time;
-    }
-
-
-    public static ArrayList<Event> eventsForDate(String date)
-    {
-        ArrayList<Event> events = new ArrayList<>();
-
-        for(Event event : eventsList)
-        {
-            if(event.getDate().equals(date))
-                events.add(event);
-        }
-
-        return events;
-    }
-
-    public static ArrayList<Event> eventsForDate(LocalDate date)
-    {
-        ArrayList<Event> events = new ArrayList<>();
-
-        for(Event event : eventsList)
-        {
-            if(event.getDate().equals(date))
-                events.add(event);
-        }
-
-        return events;
     }
 
     public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime time)

@@ -25,8 +25,4 @@ public class CalendarUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         return time.format(formatter);
     }
-
-    public void FillCalendar(){
-        hourEvents.add();
-    }
 }

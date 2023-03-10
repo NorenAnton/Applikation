@@ -24,7 +24,20 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/event1"
+            android:id="@+id/subject"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#0363AF"
+            android:gravity="center"
+            android:lines="5"
+            android:text="Subject"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/freetext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -32,7 +45,7 @@
             android:background="#0363AF"
             android:gravity="center"
             android:lines="5"
-            android:text="Event"
+            android:text="freetext"
             android:textColor="@color/white"
             android:textSize="12sp" />
 
