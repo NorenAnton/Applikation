@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.miun.retrofit.InterfaceAPI;
-import com.miun.retrofit.models.Message;
+import com.miun.retrofit.RequestInterface;
+import com.miun.retrofit.models.LogModel;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
-import com.miun.retrofit.models.ReparationModel;
-import com.miun.retrofit.models.ReservationModel;
+import com.miun.retrofit.RequestReader;
 import com.miun.retrofit.retrofitClient;
 
 import java.util.List;
@@ -21,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.util.Log;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,38 +38,56 @@ public class MainActivity extends AppCompatActivity {
         // API TEST--------------------------------------------------
         System.out.println("WAT");
         Log.d("pop", "hej");
+        Log.d("poppy", "hej hej");
 
         String baseUrl1 = "http://10.82.237.144:8080/";
         String baseUrl2 = "http://192.168.0.145:8080/";
         String baseUrl3 = "http://10.82.252.220:8080/";
-        retrofitClient client = new InterfaceAPI(baseUrl1).createRetrofitClient();
-        MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
+        MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
 
-        Call<List<ReservationModel>> caller = client.getAllReservation();
+        /*RequestReader<List<LogModel>> func = (List<LogModel> container) -> {
+            System.out.println("Hej");
+            for(LogModel l : container) {
+                System.out.println(l.getId());
+                System.out.println(l.getText());
+            }
+        };*/
 
-        caller.enqueue(new Callback<List<ReservationModel>>() {
+        retrofitClient client = new InterfaceAPI(baseUrl1).createRetrofitClient();
+
+        new RequestInterface<>(client.getLogByPersonId("3"), (List<LogModel> container) -> {
+            System.out.println("Hej");
+            for (LogModel l : container) {
+                System.out.println(l.getId());
+                System.out.println(l.getText());
+            }
+        }
+        );
+        //request.sendRequest(client.getLogByPersonId("3"), func);
+
+
+        //LogModel logEntry = new LogModel(-1, 3, "Morsning", new Timestamp(System.currentTimeMillis()));
+        /*LogModel logEntry = new LogModel(-1, 3, "Morsning", null);
+        Call<LogModel> caller = client.addLogEntry(logEntry);
+
+        caller.enqueue(new Callback<LogModel>() {
             @Override
-            public void onResponse(Call<List<ReservationModel>> call, Response<List<ReservationModel>> response) {
-                List<ReservationModel> data = response.body();
+            public void onResponse(Call<LogModel> call, Response<LogModel> response) {
+                System.out.println("Data added!");
+                LogModel data = response.body();
                 System.out.println(text);
                 String test = text;
                 System.out.println(test);
-                for (ReservationModel m : data) {
-                    System.out.println(m.getPersonId());
-                    System.out.println(m.getInstrumentId());
-                    System.out.println("---------------------");
-                }
 
             }
 
             @Override
-            public void onFailure(Call<List<ReservationModel>> call, Throwable t) {
+            public void onFailure(Call<LogModel> call, Throwable t) {
                 System.out.println("ERROR: " + t);
 
             }
-        });
-
+        });*/
 
 
         //API_responseTest(client);

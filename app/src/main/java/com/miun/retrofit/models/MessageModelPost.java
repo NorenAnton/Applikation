@@ -8,7 +8,7 @@ public class MessageModelPost {
     private String text;
     private String imageUrl;
 
-    // Behöver denna så ta inte bort
+    // Behöver denna så ta inte bort!
     public MessageModelPost() {};
 
     public MessageModelPost(int fromID, int toID, String text, String imageUrl) {
