@@ -35,13 +35,14 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HourAdapter.HourViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull HourViewHolder holder, int position){
         for(Event h: hourEvents.get(position).getEvents()){
-            holder.event1.setText((CharSequence) h);
+            holder.subject.setText((CharSequence) h);
+            holder.freetext.setText((CharSequence) h);
         }
         HourEvent event = getItem(position);
         setHour(holder.timeTV, event.time);
-        setEvents(holder.event1, event.events);
+        setEvents(holder.subject, holder.freetext, event.events);
     }
 
 
@@ -51,12 +52,14 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
     }
 
     public static class HourViewHolder extends RecyclerView.ViewHolder{
-        TextView event1;
+        TextView subject;
+        TextView freetext;
         TextView timeTV;
 
         public HourViewHolder(@NonNull View itemView){
             super(itemView);
-            event1 = itemView.findViewById(R.id.event1);
+            subject = itemView.findViewById(R.id.subject);
+            freetext = itemView.findViewById(R.id.freetext);
             timeTV = itemView.findViewById(R.id.tv_hourItem);
         }
     }
@@ -66,28 +69,31 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
        timeTV.setText(CalendarUtils.formattedShortTime(time));
     }
 
-    private void setEvents(TextView event1, @NonNull ArrayList<Event> events)
+    private void setEvents(TextView subject, TextView freetext, @NonNull ArrayList<Event> events)
     {
         if(events.isEmpty())
         {
-            event1.setVisibility(View.INVISIBLE);
+            subject.setVisibility(View.INVISIBLE);
+            freetext.setVisibility(View.INVISIBLE);
         }
         else if(events.size() == 1)
         {
-            setEvent(event1, events.get(0));
+            setEvent(subject, freetext, events.get(0));
         }
         else
         {
-            setEvent(event1, events.get(0));
+            setEvent(subject, freetext, events.get(0));
             String eventsNotShown = String.valueOf(events.size() - 2);
             eventsNotShown += " More Events";
         }
     }
 
-    private void setEvent(TextView textView, Event event)
+    private void setEvent(TextView subject, TextView freetext, Event event)
     {
-        textView.setText(event.getName());
-        textView.setVisibility(View.VISIBLE);
+        subject.setText(event.getSubject());
+        subject.setVisibility(View.VISIBLE);
+        freetext.setText(event.getFreetext());
+        freetext.setVisibility(View.VISIBLE);
     }
 
     public HourEvent getItem(int position){

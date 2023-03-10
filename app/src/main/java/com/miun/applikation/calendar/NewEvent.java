@@ -17,7 +17,7 @@ import java.time.LocalTime;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText eventNameET;
+    private EditText eventSubjectET, eventFreetextET;
     private DatePicker eventDatePicker;
     private TimePicker eventTimePicker;
     Button btn_cancel;
@@ -36,7 +36,8 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
 
     private void initWidgets()
     {
-        eventNameET = findViewById(R.id.eventNameET);
+        eventSubjectET = findViewById(R.id.eventSubjectET);
+        eventFreetextET = findViewById(R.id.eventFreetextET);
         eventDatePicker = findViewById(R.id.eventDatePicker);
         eventTimePicker = findViewById(R.id.eventTimePicker);
         eventTimePicker.setIs24HourView(true);
@@ -44,10 +45,11 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
 
     public void saveEventAction(View view)
     {
-        String eventName = eventNameET.getText().toString();
+        String eventSubject = eventSubjectET.getText().toString();
+        String eventFreetext = eventFreetextET.getText().toString();
         String eventDate = eventDatePicker.getYear() + "-" + eventDatePicker.getMonth() + "-" + eventDatePicker.getDayOfMonth();
         LocalTime eventTime = LocalTime.parse(eventTimePicker.getHour() + ":" + eventTimePicker.getMinute());
-        Event newEvent = new Event(eventName, eventDate, eventTime);
+        Event newEvent = new Event(eventSubject, eventFreetext, eventDate, eventTime);
         Event.eventsList.add(newEvent);
         finish();
     }
