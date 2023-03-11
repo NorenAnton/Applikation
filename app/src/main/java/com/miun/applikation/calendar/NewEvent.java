@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +19,12 @@ import java.time.LocalTime;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText eventSubjectET, eventFreetextET;
+    private EditText  eventFreetextET;
     private DatePicker eventDatePicker;
     private TimePicker eventTimePicker;
     Button btn_cancel;
+
+    Spinner subjectSpinner;
 
     @SuppressLint({"SetTextI18n"})
     @Override
@@ -30,13 +34,19 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.new_event);
         initWidgets();
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"Reservation", "Reparation", "Övrigt"});
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subjectSpinner.setAdapter(adapter);
+
         btn_cancel = findViewById(R.id.cancelEvent);
         btn_cancel.setOnClickListener(this);
+
+
     }
 
     private void initWidgets()
     {
-        eventSubjectET = findViewById(R.id.eventSubjectET);
+        subjectSpinner = findViewById(R.id.eventSubject);
         eventFreetextET = findViewById(R.id.eventFreetextET);
         eventDatePicker = findViewById(R.id.eventDatePicker);
         eventTimePicker = findViewById(R.id.eventTimePicker);
@@ -45,7 +55,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
 
     public void saveEventAction(View view)
     {
-        String eventSubject = eventSubjectET.getText().toString();
+        String eventSubject = this.subjectSpinner.getSelectedItem().toString();
         String eventFreetext = eventFreetextET.getText().toString();
         String eventDate = eventDatePicker.getYear() + "-" + eventDatePicker.getMonth() + "-" + eventDatePicker.getDayOfMonth();
         LocalTime eventTime = LocalTime.parse(eventTimePicker.getHour() + ":" + eventTimePicker.getMinute());
