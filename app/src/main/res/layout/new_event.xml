@@ -83,16 +83,34 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <TimePicker
-            android:id="@+id/eventTimePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="141dp"
-            android:layout_gravity="center"
-            android:text="Time"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:timePickerMode="spinner" />
+        <LinearLayout
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/tv_startTime"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:hint="Start tid"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_endTime"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:hint="Slut tid"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
 
         <Button
             android:layout_width="wrap_content"

@@ -9,22 +9,41 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TimePicker;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.miun.applikation.R;
 
-import java.time.LocalTime;
+import org.w3c.dom.Text;
 
-public class NewEvent extends AppCompatActivity implements View.OnClickListener{
+public class NewEvent extends AppCompatActivity implements View.OnClickListener, TimePickerPopup.DialogListener {
 
     private EditText  eventFreetextET;
     private DatePicker eventDatePicker;
-    private TimePicker eventTimePicker;
+    private String startTime;
+    private String endTime;
     Button btn_cancel;
 
     Spinner subjectSpinner;
+
+    @Override
+    public void onDialogPositiveClick(String time, Caller caller) {
+        switch (caller){
+            case startTime:
+                this.startTime = time;
+                ((TextView)findViewById(R.id.tv_startTime)).setText(time);
+                break;
+            case endTime:
+                this.endTime = time;
+                ((TextView)findViewById(R.id.tv_endTime)).setText(time);
+                break;
+        }
+    }
+
+    public enum Caller {
+        startTime, endTime
+    }
 
     @SuppressLint({"SetTextI18n"})
     @Override
@@ -41,7 +60,19 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
         btn_cancel = findViewById(R.id.cancelEvent);
         btn_cancel.setOnClickListener(this);
 
+        findViewById(R.id.tv_startTime).setOnClickListener(view -> {
+            showTimeDialog(Caller.startTime);
+        });
+        findViewById(R.id.tv_endTime).setOnClickListener(view -> {
+            showTimeDialog(Caller.endTime);
+        });
 
+
+    }
+
+    private void showTimeDialog(Caller caller) {
+        TimePickerPopup timePickerPopup = new TimePickerPopup(this, caller);
+        timePickerPopup.show(getSupportFragmentManager(), "TimePopup");
     }
 
     private void initWidgets()
@@ -49,8 +80,6 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
         subjectSpinner = findViewById(R.id.eventSubject);
         eventFreetextET = findViewById(R.id.eventFreetextET);
         eventDatePicker = findViewById(R.id.eventDatePicker);
-        eventTimePicker = findViewById(R.id.eventTimePicker);
-        eventTimePicker.setIs24HourView(true);
     }
 
     public void saveEventAction(View view)
@@ -58,9 +87,9 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener{
         String eventSubject = this.subjectSpinner.getSelectedItem().toString();
         String eventFreetext = eventFreetextET.getText().toString();
         String eventDate = eventDatePicker.getYear() + "-" + eventDatePicker.getMonth() + "-" + eventDatePicker.getDayOfMonth();
-        LocalTime eventTime = LocalTime.parse(eventTimePicker.getHour() + ":" + eventTimePicker.getMinute());
-        Event newEvent = new Event(eventSubject, eventFreetext, eventDate, eventTime);
-        Event.eventsList.add(newEvent);
+        //LocalTime eventTime = LocalTime.parse(eventTimePicker.getHour() + ":" + eventTimePicker.getMinute());
+        //Event newEvent = new Event(eventSubject, eventFreetext, eventDate, eventTime);
+        //Event.eventsList.add(newEvent);
         finish();
     }
 
