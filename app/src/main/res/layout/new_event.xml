@@ -29,7 +29,8 @@
         android:layout_height="631dp"
         android:layout_gravity="center"
         android:background="#DAD9D9"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="-50dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,10 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:ems="20"
             android:imeOptions="actionDone"
-            android:inputType="text"
-            android:textSize="20sp" />
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,7 +68,8 @@
             android:ems="20"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+         />
 
         <DatePicker
             android:id="@+id/eventDatePicker"
@@ -98,7 +98,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:hint="Start tid"
-                android:textSize="20sp" />
+                style="@android:style/Widget.Button"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/tv_endTime"
@@ -107,7 +108,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:hint="Slut tid"
-                android:textSize="20sp" />
+                style="@android:style/Widget.Button"
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -121,7 +123,8 @@
             android:text="Save"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
 
     </LinearLayout>
 
