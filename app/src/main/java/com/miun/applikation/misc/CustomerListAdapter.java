@@ -38,6 +38,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_customerName.setText(users.get(position).getName());
+        holder.customerID.setText(Integer.toString(users.get(position).getPersonId()) + ". ");
         holder.layout.setOnClickListener(view -> {
             String personId = Integer.toString(users.get(position).getPersonId());
             id.setText(personId);
@@ -52,11 +53,12 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_customerName;
+        TextView tv_customerName, customerID;
         ConstraintLayout layout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_customerName = itemView.findViewById(R.id.tv_customerName);
+            customerID = itemView.findViewById(R.id.customerID);
             layout = itemView.findViewById(R.id.user_item);
         }
     }
