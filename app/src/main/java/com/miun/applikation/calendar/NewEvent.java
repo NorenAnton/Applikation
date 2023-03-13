@@ -45,6 +45,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener,
             case startTime:
                 this.startTime = time;
                 ((TextView)findViewById(R.id.tv_startTime)).setText(time);
+                ((TextView)findViewById(R.id.tv_endTime)).setText("");
                 break;
             case endTime:
                 this.endTime = time;
@@ -97,7 +98,9 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener,
     }
 
     private void showTimeDialog(Caller caller) {
-        TimePickerPopup timePickerPopup = new TimePickerPopup(this, caller);
+        if (caller.equals(Caller.endTime) && this.startTime == null)
+            return;
+        TimePickerPopup timePickerPopup = new TimePickerPopup(this, caller, (startTime != null && !caller.equals(Caller.startTime))? Integer.parseInt(startTime.substring(0, startTime.indexOf(":"))) : -1);
         timePickerPopup.show(getSupportFragmentManager(), "TimePopup");
     }
 
