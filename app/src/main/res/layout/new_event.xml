@@ -71,6 +71,24 @@
             android:textSize="20sp"
          />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Customer:"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/eventCustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:imeOptions="actionDone"
+            />
+
         <DatePicker
             android:id="@+id/eventDatePicker"
             android:layout_width="wrap_content"
@@ -118,13 +136,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:background="@null"
             android:onClick="saveEventAction"
             android:text="Save"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

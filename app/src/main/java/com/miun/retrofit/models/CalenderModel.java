@@ -17,7 +17,8 @@ public class CalenderModel {
     public CalenderModel() {
     }
 
-    public CalenderModel(Time startTime, Time stopTime, Date startDate, Date stopDate, String subject, String freeText, Integer referenceNumber, Integer personId) {
+    public CalenderModel(int id, Time startTime, Time stopTime, Date startDate, Date stopDate, String subject, String freeText, Integer referenceNumber, Integer personId) {
+        setId(id);
         setStartTime(startTime);
         setStopTime(stopTime);
         setStartDate(startDate);

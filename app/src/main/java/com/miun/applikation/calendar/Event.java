@@ -7,18 +7,37 @@ import java.util.ArrayList;
 public class Event {
     public static ArrayList<Event> eventsList = new ArrayList<>();
 
+    private int eventID;
+    private int personID;
     private String subject;
-
     private String freetext;
     private String date;
     private LocalTime time;
 
-    public Event(String subject, String freetext, String date, LocalTime time)
+    public Event(int personID, String subject, String freetext, String date, LocalTime time)
     {
+        this.eventID = Integer.parseInt(null);
+        this.personID = personID;
         this.subject = subject;
         this.freetext = freetext;
         this.date = date;
         this.time = time;
+    }
+
+    public int getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
+    }
+
+    public int getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(int personID) {
+        this.personID = personID;
     }
 
     public String getSubject()
