@@ -5,7 +5,6 @@ import android.widget.TextView;
 import com.miun.applikation.calendar.HourEvent;
 import com.miun.applikation.calendar.NewEvent;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
