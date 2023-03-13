@@ -24,9 +24,35 @@
         android:padding="5dp">
 
         <TextView
+            android:id="@+id/customer"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#0363AF"
+            android:gravity="center"
+            android:lines="5"
+            android:text="Customer"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#0363AF"
+            android:gravity="center"
+            android:lines="5"
+            android:text="Time"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <TextView
             android:id="@+id/subject"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="1dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="#0363AF"
