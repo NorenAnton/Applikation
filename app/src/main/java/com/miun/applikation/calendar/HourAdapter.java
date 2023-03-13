@@ -96,7 +96,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
     {
         customer.setText(event.getPersonID());
         customer.setVisibility(View.VISIBLE);
-        time.setText(event.getStartEndTime());
+        //time.setText(event.getStartEndTime());
         time.setVisibility(View.VISIBLE);
         subject.setText(event.getSubject());
         subject.setVisibility(View.VISIBLE);
