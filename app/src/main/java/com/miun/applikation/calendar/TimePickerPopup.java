@@ -17,23 +17,44 @@ import androidx.fragment.app.DialogFragment;
 
 import com.miun.applikation.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class TimePickerPopup extends DialogFragment {
 
     public interface DialogListener {
         void onDialogPositiveClick(String time, NewEvent.Caller caller);
     }
-    DialogListener dialogListener;
-    NewEvent.Caller caller;
-    NumberPicker numberPicker;
+    private DialogListener dialogListener;
+    private NewEvent.Caller caller;
+    private NumberPicker numberPicker;
+    private List<String> displayedValues;
 
-    String[] displayedValues;
 
-    public TimePickerPopup(DialogListener dialogListener, NewEvent.Caller caller){
+    public TimePickerPopup(DialogListener dialogListener, NewEvent.Caller caller, int start){
         this.dialogListener = dialogListener;
         this.caller = caller;
-        this.displayedValues = new String[9];
-        for(int i = 10; i < 19; i++){
-            displayedValues[i-10] = i +":00";
+        displayedValues = new ArrayList<>();
+        int i = start;
+        if (start == -1) {
+            displayedValues.addAll(Arrays.asList("10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"));
+        }
+        else if (start < 12) {
+            while (i != 13) {
+                if (i != start) {
+                    displayedValues.add(i + ":00");
+                }
+                i++;
+            }
+        }
+        else {
+            while (i != 19) {
+                if (i != start) {
+                    displayedValues.add(i + ":00");
+                }
+                i++;
+            }
         }
     }
 
@@ -47,19 +68,24 @@ public class TimePickerPopup extends DialogFragment {
         numberPicker = view.findViewById(R.id.np_picker);
 
         numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(8);
+        int sizeOfList = displayedValues.size() - 1;
+        numberPicker.setMaxValue((sizeOfList != -1)? sizeOfList:0);
 
-        numberPicker.setDisplayedValues(displayedValues);
+        String[] data = new String[displayedValues.size()];
+        data = displayedValues.toArray(data);
+
+        numberPicker.setDisplayedValues(data);
 
 
         numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
+        String[] finalData = data;
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton("Ok", (dialog, id) -> {
-                    dialogListener.onDialogPositiveClick(displayedValues[numberPicker.getValue()], caller);
+                    dialogListener.onDialogPositiveClick(finalData[numberPicker.getValue()], caller);
                 })
-                .setNegativeButton("Avbryt", (dialog, id) -> {
+                .setNegativeButton("Cancel", (dialog, id) -> {
 
                 })
                 .create();
@@ -76,3 +102,11 @@ public class TimePickerPopup extends DialogFragment {
         return alertDialog;
     }
 }
+
+
+/*
+
+        for(int i = 10; i < 19; i++) {
+            displayedValues[i - 10] = i + ":00";
+        }
+ */
