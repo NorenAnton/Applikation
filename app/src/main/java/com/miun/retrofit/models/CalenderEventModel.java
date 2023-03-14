@@ -1,23 +1,21 @@
 package com.miun.retrofit.models;
 
-import java.sql.Date;
-import java.sql.Time;
-
-public class CalenderModel {
+public class CalenderEventModel {
     private int id;
-    private Time startTime;
-    private Time stopTime;
-    private Date startDate;
-    private Date stopDate;
+    private String startTime;
+    private String stopTime;
+    private String startDate;
+    private String stopDate;
     private String subject;
     private String freeText;
     private int referenceNumber;
     private int personId;
 
-    public CalenderModel() {
+    public CalenderEventModel() {
     }
 
-    public CalenderModel(Time startTime, Time stopTime, Date startDate, Date stopDate, String subject, String freeText, Integer referenceNumber, Integer personId) {
+    public CalenderEventModel(Integer id, String startTime, String stopTime, String startDate, String stopDate, String subject, String freeText, Integer referenceNumber, Integer personId) {
+        setId(id);
         setStartTime(startTime);
         setStopTime(stopTime);
         setStartDate(startDate);
@@ -36,35 +34,35 @@ public class CalenderModel {
         this.id = id;
     }
 
-    public Time getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Time getStopTime() {
+    public String getStopTime() {
         return stopTime;
     }
 
-    public void setStopTime(Time stopTime) {
+    public void setStopTime(String stopTime) {
         this.stopTime = stopTime;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getStopDate() {
+    public String getStopDate() {
         return stopDate;
     }
 
-    public void setStopDate(Date stopDate) {
+    public void setStopDate(String stopDate) {
         this.stopDate = stopDate;
     }
 
@@ -105,7 +103,7 @@ public class CalenderModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CalenderModel that = (CalenderModel) o;
+        CalenderEventModel that = (CalenderEventModel) o;
 
         if (id != that.id) return false;
         if (referenceNumber != that.referenceNumber) return false;

@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.miun.retrofit.InterfaceAPI;
-import com.miun.retrofit.models.Message;
+import com.miun.retrofit.RequestInterface;
+import com.miun.retrofit.models.CalenderEventModel;
+import com.miun.retrofit.models.LogModel;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.retrofitClient;
@@ -17,15 +19,15 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.util.Log;
+
 
 public class MainActivity extends AppCompatActivity {
 
     Button btn_Chatt, btn_Log;
     public List<Person> classResponseData;
+    String text = "Morsning";
 
 
     @Override
@@ -36,31 +38,58 @@ public class MainActivity extends AppCompatActivity {
         // API TEST--------------------------------------------------
         System.out.println("WAT");
         Log.d("pop", "hej");
+        Log.d("poppy", "hej hej");
 
         String baseUrl1 = "http://10.82.237.144:8080/";
         String baseUrl2 = "http://192.168.0.145:8080/";
         String baseUrl3 = "http://10.82.252.220:8080/";
-        retrofitClient client = new InterfaceAPI(baseUrl1).createRetrofitClient();
-        MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
         Log.d("poppy", "heeej");
+        MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
 
-        Call<Person> caller = client.getAdmin();
-        // Handler
+        /*RequestReader<List<LogModel>> func = (List<LogModel> container) -> {
+            System.out.println("Hej");
+            for(LogModel l : container) {
+                System.out.println(l.getId());
+                System.out.println(l.getText());
+            }
+        };*/
 
-        caller.enqueue(new Callback<Person>() {
+
+        retrofitClient client = new InterfaceAPI(baseUrl1).createRetrofitClient();
+        //CalenderModel newClender = new CalenderModel(-1, null, null, null, null, "TEST", "TEST", 1, 2);
+        CalenderEventModel newEvent = new CalenderEventModel(-1, "01:00:00", "02:00:00", "2021-03-04", "2021-03-04", "wow", "free stuff", 55, 2);
+        LogModel newLog = new LogModel(-1, 2, null, null);
+
+        new RequestInterface<>( client.addCalenderEvent(newEvent), (CalenderEventModel container) -> {
+            System.out.println("ADDING");
+        }
+        );
+
+
+        //request.sendRequest(client.getLogByPersonId("3"), func);
+
+
+        //LogModel logEntry = new LogModel(-1, 3, "Morsning", new Timestamp(System.currentTimeMillis()));
+        /*LogModel logEntry = new LogModel(-1, 3, "Morsning", null);
+        Call<LogModel> caller = client.addLogEntry(logEntry);
+
+        caller.enqueue(new Callback<LogModel>() {
             @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
-                Person p = response.body();
-                System.out.println(p.getFname());
-                // Handler
+            public void onResponse(Call<LogModel> call, Response<LogModel> response) {
+                System.out.println("Data added!");
+                LogModel data = response.body();
+                System.out.println(text);
+                String test = text;
+                System.out.println(test);
+
             }
 
             @Override
-            public void onFailure(Call<Person> call, Throwable t) {
+            public void onFailure(Call<LogModel> call, Throwable t) {
+                System.out.println("ERROR: " + t);
 
             }
-        });
-
+        });*/
 
 
         //API_responseTest(client);
@@ -85,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void API_sendTest(retrofitClient client, MessageModelPost newMessages) {
-        Call<MessageModelPost> caller = client.storeMessage(newMessages);
+        Call<MessageModelPost> caller = client.addMessage(newMessages);
         caller.enqueue(new Callback<MessageModelPost>() {
             @Override
             public void onResponse(Call<MessageModelPost> call, Response<MessageModelPost> response) {
