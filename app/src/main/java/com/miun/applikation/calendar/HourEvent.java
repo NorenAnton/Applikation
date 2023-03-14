@@ -1,36 +1,95 @@
 package com.miun.applikation.calendar;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class HourEvent {
-    LocalTime time;
-    ArrayList<Event> events;
 
-    public HourEvent(LocalTime time, ArrayList<Event> events)
+    public ArrayList<HourEvent> hourEvents;
+    private Integer eventID;
+    private Integer personID;
+    private String subject;
+    private String freetext;
+    private String date;
+    private String startEndTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
+
+    public HourEvent(Integer personID, String subject, String freetext, String date, LocalTime startTime, LocalTime endTime)
     {
-        this.time = time;
-        this.events = events;
+        this.eventID = null;
+        this.personID = personID;
+        this.subject = subject;
+        this.freetext = freetext;
+        this.date = date;
+        this.startEndTime = getStartEndTime();
     }
 
-    public LocalTime getTime()
-    {
-        return time;
+    public int getEventID() {
+        return eventID;
     }
 
-    public void setTime(LocalTime time)
-    {
-        this.time = time;
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
     }
 
-    public ArrayList<Event> getEvents()
-    {
-        return events;
+    public int getPersonID() {
+        return personID;
     }
 
-    public void setEvents(ArrayList<Event> events)
+    public void setPersonID(int personID) {
+        this.personID = personID;
+    }
+
+    public String getSubject()
     {
-        this.events = events;
+        return subject;
+    }
+
+    public void setSubject(String subject)
+    {
+        this.subject = subject;
+    }
+
+    public String getFreetext() {
+        return freetext;
+    }
+
+    public void setFreetext(String freetext) {
+        this.freetext = freetext;
+    }
+
+    public String getDate()
+    {
+        return date;
+    }
+
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
+
+    public String getStartEndTime() {
+        return startTime + " - " + endTime;
+    }
+
+    public void setStartEndTime(String startEndTime) {
+        this.startEndTime = startEndTime;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 }

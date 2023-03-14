@@ -103,9 +103,9 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
 
         for(int hour = 10; hour < 19; hour++)
         {
-            LocalTime time = LocalTime.of(hour, 0);
-            ArrayList<Event> events = Event.eventsForDateAndTime(CalendarUtils.selectedDate, time);
-            HourEvent hourEvent = new HourEvent(time, events);
+            LocalTime startTime = LocalTime.of(hour, 0);
+            LocalTime endTime = LocalTime.of((hour+1), 0);
+            HourEvent hourEvent = new HourEvent(null, null, null, null, startTime, endTime);
             list.add(hourEvent);
         }
 

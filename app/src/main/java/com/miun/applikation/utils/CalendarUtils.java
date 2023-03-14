@@ -20,9 +20,4 @@ public class CalendarUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         return time.format(formatter);
     }
-
-    public static String formattedTime(LocalTime time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        return time.format(formatter);
-    }
 }
