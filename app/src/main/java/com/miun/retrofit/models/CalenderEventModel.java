@@ -1,23 +1,20 @@
 package com.miun.retrofit.models;
 
-import java.sql.Date;
-import java.sql.Time;
-
 public class CalenderEventModel {
-    private Integer id;
-    private Time startTime;
-    private Time stopTime;
-    private Date startDate;
-    private Date stopDate;
+    private int id;
+    private String startTime;
+    private String stopTime;
+    private String startDate;
+    private String stopDate;
     private String subject;
     private String freeText;
-    private Integer referenceNumber;
-    private Integer personId;
+    private int referenceNumber;
+    private int personId;
 
     public CalenderEventModel() {
     }
 
-    public CalenderEventModel(Integer id, Time startTime, Time stopTime, Date startDate, Date stopDate, String subject, String freeText, Integer referenceNumber, Integer personId) {
+    public CalenderEventModel(Integer id, String startTime, String stopTime, String startDate, String stopDate, String subject, String freeText, Integer referenceNumber, Integer personId) {
         setId(id);
         setStartTime(startTime);
         setStopTime(stopTime);
@@ -29,43 +26,43 @@ public class CalenderEventModel {
         setPersonId(personId);
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Time getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Time getStopTime() {
+    public String getStopTime() {
         return stopTime;
     }
 
-    public void setStopTime(Time stopTime) {
+    public void setStopTime(String stopTime) {
         this.stopTime = stopTime;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getStopDate() {
+    public String getStopDate() {
         return stopDate;
     }
 
-    public void setStopDate(Date stopDate) {
+    public void setStopDate(String stopDate) {
         this.stopDate = stopDate;
     }
 
@@ -85,19 +82,19 @@ public class CalenderEventModel {
         this.freeText = freeText;
     }
 
-    public Integer getReferenceNumber() {
+    public int getReferenceNumber() {
         return referenceNumber;
     }
 
-    public void setReferenceNumber(Integer referenceNumber) {
+    public void setReferenceNumber(int referenceNumber) {
         this.referenceNumber = referenceNumber;
     }
 
-    public Integer getPersonId() {
+    public int getPersonId() {
         return personId;
     }
 
-    public void setPersonId(Integer personId) {
+    public void setPersonId(int personId) {
         this.personId = personId;
     }
 
