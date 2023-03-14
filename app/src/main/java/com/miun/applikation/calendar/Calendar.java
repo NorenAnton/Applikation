@@ -96,7 +96,7 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
             RecyclerView dayView = findViewById(R.id.hourRecyclerView);
             LinearLayoutManager hourManager = new LinearLayoutManager(Calendar.this, LinearLayoutManager.HORIZONTAL, false);
             dayView.setLayoutManager(hourManager);
-            RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter(this, hourEventList(container));
+            RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter(this, getSupportFragmentManager(), hourEventList(container));
             dayView.setAdapter(hAdapter);
         });
     }
