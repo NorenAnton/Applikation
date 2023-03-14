@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.miun.applikation.R;
 import com.miun.retrofit.InterfaceAPI;
 import com.miun.retrofit.RequestInterface;
-import com.miun.retrofit.models.CalenderModel;
+import com.miun.retrofit.models.CalenderEventModel;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.retrofitClient;
 
@@ -24,9 +24,10 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener, TimePickerPopup.DialogListener {
 
@@ -117,22 +118,23 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener,
     }
 
     public void saveEventAction(View view) throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("HH");
+        DateFormat formatter = new SimpleDateFormat("HH:00:00");
 
         String eventSubject = this.subjectSpinner.getSelectedItem().toString();
         String eventFreetext = eventFreetextET.getText().toString();
         String eventDate = eventDatePicker.getYear() + "-" + eventDatePicker.getMonth() + "-" + eventDatePicker.getDayOfMonth();
         String eventPerson = this.customerSpinner.getSelectedItem().toString();
 
-        java.sql.Date eventDateFormat = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(eventDate);
+        java.util.Date utilEventDateFormat = new SimpleDateFormat("yyyy-MM-dd").parse(eventDate);
+        java.sql.Date sqlEventDateFormat = new Date(utilEventDateFormat.getTime());
 
-        String[] tokens = eventPerson.split(".");
-        int ID = Integer.parseInt(tokens[0]);
+        String[] tokens = eventPerson.split("\\.");
+        Integer ID = Integer.parseInt(tokens[0]);
         java.sql.Time startTimeValue = new java.sql.Time(formatter.parse(startTime).getTime());
         java.sql.Time endTimeValue = new java.sql.Time(formatter.parse(endTime).getTime());
-        CalenderModel newCalendarEvent = new CalenderModel(0, startTimeValue, endTimeValue, eventDateFormat, eventDateFormat, eventSubject, eventFreetext, (int) Math.random(), ID);
+        CalenderEventModel newCalendarEvent = new CalenderEventModel(null, startTimeValue, endTimeValue, sqlEventDateFormat, sqlEventDateFormat, eventSubject, eventFreetext, null, ID);
 
-        new RequestInterface<>(client.addCalenderEvent(newCalendarEvent),(CalenderModel container)->{});
+        new RequestInterface<>(client.addCalenderEvent(newCalendarEvent),(CalenderEventModel container)->{});
 
         finish();
     }

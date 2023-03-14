@@ -23,23 +23,26 @@ import com.miun.applikation.utils.ChatLogUtils;
 import com.miun.retrofit.InterfaceAPI;
 import com.miun.retrofit.RequestInterface;
 import com.miun.retrofit.retrofitClient;
-import com.miun.retrofit.models.CalenderModel;
+import com.miun.retrofit.models.CalenderEventModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Calendar extends AppCompatActivity implements View.OnClickListener{
     CalendarView calendar;
     TextView today;
     Button btn_goBack, btn_newEvent;
-    Context context;
-    List<HourEvent> hourEvents;
 
     String baseurl = "http://10.82.227.191:8080/";
 
@@ -89,26 +92,32 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void HourLayoutManager(){
-        //new RequestInterface<>(client.getAllCalenderEvent(), (List<CalenderModel> container))
-        RecyclerView dayView = findViewById(R.id.hourRecyclerView);
-        LinearLayoutManager hourManager = new LinearLayoutManager(Calendar.this, LinearLayoutManager.HORIZONTAL, false);
-        dayView.setLayoutManager(hourManager);
-        RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter(context, hourEventList());
-        dayView.setAdapter(hAdapter);
+        new RequestInterface<>(client.getAllCalenderEvent(), (List<CalenderEventModel> container)->{
+            RecyclerView dayView = findViewById(R.id.hourRecyclerView);
+            LinearLayoutManager hourManager = new LinearLayoutManager(Calendar.this, LinearLayoutManager.HORIZONTAL, false);
+            dayView.setLayoutManager(hourManager);
+            RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter(this, hourEventList(container));
+            dayView.setAdapter(hAdapter);
+        });
     }
 
-    private ArrayList<HourEvent> hourEventList()
+    private ArrayList<HourEvent> hourEventList(List<CalenderEventModel> container)
     {
         ArrayList<HourEvent> list = new ArrayList<>();
 
         for(int hour = 10; hour < 19; hour++)
         {
-            LocalTime startTime = LocalTime.of(hour, 0);
-            LocalTime endTime = LocalTime.of((hour+1), 0);
-            HourEvent hourEvent = new HourEvent(null, null, null, null, startTime, endTime);
-            list.add(hourEvent);
-        }
+            LocalTime time = LocalTime.of(hour, 0);
+            if(container != null) {
+                for (CalenderEventModel c : container) {
 
+                    String startDate = c.getStartDate().toString();
+                    LocalTime startEventTime = LocalTime.MIDNIGHT.plus(c.getStartTime().getTime(), ChronoUnit.MILLIS);
+                    LocalTime endEventTime = LocalTime.MIDNIGHT.plus(c.getStopTime().getTime(), ChronoUnit.MILLIS);
+                    list.add(new HourEvent(c.getPersonId(), c.getSubject(), c.getFreeText(), startDate, startEventTime, endEventTime));
+                }
+            }
+        }
         return list;
     }
 

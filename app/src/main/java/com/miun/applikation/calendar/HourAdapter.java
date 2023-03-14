@@ -36,14 +36,14 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull HourViewHolder holder, int position){
-        for(HourEvent h: hourEvents.get(position).){
+        for(HourEvent h: hourEvents.get(position).getHourEvents()){
             holder.customer.setText((CharSequence) h);
             holder.time.setText((CharSequence) h);
             holder.subject.setText((CharSequence) h);
             holder.freetext.setText((CharSequence) h);
         }
         HourEvent hourEvent = getItem(position);
-        setHour(holder.timeTV, hourEvent.getStartTime(), hourEvent.getEndTime());
+        setHour(holder.timeTV, hourEvent.getStartTime());
         setEvents(holder.customer, holder.time, holder.subject, holder.freetext, hourEvent.hourEvents);
     }
 
@@ -54,21 +54,21 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
     }
 
     public static class HourViewHolder extends RecyclerView.ViewHolder{
-        TextView customer, time, subject, freetext, timeTV;
+        TextView timeTV, customer, time, subject, freetext;
 
         public HourViewHolder(@NonNull View itemView){
             super(itemView);
+            timeTV = itemView.findViewById(R.id.tv_hourItem);
             customer = itemView.findViewById(R.id.customer);
             time = itemView.findViewById(R.id.time);
             subject = itemView.findViewById(R.id.subject);
             freetext = itemView.findViewById(R.id.freetext);
-            timeTV = itemView.findViewById(R.id.tv_hourItem);
         }
     }
 
-    private void setHour(TextView timeTV, LocalTime startTime, LocalTime endTime)
+    private void setHour(TextView timeTV, LocalTime hour)
     {
-       timeTV.setText(CalendarUtils.formattedShortTime(startTime) + " - " + CalendarUtils.formattedShortTime(endTime));
+       timeTV.setText(CalendarUtils.formattedShortTime(hour));
     }
 
     private void setEvents(TextView customer, TextView time, TextView subject, TextView freetext, @NonNull ArrayList<HourEvent> hourEvents)

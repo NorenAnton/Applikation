@@ -3,21 +3,21 @@ package com.miun.retrofit.models;
 import java.sql.Date;
 import java.sql.Time;
 
-public class CalenderModel {
-    private int id;
+public class CalenderEventModel {
+    private Integer id;
     private Time startTime;
     private Time stopTime;
     private Date startDate;
     private Date stopDate;
     private String subject;
     private String freeText;
-    private int referenceNumber;
-    private int personId;
+    private Integer referenceNumber;
+    private Integer personId;
 
-    public CalenderModel() {
+    public CalenderEventModel() {
     }
 
-    public CalenderModel(int id, Time startTime, Time stopTime, Date startDate, Date stopDate, String subject, String freeText, Integer referenceNumber, Integer personId) {
+    public CalenderEventModel(Integer id, Time startTime, Time stopTime, Date startDate, Date stopDate, String subject, String freeText, Integer referenceNumber, Integer personId) {
         setId(id);
         setStartTime(startTime);
         setStopTime(stopTime);
@@ -29,11 +29,11 @@ public class CalenderModel {
         setPersonId(personId);
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -85,19 +85,19 @@ public class CalenderModel {
         this.freeText = freeText;
     }
 
-    public int getReferenceNumber() {
+    public Integer getReferenceNumber() {
         return referenceNumber;
     }
 
-    public void setReferenceNumber(int referenceNumber) {
+    public void setReferenceNumber(Integer referenceNumber) {
         this.referenceNumber = referenceNumber;
     }
 
-    public int getPersonId() {
+    public Integer getPersonId() {
         return personId;
     }
 
-    public void setPersonId(int personId) {
+    public void setPersonId(Integer personId) {
         this.personId = personId;
     }
 
@@ -106,7 +106,7 @@ public class CalenderModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CalenderModel that = (CalenderModel) o;
+        CalenderEventModel that = (CalenderEventModel) o;
 
         if (id != that.id) return false;
         if (referenceNumber != that.referenceNumber) return false;

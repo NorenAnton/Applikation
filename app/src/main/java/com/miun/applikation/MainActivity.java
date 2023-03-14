@@ -11,8 +11,13 @@ import android.widget.Button;
 import com.miun.applikation.calendar.Calendar;
 import com.miun.applikation.chat.Chat;
 import com.miun.applikation.log.Log;
+import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.RequestInterface;
+import com.miun.retrofit.models.CalenderEventModel;
+import com.miun.retrofit.retrofitClient;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,6 +29,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         LocalDate.now();
+
+        String baseurl = "http://10.82.227.191:8080/";
+
+        retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
+
+        new RequestInterface<>(client.getAllCalenderEvent(), (List<CalenderEventModel> container)->{
+            System.out.println("hej");
+        });
 
         btn_Calendar = findViewById(R.id.Calendar);
         btn_Chat = findViewById(R.id.Chat);

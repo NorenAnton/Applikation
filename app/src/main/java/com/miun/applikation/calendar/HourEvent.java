@@ -14,6 +14,7 @@ public class HourEvent {
     private String startEndTime;
     private LocalTime startTime;
     private LocalTime endTime;
+    private LocalTime hour;
 
     public HourEvent(Integer personID, String subject, String freetext, String date, LocalTime startTime, LocalTime endTime)
     {
@@ -25,19 +26,23 @@ public class HourEvent {
         this.startEndTime = getStartEndTime();
     }
 
-    public int getEventID() {
+    public ArrayList<HourEvent> getHourEvents() {
+        return hourEvents;
+    }
+
+    public Integer getEventID() {
         return eventID;
     }
 
-    public void setEventID(int eventID) {
+    public void setEventID(Integer eventID) {
         this.eventID = eventID;
     }
 
-    public int getPersonID() {
+    public Integer getPersonID() {
         return personID;
     }
 
-    public void setPersonID(int personID) {
+    public void setPersonID(Integer personID) {
         this.personID = personID;
     }
 
@@ -91,5 +96,13 @@ public class HourEvent {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
+    }
+
+    public LocalTime getHour() {
+        return hour;
+    }
+
+    public void setHour(LocalTime hour) {
+        this.hour = hour;
     }
 }
