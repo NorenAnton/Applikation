@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/tv_eventSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Event title" />
+
+    <TextView
+        android:id="@+id/tv_eventCustomer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_eventSubject"
+        app:layout_constraintTop_toBottomOf="@+id/tv_eventSubject"
+        tools:text="Costumer" />
+
+    <TextView
+        android:id="@+id/tv_eventDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxEms="40"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_eventTime"
+        app:layout_constraintTop_toBottomOf="@+id/tv_eventTime"
+        tools:text="Event description" />
+
+    <TextView
+        android:id="@+id/tv_eventTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_eventCustomer"
+        app:layout_constraintTop_toBottomOf="@+id/tv_eventCustomer"
+        tools:text="Tid" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
