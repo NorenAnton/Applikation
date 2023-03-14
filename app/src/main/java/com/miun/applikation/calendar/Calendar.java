@@ -20,6 +20,10 @@ import com.miun.applikation.chat.Chat;
 import com.miun.applikation.chat.ChatAdapter;
 import com.miun.applikation.utils.CalendarUtils;
 import com.miun.applikation.utils.ChatLogUtils;
+import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.RequestInterface;
+import com.miun.retrofit.retrofitClient;
+import com.miun.retrofit.models.CalenderModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -36,6 +40,10 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
     Button btn_goBack, btn_newEvent;
     Context context;
     List<HourEvent> hourEvents;
+
+    String baseurl = "http://10.82.227.191:8080/";
+
+    retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +89,7 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void HourLayoutManager(){
+        //new RequestInterface<>(client.getAllCalenderEvent(), (List<CalenderModel> container))
         RecyclerView dayView = findViewById(R.id.hourRecyclerView);
         LinearLayoutManager hourManager = new LinearLayoutManager(Calendar.this, LinearLayoutManager.HORIZONTAL, false);
         dayView.setLayoutManager(hourManager);
@@ -101,6 +110,10 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
         }
 
         return list;
+    }
+
+    private void loadEvent() {
+
     }
 
     public void onClick(View view) {

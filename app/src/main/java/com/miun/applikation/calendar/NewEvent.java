@@ -25,6 +25,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener, TimePickerPopup.DialogListener {
@@ -58,6 +59,8 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener,
         startTime, endTime
     }
 
+    retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
+
     @SuppressLint({"SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -70,14 +73,15 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener,
         sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         subjectSpinner.setAdapter(sAdapter);
 
-        retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
+
         new RequestInterface<>(client.getAllPersons(), (List<Person> container)->{
-            String[] customers = new String[0];
+            List<String> customerList = new ArrayList<String>();
             for(Person p: container){
-                customers = new String[]{p.getId() + ". " + p.getFname() + " " + p.getLname()};
+                customerList.add(p.getId() + ". " + p.getFname() + " " + p.getLname());
             }
+
             Spinner customerSpinner = findViewById(R.id.eventCustomer);
-            ArrayAdapter<String> cAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, customers);
+            ArrayAdapter<String> cAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, customerList);
             cAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             customerSpinner.setAdapter(cAdapter);
 
@@ -126,7 +130,10 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener,
         int ID = Integer.parseInt(tokens[0]);
         java.sql.Time startTimeValue = new java.sql.Time(formatter.parse(startTime).getTime());
         java.sql.Time endTimeValue = new java.sql.Time(formatter.parse(endTime).getTime());
-        new CalenderModel(0, startTimeValue, endTimeValue, eventDateFormat, eventDateFormat, eventSubject, eventFreetext, (int) Math.random(), ID);
+        CalenderModel newCalendarEvent = new CalenderModel(0, startTimeValue, endTimeValue, eventDateFormat, eventDateFormat, eventSubject, eventFreetext, (int) Math.random(), ID);
+
+        new RequestInterface<>(client.addCalenderEvent(newCalendarEvent),(CalenderModel container)->{});
+
         finish();
     }
 
