@@ -25,7 +25,6 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
     List<HourEvent> hourEvents;
     private final int limit = 9;
 
-    public HourAdapter(List<HourEvent> hourEvents)
     public HourAdapter(@NonNull Context context,FragmentManager manager, List<HourEvent> hourEvents)
     {
         this.context = context;
