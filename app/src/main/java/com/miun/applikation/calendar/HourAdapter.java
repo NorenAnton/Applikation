@@ -42,7 +42,24 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
     public void onBindViewHolder(@NonNull HourViewHolder holder, int position){
 
         holder.timeTV.setText(String.valueOf(position+10)+":00");
-        setEvents(holder.customer, holder.time, holder.subject, holder.freetext, hourEvents);
+
+        if (hourEvents.get(position).getPersonID() == 0) {
+            holder.customer.setVisibility(View.INVISIBLE);
+            holder.time.setVisibility(View.INVISIBLE);
+            holder.subject.setVisibility(View.INVISIBLE);
+            holder.freetext.setVisibility(View.INVISIBLE);
+        } else if (hourEvents.size() >= 1) {
+            holder.customer.setText(hourEvents.get(position).getPersonID().toString());
+            holder.customer.setVisibility(View.VISIBLE);
+            holder.time.setText(hourEvents.get(position).getStartEndTime());
+            holder.time.setVisibility(View.VISIBLE);
+            holder.subject.setText(hourEvents.get(position).getSubject());
+            holder.subject.setVisibility(View.VISIBLE);
+            holder.freetext.setText(hourEvents.get(position).getFreetext());
+            holder.freetext.setVisibility(View.VISIBLE);
+        }
+
+
 
         holder.linearLayout.setOnClickListener(view -> {
             EventPopup eventPopup = new EventPopup(hourEvents.get(position));
@@ -79,12 +96,8 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
                 time.setVisibility(View.INVISIBLE);
                 subject.setVisibility(View.INVISIBLE);
                 freetext.setVisibility(View.INVISIBLE);
-            } else if (hourEvents.size() == 1) {
-                setEvent(customer, time, subject, freetext, hourEvents.get(0));
-            } else {
-                setEvent(customer, time, subject, freetext, hourEvents.get(0));
-                String eventsNotShown = String.valueOf(hourEvents.size() - 2);
-                eventsNotShown += " More Events";
+            } else if (hourEvents.size() >= 1) {
+                setEvent(customer, time, subject, freetext, h);
             }
         }
     }

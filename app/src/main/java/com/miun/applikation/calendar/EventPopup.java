@@ -45,7 +45,7 @@ public class EventPopup extends DialogFragment {
         builder.setView(view)
                 .setPositiveButton("Go to chat", (dialog, id) -> {
                     Intent intent = new Intent(getContext(), Log.class);
-                    intent.putExtra("name", "test");
+                    intent.putExtra("name", "");
                     intent.putExtra("id", event.getPersonID());
                     startActivity(intent);
                 })
