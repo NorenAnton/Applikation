@@ -46,4 +46,5 @@ public class PersonRequest {
         Log.d("stuff", "ingen async, nehepp");
         return APIdata;
     }
+
 }

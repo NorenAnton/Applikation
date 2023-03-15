@@ -12,6 +12,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -24,6 +25,8 @@ public interface retrofitClient {
     @GET("person/all")
     Call<List<Person> >getAllPersons();
 
+    @GET("person")
+    Call<Person> getPerson (@Query("id") String Id);
 
     @GET("person/admin")
     Call<Person> getAdmin();
@@ -64,6 +67,10 @@ public interface retrofitClient {
 
     @POST("calender/add")
     Call<CalenderEventModel> addCalenderEvent(@Body CalenderEventModel newCalenderEvent);
+
+
+    @DELETE("calender/delete")
+    Call<Integer> deleteCalenderEvent(@Query("id") Integer id);
 
 
     @PUT("reparation/change")
