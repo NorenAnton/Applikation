@@ -25,6 +25,8 @@ public interface retrofitClient {
     @GET("person/all")
     Call<List<Person> >getAllPersons();
 
+    @GET("person")
+    Call<Person> getPerson (@Query("Id") String Id);
 
     @GET("person/admin")
     Call<Person> getAdmin();
@@ -66,8 +68,10 @@ public interface retrofitClient {
     @POST("calender/add")
     Call<CalenderEventModel> addCalenderEvent(@Body CalenderEventModel newCalenderEvent);
 
+
     @DELETE("calender/delete")
     Call<Integer> deleteCalenderEvent(@Query("id") Integer id);
+
 
     @PUT("reparation/change")
     Call<ReparationModel> changeReparation(@Body ReparationModel newReparation);
