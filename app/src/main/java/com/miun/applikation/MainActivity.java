@@ -8,10 +8,10 @@ import android.widget.Button;
 
 import com.miun.retrofit.InterfaceAPI;
 import com.miun.retrofit.RequestInterface;
+import com.miun.retrofit.models.CalenderEventModel;
 import com.miun.retrofit.models.LogModel;
 import com.miun.retrofit.models.MessageModelPost;
 import com.miun.retrofit.models.Person;
-import com.miun.retrofit.RequestReader;
 import com.miun.retrofit.retrofitClient;
 
 import java.util.List;
@@ -54,16 +54,18 @@ public class MainActivity extends AppCompatActivity {
             }
         };*/
 
-        retrofitClient client = new InterfaceAPI(baseUrl1).createRetrofitClient();
 
-        new RequestInterface<>(client.getLogByPersonId("3"), (List<LogModel> container) -> {
-            System.out.println("Hej");
-            for (LogModel l : container) {
-                System.out.println(l.getId());
-                System.out.println(l.getText());
-            }
+        retrofitClient client = new InterfaceAPI(baseUrl1).createRetrofitClient();
+        //CalenderModel newClender = new CalenderModel(-1, null, null, null, null, "TEST", "TEST", 1, 2);
+        CalenderEventModel newEvent = new CalenderEventModel(-1, "01:00:00", "02:00:00", "2021-03-04", "2021-03-04", "wow", "free stuff", 55, 2);
+        LogModel newLog = new LogModel(-1, 2, null, null);
+
+        new RequestInterface<>( client.addCalenderEvent(newEvent), (CalenderEventModel container) -> {
+            System.out.println("ADDING");
         }
         );
+
+
         //request.sendRequest(client.getLogByPersonId("3"), func);
 
 
