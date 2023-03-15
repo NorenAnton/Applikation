@@ -61,10 +61,12 @@ public class EventPopup extends DialogFragment {
 
         Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        Button neutralButton = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
 
         // Set the text color of the buttons to black
         positiveButton.setTextColor(Color.BLACK);
         negativeButton.setTextColor(Color.BLACK);
+        neutralButton.setTextColor(Color.BLACK);
 
         return alertDialog;
     }
