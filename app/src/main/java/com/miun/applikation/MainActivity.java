@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         String baseUrl1 = "http://10.82.237.144:8080/";
         String baseUrl2 = "http://192.168.0.145:8080/";
         String baseUrl3 = "http://10.82.252.220:8080/";
+        String baseUrl4 = "http://10.82.243.142:8080/";
         Log.d("poppy", "heeej");
         MessageModelPost testMessages = new MessageModelPost(1, 2, "HEEEEJ", "fancystuff.png");
 
@@ -55,13 +56,14 @@ public class MainActivity extends AppCompatActivity {
         };*/
 
 
-        retrofitClient client = new InterfaceAPI(baseUrl1).createRetrofitClient();
+        retrofitClient client = new InterfaceAPI(baseUrl4).createRetrofitClient();
         //CalenderModel newClender = new CalenderModel(-1, null, null, null, null, "TEST", "TEST", 1, 2);
         CalenderEventModel newEvent = new CalenderEventModel(-1, "01:00:00", "02:00:00", "2021-03-04", "2021-03-04", "wow", "free stuff", 55, 2);
         LogModel newLog = new LogModel(-1, 2, null, null);
 
-        new RequestInterface<>( client.addCalenderEvent(newEvent), (CalenderEventModel container) -> {
+        new RequestInterface<>( client.deleteCalenderEvent(9), (container) -> {
             System.out.println("ADDING");
+            System.out.println(container);
         }
         );
 
