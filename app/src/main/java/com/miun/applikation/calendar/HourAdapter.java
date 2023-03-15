@@ -1,11 +1,14 @@
 package com.miun.applikation.calendar;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.R;
@@ -17,11 +20,16 @@ import java.util.List;
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder> {
 
 
+    Context context;
+    FragmentManager manager;
     List<HourEvent> hourEvents;
     private final int limit = 9;
 
     public HourAdapter(List<HourEvent> hourEvents)
+    public HourAdapter(@NonNull Context context,FragmentManager manager, List<HourEvent> hourEvents)
     {
+        this.context = context;
+        this.manager = manager;
         this.hourEvents = hourEvents;
     }
 
@@ -36,6 +44,11 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
 
         holder.timeTV.setText(String.valueOf(position+10)+":00");
         setEvents(holder.customer, holder.time, holder.subject, holder.freetext, hourEvents);
+
+        holder.linearLayout.setOnClickListener(view -> {
+            EventPopup eventPopup = new EventPopup(hourEvents.get(position));
+            eventPopup.show(manager, "EventPopup");
+        });
     }
 
 
@@ -46,6 +59,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
 
     public static class HourViewHolder extends RecyclerView.ViewHolder{
         TextView timeTV, customer, time, subject, freetext;
+        LinearLayout linearLayout;
 
         public HourViewHolder(@NonNull View itemView){
             super(itemView);
@@ -54,6 +68,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
             time = itemView.findViewById(R.id.time);
             subject = itemView.findViewById(R.id.subject);
             freetext = itemView.findViewById(R.id.freetext);
+            linearLayout = itemView.findViewById(R.id.event_linearlayout);
         }
     }
 

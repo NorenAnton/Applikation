@@ -86,7 +86,7 @@ public class TimePickerPopup extends DialogFragment {
                     dialogListener.onDialogPositiveClick(finalData[numberPicker.getValue()], caller);
                 })
                 .setNegativeButton("Cancel", (dialog, id) -> {
-
+                    dialog.cancel();
                 })
                 .create();
 
