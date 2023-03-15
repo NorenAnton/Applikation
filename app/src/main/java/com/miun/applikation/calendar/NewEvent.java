@@ -20,12 +20,13 @@ import com.miun.retrofit.models.CalenderEventModel;
 import com.miun.retrofit.models.Person;
 import com.miun.retrofit.retrofitClient;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 
@@ -45,12 +46,12 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener,
     public void onDialogPositiveClick(String time, Caller caller) {
         switch (caller){
             case startTime:
-                this.startTime = time;
+                this.startTime = time + ":00";
                 ((TextView)findViewById(R.id.tv_startTime)).setText(time);
                 ((TextView)findViewById(R.id.tv_endTime)).setText("");
                 break;
             case endTime:
-                this.endTime = time;
+                this.endTime = time + ":00";
                 ((TextView)findViewById(R.id.tv_endTime)).setText(time);
                 break;
         }
@@ -118,21 +119,28 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener,
     }
 
     public void saveEventAction(View view) throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("HH:00:00");
 
         String eventSubject = this.subjectSpinner.getSelectedItem().toString();
         String eventFreetext = eventFreetextET.getText().toString();
-        String eventDate = eventDatePicker.getYear() + "-" + eventDatePicker.getMonth() + "-" + eventDatePicker.getDayOfMonth();
+
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //String dateString = String.format("%d-%d-%d", eventDatePicker.getYear(), (eventDatePicker.getMonth() + 1), eventDatePicker.getDayOfMonth());
+        //sdf.format(dateString);
+        //String eventDate = eventDatePicker.getYear() + "-" + eventDatePicker.getMonth() + "-" + eventDatePicker.getDayOfMonth();
         String eventPerson = this.customerSpinner.getSelectedItem().toString();
 
-        java.util.Date utilEventDateFormat = new SimpleDateFormat("yyyy-MM-dd").parse(eventDate);
-        java.sql.Date sqlEventDateFormat = new Date(utilEventDateFormat.getTime());
-
+        String dateString = String.format("%d-%d-%d", eventDatePicker.getYear(), (eventDatePicker.getMonth() + 1), eventDatePicker.getDayOfMonth());
+        Date date = null;
+        String dayOfWeek;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+            dayOfWeek = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         String[] tokens = eventPerson.split("\\.");
         Integer ID = Integer.parseInt(tokens[0]);
-        java.sql.Time startTimeValue = new java.sql.Time(formatter.parse(startTime).getTime());
-        java.sql.Time endTimeValue = new java.sql.Time(formatter.parse(endTime).getTime());
-        CalenderEventModel newCalendarEvent = new CalenderEventModel(null, startTime, endTime, eventDate, eventDate, eventSubject, eventFreetext, null, ID);
+        CalenderEventModel newCalendarEvent = new CalenderEventModel(-1, startTime, endTime, dayOfWeek, dayOfWeek, eventSubject, eventFreetext, -1, ID);
 
         new RequestInterface<>(client.addCalenderEvent(newCalendarEvent),(CalenderEventModel container)->{});
 

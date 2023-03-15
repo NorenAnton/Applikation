@@ -1,5 +1,7 @@
 package com.miun.applikation.calendar;
 
+import static android.os.SystemClock.sleep;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -15,14 +17,26 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.miun.applikation.R;
+import com.miun.applikation.chat.Chat;
 import com.miun.applikation.log.Log;
+import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.RequestInterface;
+import com.miun.retrofit.models.Person;
+import com.miun.retrofit.retrofitClient;
 
 public class EventPopup extends DialogFragment {
+
+    String baseurl = "http://10.82.227.191:8080/";
+
+    retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
+
     private final HourEvent event;
 
     public EventPopup(HourEvent event) {
         this.event = event;
     }
+
+
 
     @NonNull
     @Override
@@ -36,17 +50,22 @@ public class EventPopup extends DialogFragment {
         TextView customer = view.findViewById(R.id.tv_eventCustomer);
         TextView time = view.findViewById(R.id.tv_eventTime);
         TextView description = view.findViewById(R.id.tv_eventDesc);
+        Integer ID = event.getPersonID();
 
+        sleep(1000);
+        new RequestInterface<>(client.getPerson(ID.toString()), (Person container) ->{
+            customer.setText(container.getFname() + " " + container.getLname());
+        });
         subject.setText(event.getSubject());
-        customer.setText("Kund: ");
+
         time.setText("Time: "+ event.getStartEndTime());
         description.setText(event.getFreetext());
 
         builder.setView(view)
                 .setPositiveButton("Go to chat", (dialog, id) -> {
-                    Intent intent = new Intent(getContext(), Log.class);
-                    intent.putExtra("name", "");
-                    intent.putExtra("id", event.getPersonID());
+                    Intent intent = new Intent(getContext(), Chat.class);
+                    intent.putExtra("name", customer.getText().toString());
+                    intent.putExtra("id", event.getPersonID().toString());
                     startActivity(intent);
                 })
                 .setNeutralButton("Close", (dialog, id) -> {

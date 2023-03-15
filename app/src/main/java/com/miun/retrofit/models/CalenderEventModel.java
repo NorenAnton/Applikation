@@ -1,7 +1,7 @@
 package com.miun.retrofit.models;
 
 public class CalenderEventModel {
-    private int id;
+    private Integer id;
     private String startTime;
     private String stopTime;
     private String startDate;

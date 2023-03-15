@@ -13,12 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.miun.applikation.R;
 import com.miun.applikation.utils.CalendarUtils;
+import com.miun.retrofit.InterfaceAPI;
+import com.miun.retrofit.RequestInterface;
+import com.miun.retrofit.models.Person;
+import com.miun.retrofit.retrofitClient;
 
 import java.time.LocalTime;
 import java.util.List;
 
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder> {
 
+    String baseurl = "http://10.82.227.191:8080/";
+
+    retrofitClient client = new InterfaceAPI(baseurl).createRetrofitClient();
 
     Context context;
     FragmentManager manager;
@@ -49,7 +56,10 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
             holder.subject.setVisibility(View.INVISIBLE);
             holder.freetext.setVisibility(View.INVISIBLE);
         } else if (hourEvents.size() >= 1) {
-            holder.customer.setText(hourEvents.get(position).getPersonID().toString());
+            Integer ID = hourEvents.get(position).getPersonID();
+            new RequestInterface<>(client.getPerson(ID.toString()), (Person container)->{
+                holder.customer.setText(container.getFname() + " " + container.getLname());
+            });
             holder.customer.setVisibility(View.VISIBLE);
             holder.time.setText(hourEvents.get(position).getStartEndTime());
             holder.time.setVisibility(View.VISIBLE);
