@@ -132,7 +132,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener,
         Integer ID = Integer.parseInt(tokens[0]);
         java.sql.Time startTimeValue = new java.sql.Time(formatter.parse(startTime).getTime());
         java.sql.Time endTimeValue = new java.sql.Time(formatter.parse(endTime).getTime());
-        CalenderEventModel newCalendarEvent = new CalenderEventModel(null, startTimeValue, endTimeValue, sqlEventDateFormat, sqlEventDateFormat, eventSubject, eventFreetext, null, ID);
+        CalenderEventModel newCalendarEvent = new CalenderEventModel(null, startTime, endTime, eventDate, eventDate, eventSubject, eventFreetext, null, ID);
 
         new RequestInterface<>(client.addCalenderEvent(newCalendarEvent),(CalenderEventModel container)->{});
 

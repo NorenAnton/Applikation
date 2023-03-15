@@ -1,6 +1,5 @@
 package com.miun.applikation.calendar;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +12,16 @@ import com.miun.applikation.R;
 import com.miun.applikation.utils.CalendarUtils;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder> {
 
-    Context context;
+
     List<HourEvent> hourEvents;
     private final int limit = 9;
 
-    public HourAdapter(@NonNull Context context, List<HourEvent> hourEvents)
+    public HourAdapter(List<HourEvent> hourEvents)
     {
-        this.context = context;
         this.hourEvents = hourEvents;
     }
 
@@ -36,15 +33,9 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull HourViewHolder holder, int position){
-        for(HourEvent h: hourEvents.get(position).getHourEvents()){
-            holder.customer.setText((CharSequence) h);
-            holder.time.setText((CharSequence) h);
-            holder.subject.setText((CharSequence) h);
-            holder.freetext.setText((CharSequence) h);
-        }
-        HourEvent hourEvent = getItem(position);
-        setHour(holder.timeTV, hourEvent.getStartTime());
-        setEvents(holder.customer, holder.time, holder.subject, holder.freetext, hourEvent.hourEvents);
+
+        holder.timeTV.setText(String.valueOf(position+10)+":00");
+        setEvents(holder.customer, holder.time, holder.subject, holder.freetext, hourEvents);
     }
 
 
@@ -66,35 +57,27 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
         }
     }
 
-    private void setHour(TextView timeTV, LocalTime hour)
+    private void setEvents(TextView customer, TextView time, TextView subject, TextView freetext, @NonNull List<HourEvent> hourEvents)
     {
-       timeTV.setText(CalendarUtils.formattedShortTime(hour));
-    }
-
-    private void setEvents(TextView customer, TextView time, TextView subject, TextView freetext, @NonNull ArrayList<HourEvent> hourEvents)
-    {
-        if(hourEvents.isEmpty())
-        {
-            customer.setVisibility(View.INVISIBLE);
-            time.setVisibility(View.INVISIBLE);
-            subject.setVisibility(View.INVISIBLE);
-            freetext.setVisibility(View.INVISIBLE);
-        }
-        else if(hourEvents.size() == 1)
-        {
-            setEvent(customer, time, subject, freetext, hourEvents.get(0));
-        }
-        else
-        {
-            setEvent(customer, time, subject, freetext, hourEvents.get(0));
-            String eventsNotShown = String.valueOf(hourEvents.size() - 2);
-            eventsNotShown += " More Events";
+        for (HourEvent h: hourEvents) {
+            if (h.getPersonID() == 0) {
+                customer.setVisibility(View.INVISIBLE);
+                time.setVisibility(View.INVISIBLE);
+                subject.setVisibility(View.INVISIBLE);
+                freetext.setVisibility(View.INVISIBLE);
+            } else if (hourEvents.size() == 1) {
+                setEvent(customer, time, subject, freetext, hourEvents.get(0));
+            } else {
+                setEvent(customer, time, subject, freetext, hourEvents.get(0));
+                String eventsNotShown = String.valueOf(hourEvents.size() - 2);
+                eventsNotShown += " More Events";
+            }
         }
     }
 
     private void setEvent(TextView customer, TextView time, TextView subject, TextView freetext, HourEvent hourEvent)
     {
-        customer.setText(hourEvent.getPersonID());
+        customer.setText(hourEvent.getPersonID().toString());
         customer.setVisibility(View.VISIBLE);
         time.setText(hourEvent.getStartEndTime());
         time.setVisibility(View.VISIBLE);

@@ -5,39 +5,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.miun.applikation.MainActivity;
 import com.miun.applikation.R;
-import com.miun.applikation.chat.Chat;
-import com.miun.applikation.chat.ChatAdapter;
-import com.miun.applikation.utils.CalendarUtils;
-import com.miun.applikation.utils.ChatLogUtils;
 import com.miun.retrofit.InterfaceAPI;
 import com.miun.retrofit.RequestInterface;
 import com.miun.retrofit.retrofitClient;
 import com.miun.retrofit.models.CalenderEventModel;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Calendar extends AppCompatActivity implements View.OnClickListener{
     CalendarView calendar;
@@ -57,7 +45,7 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
         today = findViewById(R.id.today);
 
         String dateTime;
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE yyyy-M-dd", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE yyyy-MM-dd", Locale.getDefault());
         dateTime = sdf.format(new Date());
         today.setText(dateTime);
 
@@ -80,13 +68,14 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
                  Date date = null;
                  String dayOfWeek;
                  try {
-                     date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
-                     dayOfWeek = new SimpleDateFormat("EEE yyyy-M-d", Locale.ENGLISH).format(date);
+                     date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+                     dayOfWeek = new SimpleDateFormat("EEE yyyy-MM-dd", Locale.ENGLISH).format(date);
                  } catch (ParseException e) {
                      throw new RuntimeException(e);
                  }
 
                  today.setText(dayOfWeek);
+                 HourLayoutManager();
              }
         });
     }
@@ -96,25 +85,37 @@ public class Calendar extends AppCompatActivity implements View.OnClickListener{
             RecyclerView dayView = findViewById(R.id.hourRecyclerView);
             LinearLayoutManager hourManager = new LinearLayoutManager(Calendar.this, LinearLayoutManager.HORIZONTAL, false);
             dayView.setLayoutManager(hourManager);
-            RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter(this, hourEventList(container));
+            RecyclerView.Adapter<HourAdapter.HourViewHolder> hAdapter = new HourAdapter(hourEventList(container, today.getText().toString()));
             dayView.setAdapter(hAdapter);
         });
     }
 
-    private ArrayList<HourEvent> hourEventList(List<CalenderEventModel> container)
+    private ArrayList<HourEvent> hourEventList(List<CalenderEventModel> container, String s)
     {
         ArrayList<HourEvent> list = new ArrayList<>();
+        String[] selectedDate = s.split(" ");
+
 
         for(int hour = 10; hour < 19; hour++)
         {
-            LocalTime time = LocalTime.of(hour, 0);
+            Integer counter = 0;
+            LocalTime beginTime = LocalTime.of(hour, 0,0);
+            LocalTime endTime = LocalTime.of(hour + 1, 0,0);
             if(container != null) {
                 for (CalenderEventModel c : container) {
+                    if(c.getStartDate().equals(selectedDate[1]) &&
+                            (LocalTime.parse(c.getStartTime()).equals(beginTime) ||
+                                    (LocalTime.parse(c.getStartTime()).isBefore(endTime) && LocalTime.parse(c.getStopTime()).isAfter(beginTime)))) {
 
-                    String startDate = c.getStartDate().toString();
-                    LocalTime startEventTime = LocalTime.MIDNIGHT.plus(c.getStartTime().getTime(), ChronoUnit.MILLIS);
-                    LocalTime endEventTime = LocalTime.MIDNIGHT.plus(c.getStopTime().getTime(), ChronoUnit.MILLIS);
-                    list.add(new HourEvent(c.getPersonId(), c.getSubject(), c.getFreeText(), startDate, startEventTime, endEventTime));
+                        LocalTime startTime = LocalTime.parse(c.getStartTime());
+                        LocalTime stopTime = LocalTime.parse(c.getStopTime());
+
+                        list.add(new HourEvent(c.getPersonId(), c.getSubject(), c.getFreeText(), c.getStartDate(), startTime, stopTime));
+                        counter++;
+                    }
+                }
+                if(counter == 0){
+                    list.add(new HourEvent(0, null, null, null, null, null));
                 }
             }
         }

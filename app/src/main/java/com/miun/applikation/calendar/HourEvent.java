@@ -23,6 +23,8 @@ public class HourEvent {
         this.subject = subject;
         this.freetext = freetext;
         this.date = date;
+        this.endTime = endTime;
+        this.startTime = startTime;
         this.startEndTime = getStartEndTime();
     }
 
