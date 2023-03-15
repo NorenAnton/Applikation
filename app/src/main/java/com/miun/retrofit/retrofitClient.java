@@ -26,7 +26,7 @@ public interface retrofitClient {
     Call<List<Person> >getAllPersons();
 
     @GET("person")
-    Call<Person> getPerson (@Query("Id") String Id);
+    Call<Person> getPerson (@Query("id") String Id);
 
     @GET("person/admin")
     Call<Person> getAdmin();
