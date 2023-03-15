@@ -72,7 +72,8 @@ public class EventPopup extends DialogFragment {
                     dialog.cancel();
                 })
                 .setNegativeButton("Delete", (dialog, id) -> {
-
+                    new RequestInterface<>(client.deleteCalenderEvent(event.getEventID()), container -> {});
+                    sleep(1000);
                 })
                 .create();
 
